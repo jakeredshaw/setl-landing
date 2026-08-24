@@ -43,7 +43,7 @@ h3{font-size:clamp(23px,6vw,34px)}
   font-size:16.5px;padding:17px 36px;border-radius:100px;background:#fff;color:#000;border:0;cursor:pointer;
   transition:transform .18s ease}
 .btn:active{transform:scale(.975)}
-.wait{display:flex;flex-direction:column;gap:3px;max-width:380px;margin:22px auto 0}
+.wait{display:flex;flex-direction:column;gap:13px;max-width:380px;margin:22px auto 0}
 .wait input{width:100%;min-width:0;background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:100px;
   padding:13px 18px;color:#fff;font-family:inherit;font-size:15px;outline:none}
 .wait input::placeholder{color:#8E8E98}
@@ -111,7 +111,9 @@ h3{font-size:clamp(23px,6vw,34px)}
 .stage .glowbg{position:absolute;left:50%;top:38%;transform:translateX(-50%);
   width:min(620px,150vw);aspect-ratio:1;pointer-events:none;z-index:1;
   background:radial-gradient(circle,rgba(110,124,205,.20) 0%,rgba(40,48,96,.09) 44%,transparent 68%)}
-.stage .iphone{z-index:5;will-change:transform;transform-origin:50% 0}   /* in front of .litp */
+.device{display:block;width:min(232px,56vw);height:auto;
+  filter:drop-shadow(0 30px 56px rgba(0,0,0,.85))}
+.stage .device{position:relative;z-index:5;will-change:transform;transform-origin:50% 0}
 .stage .copy{position:relative;z-index:3;max-width:22ch;opacity:0;transform:translateY(16px);
   transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.3,1)}
 .stage .copy.on{opacity:1;transform:none}
@@ -408,9 +410,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   <div class="pin">
     <div class="glowbg"></div>
     <p class="litp" id="litWin" data-prelit="1">Winners choose better sleep. Your best work, best training and best days don't begin in the morning. They begin the night before.</p>
-    <div class="iphone" id="risePh">
-      <span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span>
-      <div class="scr"><img src="assets/scr-dash.jpg" alt="The SETL Tonight screen showing Sleep Reserve"></div>
+    <img class="device" id="risePh" src="assets/setl-device.png" alt="SETL running on iPhone, showing Sleep Reserve and tonight's plan">
     </div>
     <div class="copy" id="riseCopy">
       <span class="tag">Meet SETL</span>
@@ -710,7 +710,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
     if(stageSec&&stagePh&&stageLp&&!reduce){
-      stageSec.style.height='300vh';
+      stageSec.style.height='210vh';
 
       /* split the paragraph into words once */
       var stageWords=stageLp.textContent.trim().split(/\s+/);
@@ -719,9 +719,9 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       var stagePreLit=(stageLp.getAttribute('data-prelit')|0);
 
       /* phase boundaries as a fraction of the stage's scroll range */
-      var A0=0.02, A1=0.40,   /* text lights            */
-          B1=0.56,            /* phone reaches the 20% mark */
-          C1=0.90;            /* phone at rest          */
+      var A0=0.00, A1=0.38,   /* text lights            */
+          B1=0.52,            /* phone reaches the 20% mark */
+          C1=0.86;            /* phone at rest          */
 
       var stagePin=stageSec.querySelector('.pin');
 
@@ -758,11 +758,11 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var y=c>0 ? lerp(y20,yRest,ce) : lerp(yHidden,y20,b);
         stagePh.style.transform='translateY('+y.toFixed(1)+'px) scale('+lerp(0.9,1,ce).toFixed(3)+')';
 
-        /* the text clears out on its own, faster curve: it must be gone before the
-           phone climbs into the middle of the screen, or they collide */
-        var f=seg(p,0.47,0.60);
-        stageLp.style.opacity=(1-f).toFixed(3);
-        stageLp.style.transform='translate(-50%,calc(-50% - '+(f*30).toFixed(1)+'px))';
+        /* No fade. The moment the phone reaches the 20% mark the copy is released
+           and travels at exactly scroll speed, so it reads as ordinary scrolling
+           and simply leaves through the top of the screen. */
+        var rel=Math.max(0,p-B1)*span;
+        stageLp.style.transform='translate(-50%,calc(-50% - '+rel.toFixed(1)+'px))';
         if(stageCp) stageCp.classList.toggle('on', ce>0.55);
       };
 
