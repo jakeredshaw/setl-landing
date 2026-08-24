@@ -40,6 +40,16 @@ into any email tool. Nothing here locks you in.
 - `@font-face` references `setl-font.woff2`, which is not in the repo. The page falls
   back to General Sans (Fontshare) -> Inter Tight (Google Fonts) until that file is added.
 
+### MISSING ASSET — blocks deploy
+
+`assets/scr-tomorrow.png` is referenced by the Tomorrow feature section but is **not
+in the repo**. Save the SETL app screenshot (the Tonight screen with the streak
+counter, moon dial and the Tomorrow tab) to that exact path. Until then the section
+renders with an empty phone screen.
+
+Existing app screenshots in `assets/` predate the Tomorrow tab, so none of them can
+stand in for it.
+
 ### Unverified claims on the page — resolve before launch
 
 Two elements in the hero assert things that need to be true:

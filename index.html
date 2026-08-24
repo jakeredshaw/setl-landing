@@ -305,6 +305,34 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.3,1)}
 .rise .copy.on{opacity:1;transform:none}
 
+/* core feature rows */
+.feats{padding-block:clamp(56px,12vw,104px)}
+.feat{display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:clamp(30px,7vw,48px)}
+.feat + .feat{margin-top:clamp(64px,14vw,120px)}
+.ftext{max-width:34ch}
+.fhead{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+.fnew{display:inline-flex;align-items:center;border:1px solid rgba(140,124,255,.42);border-radius:100px;
+  padding:4px 11px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:#B9AEFF;background:rgba(124,107,245,.13)}
+.feat .eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.feat h3{letter-spacing:-.03em}
+.feat p{margin-top:15px;font-size:clamp(15.5px,4.1vw,17px);line-height:1.5;color:var(--dim)}
+.fmedia{position:relative;display:flex;align-items:center;justify-content:center;
+  width:100%;padding-block:clamp(14px,4vw,26px)}
+.fglow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;
+  width:min(560px,132%);aspect-ratio:1;
+  background:radial-gradient(circle,rgba(110,124,205,.22) 0%,rgba(40,48,96,.10) 44%,transparent 68%)}
+.feat .iphone{width:min(238px,58vw);will-change:transform}
+@media(min-width:860px){
+  .feat{flex-direction:row;text-align:left;gap:clamp(44px,6vw,96px)}
+  .feat.rev{flex-direction:row-reverse}
+  .feat .ftext,.feat .fmedia{flex:1 1 0;min-width:0}
+  .feat .ftext{max-width:none}
+  .feat p{max-width:38ch}
+  .fhead{justify-content:flex-start}
+  .feat .iphone{width:min(268px,26vw)}
+}
 .rv{opacity:1;transform:none}
 .js .rv{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.22,.7,.3,1),transform .85s cubic-bezier(.22,.7,.3,1)}
 .js .rv.in{opacity:1;transform:none}
@@ -363,6 +391,32 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       <h2 style="margin-top:14px">The night, handled.</h2>
       <p class="sub mt-sub">One bedtime. Set once. Held every night.</p>
     </div>
+  </div>
+</section>
+
+<!-- CORE FEATURES -->
+<section class="sec feats" id="features">
+  <div class="wrap">
+
+    <div class="feat">
+      <div class="ftext rv">
+        <div class="fhead">
+          <span class="eyebrow">Tomorrow</span>
+          <span class="fnew">New</span>
+        </div>
+        <h3>Real life doesn't<br>keep to a bedtime.</h3>
+        <p>A party this weekend. A late shift on Thursday. A flight, or a wedding three months out. Open Tomorrow, pick the night, and decide in advance whether your apps stay blocked or stay open.</p>
+        <p>Plan a night weeks or years ahead, and SETL simply holds it. No arguing with a block screen at 11pm over a night you already thought through.</p>
+      </div>
+      <div class="fmedia rv">
+        <div class="fglow"></div>
+        <div class="iphone" data-float>
+          <span class="island"></span>
+          <div class="scr"><img src="assets/scr-tomorrow.png" alt="The SETL Tonight screen, showing Sleep Reserve and the Tomorrow tab" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -752,6 +806,31 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 
       inp.addEventListener('input',function(){ if(msg&&msg.textContent) say(''); });
     });
+  }catch(e){}
+
+
+  /* gentle scroll parallax on feature phones */
+  try{
+    var floats=[].slice.call(document.querySelectorAll('[data-float]'));
+    if(floats.length && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var tick=false;
+      var place=function(){
+        tick=false;
+        var vh=window.innerHeight||1;
+        floats.forEach(function(el){
+          var r=el.getBoundingClientRect();
+          if(r.bottom<-200||r.top>vh+200)return;
+          /* -1 below the fold .. 1 above it */
+          var mid=(r.top+r.height/2)/vh;
+          var t=Math.max(-1,Math.min(1,1-mid*2));
+          el.style.transform='translateY('+(-t*22).toFixed(2)+'px)';
+        });
+      };
+      var onScroll=function(){ if(!tick){ tick=true; requestAnimationFrame(place); } };
+      addEventListener('scroll',onScroll,{passive:true});
+      addEventListener('resize',onScroll);
+      place();
+    }
   }catch(e){}
 
 })();
