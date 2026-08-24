@@ -51,6 +51,18 @@ h3{font-size:clamp(23px,6vw,34px)}
 .wait input:focus{border-color:rgba(255,255,255,.34)}
 .wait .btn{width:100%;padding:14px 22px;font-size:15.5px;white-space:nowrap}
 .note{margin-top:14px;font-size:14px;color:var(--dim2);text-align:center}
+/* waitlist form states */
+.wait .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.wait.busy .btn{opacity:.6;pointer-events:none}
+.wait .msg{margin-top:10px;font-size:14px;line-height:1.4;text-align:center;color:var(--dim2);min-height:0}
+.wait .msg.err{color:#FF8E8E}
+.wait.done{gap:0}
+.wait.done input,.wait.done .btn{display:none}
+.wait .ok{display:none;align-items:center;justify-content:center;gap:9px;
+  border:1px solid rgba(255,255,255,.16);border-radius:100px;padding:14px 22px;
+  font-size:15.5px;font-weight:600;color:#fff;background:rgba(255,255,255,.07)}
+.wait.done .ok{display:flex}
+.wait .ok svg{width:17px;height:17px;flex:none}
 
 
 /* nav */
@@ -313,7 +325,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   <div class="hero-in">
     <h1>Win the next 10 years.<span>With one easy decision.</span></h1>
     <p class="sub">SETL down for bed each evening with zero distractions, so you can focus on your life instead of everyone else's.</p>
-    <form class="wait hero-wait" onsubmit="return false"><input type="email" placeholder="Your email" aria-label="Email"><button class="btn" type="submit">Join the waitlist</button></form>
+    <form class="wait hero-wait" data-src="hero" novalidate><input type="email" name="email" placeholder="Your email" aria-label="Email" autocomplete="email" required><input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">Join the waitlist</button><div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>You're on the list</div><div class="msg" role="status" aria-live="polite"></div></form>
     <div class="proof">
       <div class="award">
         <svg class="wreath" viewBox="0 0 60 100" fill="currentColor" aria-hidden="true"><path d="M50 6 Q6 50 50 94" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="40.2" cy="7.0" rx="7.6" ry="3.1" transform="rotate(149.3 40.2 7.0)"/><ellipse cx="32.2" cy="17.4" rx="7.6" ry="3.1" transform="rotate(141.4 32.2 17.4)"/><ellipse cx="26.3" cy="28.0" rx="7.6" ry="3.1" transform="rotate(131.7 26.3 28.0)"/><ellipse cx="22.7" cy="38.9" rx="7.6" ry="3.1" transform="rotate(120.4 22.7 38.9)"/><ellipse cx="21.5" cy="50.0" rx="7.6" ry="3.1" transform="rotate(108.0 21.5 50.0)"/><ellipse cx="22.7" cy="61.1" rx="7.6" ry="3.1" transform="rotate(95.6 22.7 61.1)"/><ellipse cx="26.3" cy="72.0" rx="7.6" ry="3.1" transform="rotate(84.3 26.3 72.0)"/><ellipse cx="32.2" cy="82.6" rx="7.6" ry="3.1" transform="rotate(74.6 32.2 82.6)"/><ellipse cx="40.2" cy="93.0" rx="7.6" ry="3.1" transform="rotate(66.7 40.2 93.0)"/></svg>
@@ -547,7 +559,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <h2 class="rv">Win the next 10 years.</h2>
     <p class="small rv">One night at a time.</p>
     <p class="small rv" style="margin-top:6px">Put your phone to sleep.</p>
-    <form class="wait rv" onsubmit="return false"><input type="email" placeholder="Your email" aria-label="Email"><button class="btn" type="submit">Try SETL free for 7 nights</button></form>
+    <form class="wait rv" data-src="footer" novalidate><input type="email" name="email" placeholder="Your email" aria-label="Email" autocomplete="email" required><input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">Try SETL free for 7 nights</button><div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>You're on the list</div><div class="msg" role="status" aria-live="polite"></div></form>
     <p class="note">No card needed. Cancel any time.</p>
   </div>
 </section>
@@ -694,6 +706,54 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       fio.observe(t);
     }
   }catch(e){}
+
+  /* waitlist -> Google Sheet */
+  try{
+    /* Apps Script Web App URL. Until this is set, submits are rejected loudly
+       rather than silently discarded. See README. */
+    var ENDPOINT='';
+    var RX=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    [].slice.call(document.querySelectorAll('form.wait')).forEach(function(f){
+      var inp=f.querySelector('input[type=email]'),
+          hp=f.querySelector('.hp'),
+          msg=f.querySelector('.msg');
+
+      function say(t,bad){ if(!msg)return; msg.textContent=t||''; msg.className='msg'+(bad?' err':''); }
+
+      f.addEventListener('submit',function(ev){
+        ev.preventDefault();
+        if(f.classList.contains('busy')||f.classList.contains('done'))return;
+
+        var email=(inp.value||'').trim();
+        if(!RX.test(email)){ say('Enter a valid email address.',1); inp.focus(); return; }
+        if(hp&&hp.value){ return; }               /* bot filled the honeypot */
+        if(!ENDPOINT){ say('Waitlist is not connected yet.',1); return; }
+
+        f.classList.add('busy'); say('');
+
+        var body=new URLSearchParams();
+        body.set('email',email);
+        body.set('source',f.getAttribute('data-src')||'');
+        body.set('ts',new Date().toISOString());
+
+        fetch(ENDPOINT,{method:'POST',body:body})
+          .then(function(r){ return r.ok?r.text():Promise.reject(r.status); })
+          .then(function(){
+            f.classList.remove('busy');
+            f.classList.add('done');
+            try{ localStorage.setItem('setl_waitlist',email); }catch(e){}
+          })
+          .catch(function(){
+            f.classList.remove('busy');
+            say('Something went wrong. Try again in a moment.',1);
+          });
+      });
+
+      inp.addEventListener('input',function(){ if(msg&&msg.textContent) say(''); });
+    });
+  }catch(e){}
+
 })();
 </script>
 </body>
