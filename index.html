@@ -338,28 +338,33 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 .iphone .sd-pw {right:-1.0%;top:25.4%;width:1.2%;height:11.2%;
   background:linear-gradient(270deg,#868C96,#454A52 55%,#2B2F36)}
 
-/* three review cards, reversible reveal */
-.reviews{padding-block:clamp(38px,9vw,80px)}
-.rlist{display:flex;flex-direction:column;gap:clamp(14px,3.6vw,20px);
-  max-width:640px;margin-inline:auto}
-.rcard{position:relative;text-align:left;border-radius:26px;
-  padding:clamp(18px,4.6vw,24px) clamp(18px,4.6vw,26px);
-  background:linear-gradient(180deg,#17171B 0%,#101013 100%);
-  border:1px solid rgba(255,255,255,.075);
-  box-shadow:0 20px 44px -24px rgba(0,0,0,.95);
-  opacity:0;transform:translateY(30px) scale(.985);
-  transition:opacity .55s cubic-bezier(.22,.7,.3,1),transform .55s cubic-bezier(.22,.7,.3,1)}
-.rcard.in{opacity:1;transform:none}
-.rhead{display:flex;align-items:center;gap:14px}
-.ravatar{flex:none;width:clamp(44px,11.5vw,54px);aspect-ratio:1;border-radius:50%;
+/* three review cards - small, loosely stacked, slight tilt */
+.reviews{padding-block:clamp(30px,7.5vw,64px)}
+.rlist{display:flex;flex-direction:column;gap:clamp(10px,2.6vw,14px);
+  max-width:430px;margin-inline:auto}
+.rcard{--tilt:0deg;position:relative;margin:0;   /* <figure> defaults to margin:1em 40px */
+  text-align:left;border-radius:20px;
+  padding:clamp(12px,3.2vw,15px) clamp(13px,3.6vw,17px);
+  background:linear-gradient(180deg,#1B1B1F 0%,#121215 100%);
+  border:1px solid rgba(255,255,255,.085);
+  box-shadow:0 14px 30px -18px rgba(0,0,0,.95);
+  opacity:0;transform:translateY(22px) scale(.985) rotate(var(--tilt));
+  transition:opacity .5s cubic-bezier(.22,.7,.3,1),transform .5s cubic-bezier(.22,.7,.3,1)}
+.rcard.in{opacity:1;transform:rotate(var(--tilt))}
+/* loose stack, middle card leans the most */
+.rcard:nth-child(1){--tilt:-0.8deg}
+.rcard:nth-child(2){--tilt:1.7deg}
+.rcard:nth-child(3){--tilt:-0.5deg}
+.rhead{display:flex;align-items:center;gap:10px}
+.ravatar{flex:none;width:clamp(34px,8.6vw,40px);aspect-ratio:1;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-size:clamp(18px,4.6vw,22px);font-weight:600;color:#fff;background:var(--av,#6E63E6)}
-.rname{display:block;font-size:clamp(17px,4.5vw,20px);font-weight:600;letter-spacing:-.012em}
-.rstars{display:block;margin-top:3px;font-size:clamp(12.5px,3.3vw,14.5px);
-  letter-spacing:.08em;color:#F5C13C}
-.rquote{margin:14px 0 0;font-size:clamp(15px,4vw,17px);line-height:1.5;color:#D9DAE4}
+  font-size:clamp(14px,3.6vw,16px);font-weight:600;color:#fff;background:var(--av,#6E63E6)}
+.rname{display:block;font-size:clamp(14px,3.7vw,16px);font-weight:600;letter-spacing:-.012em;line-height:1.15}
+.rstars{display:block;margin-top:2px;font-size:clamp(10px,2.6vw,11.5px);
+  letter-spacing:.09em;color:#F5C13C}
+.rquote{margin:9px 0 0;font-size:clamp(12.5px,3.35vw,14px);line-height:1.45;color:#D2D3DE}
 @media(prefers-reduced-motion:reduce){
-  .rcard{opacity:1;transform:none;transition:none}
+  .rcard{opacity:1;transform:rotate(var(--tilt));transition:none}
 }
 
 /* SETL saves you - three pinned steps */
