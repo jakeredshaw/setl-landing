@@ -115,13 +115,14 @@ h3{font-size:clamp(23px,6vw,34px)}
 .device{display:block;width:min(232px,56vw);height:auto;
   filter:drop-shadow(0 30px 56px rgba(0,0,0,.85))}
 .stage .device{position:relative;z-index:5;will-change:transform;transform-origin:50% 0}
-.stage .copy{position:relative;z-index:3;max-width:22ch;opacity:0;transform:translateY(16px);
-  transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.3,1)}
-.stage .copy.on{opacity:1;transform:none}
+.stage .copy{position:absolute;left:50%;top:0;z-index:3;   /* behind .device (5) */
+  width:min(22ch,calc(100% - 44px));opacity:0;
+  transition:opacity .5s ease}
+.stage .copy.on{opacity:1}
 @media(prefers-reduced-motion:reduce){
   .stage .litp{position:relative;left:auto;top:auto;transform:none;opacity:1}
   .stage .litp span{color:#fff}
-  .stage .copy{opacity:1;transform:none}
+  .stage .copy{opacity:1}
 }
 
 /* 1 in 3 graphic */
@@ -412,7 +413,6 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <div class="glowbg"></div>
     <p class="litp" id="litWin" data-prelit="1">Winners choose better sleep. Your best work, best training and best days don't begin in the morning. They begin the night before.</p>
     <img class="device" id="risePh" src="assets/setl-device.png" alt="SETL running on iPhone, showing Sleep Reserve and tonight's plan">
-    </div>
     <div class="copy" id="riseCopy">
       <span class="tag">Meet SETL</span>
       <h2 style="margin-top:14px">The night, handled.</h2>
@@ -724,7 +724,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
           LIT1=0.55,          /* words fully lit, on the lock-relative progress */
           START=0.15,         /* copy centre starts 15% of a screen below the stage top */
           CLIMB=0.16,         /* stage fraction spent climbing to the 20% mark */
-          SETTLE=0.36;        /* stage fraction spent settling to rest         */
+          TUCK=0;             /* Meet SETL sits flush under the phone's bottom edge */
 
       var stagePin=stageSec.querySelector('.pin');
 
@@ -743,8 +743,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var box=stagePin.getBoundingClientRect().height,
             restTop=stagePh.offsetTop;
         var yHidden=box-restTop,          /* fully below the fold */
-            y20    =box*0.80-restTop,     /* top edge 20% up from the bottom */
-            yRest  =0;
+            y20    =box*0.80-restTop;     /* top edge 20% up from the bottom */
 
         /* A — light the words.
            pLock is zero at the exact moment the copy locks to the middle of the
@@ -764,27 +763,32 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
            keeps the handoff tight whatever the viewport height. */
         var litDone=LIT1-(lockAt-startY)/span,
             pStart =litDone<0.02?0.02:litDone,
-            pTwenty=pStart+CLIMB,
-            pRest  =pTwenty+SETTLE;
+            pTwenty=pStart+CLIMB;
 
-        /* B — phone climbs into the bottom fifth of the screen */
+        /* Once the phone reaches the 20% mark it stops moving under its own
+           steam. From there rel is applied to the phone, the lit copy and the
+           Meet SETL block alike, so the three are locked to each other and the
+           whole scene simply scrolls up at scroll speed. */
+        var rel=Math.max(0,p-pTwenty)*span;
         var b=seg(p,pStart,pTwenty);
-        /* C — phone settles to rest */
-        var c=seg(p,pTwenty,pRest);
-        var ce=1-Math.pow(1-c,3);
+        var y=lerp(yHidden,y20,b)-rel;
+        stagePh.style.transform='translateY('+y.toFixed(1)+'px)';
 
-        var y=c>0 ? lerp(y20,yRest,ce) : lerp(yHidden,y20,b);
-        stagePh.style.transform='translateY('+y.toFixed(1)+'px) scale('+lerp(0.9,1,ce).toFixed(3)+')';
+        /* Meet SETL rides directly beneath the device, tucked behind its lower
+           edge, so the phone passes over it rather than beside it. */
+        var copyY=restTop+y+stagePh.offsetHeight-TUCK;
+        if(stageCp){
+          stageCp.style.transform='translate(-50%,'+copyY.toFixed(1)+'px)';
+          stageCp.classList.toggle('on', copyY < box*0.94);
+        }
 
         /* The copy rides up with the scroll until its centre reaches the middle of
            the screen, then holds there while the hero finishes scrolling out
            behind it. No fade: once the phone reaches the 20% mark it is released
            and travels at exactly scroll speed, out through the top. */
-        var rel=Math.max(0,p-pTwenty)*span;
         var centreY=Math.max(lockAt, r.top+startY)-rel;
         var pinTop=stagePin.getBoundingClientRect().top;
         stageLp.style.transform='translate(-50%,'+(centreY-pinTop-stageLp.offsetHeight/2).toFixed(1)+'px)';
-        if(stageCp) stageCp.classList.toggle('on', ce>0.55);
       };
 
       var stageRaf=false;
