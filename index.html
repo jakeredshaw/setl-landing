@@ -338,6 +338,12 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 .iphone .sd-pw {right:-1.0%;top:25.4%;width:1.2%;height:11.2%;
   background:linear-gradient(270deg,#868C96,#454A52 55%,#2B2F36)}
 
+/* repeated device blocks under the stage */
+.dblocks{padding-block:clamp(46px,11vw,96px)}
+.dblock{display:flex;flex-direction:column;align-items:center;text-align:center}
+.dblock + .dblock{margin-top:clamp(64px,15vw,124px)}
+.dblock .dcopy{max-width:22ch}
+
 /* core feature rows */
 .feats{padding-block:clamp(56px,12vw,104px)}
 .feat{display:flex;flex-direction:column;align-items:center;text-align:center;
@@ -414,10 +420,32 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <p class="litp" id="litWin" data-prelit="1">Winners choose better sleep. Your best work, best training and best days don't begin in the morning. They begin the night before.</p>
     <img class="device" id="risePh" src="assets/setl-device.png" alt="SETL running on iPhone, showing Sleep Reserve and tonight's plan">
     <div class="copy" id="riseCopy">
-      <span class="tag">Meet SETL</span>
+      <span class="tag">SETL Sleep</span>
       <h2 style="margin-top:14px">The night, handled.</h2>
-      <p class="sub mt-sub">One bedtime. Set once. Held every night.</p>
+      <p class="sub mt-sub">One bedtime. SETL every night.</p>
     </div>
+  </div>
+</section>
+
+<!-- REPEATED DEVICE BLOCKS -->
+<section class="sec dblocks">
+  <div class="wrap">
+      <div class="dblock rv">
+        <img class="device" src="assets/setl-device.png" alt="SETL running on iPhone, showing Sleep Reserve and tonight's plan" loading="lazy">
+        <div class="dcopy">
+          <span class="tag">SETL Sessions</span>
+          <h2 style="margin-top:14px">The night, handled.</h2>
+          <p class="sub mt-sub">One bedtime. SETL every night.</p>
+        </div>
+      </div>
+      <div class="dblock rv">
+        <img class="device" src="assets/setl-device.png" alt="SETL running on iPhone, showing Sleep Reserve and tonight's plan" loading="lazy">
+        <div class="dcopy">
+          <span class="tag">SETL Lock Screen</span>
+          <h2 style="margin-top:14px">The night, handled.</h2>
+          <p class="sub mt-sub">One bedtime. SETL every night.</p>
+        </div>
+      </div>
   </div>
 </section>
 
