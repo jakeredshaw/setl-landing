@@ -50,6 +50,20 @@ renders with an empty phone screen.
 Existing app screenshots in `assets/` predate the Tomorrow tab, so none of them can
 stand in for it.
 
+### Numbers behind the "SETL saves you" counter
+
+The counter derives everything from one input: **1h 47m saved per day**.
+
+    107 min/day x 365.25 days x 87 years = 3,400,112 min
+      = 56,669 hours = 2,361 days = 77.6 months = 6.46 years
+
+Displayed as 1h 47m -> 78 months -> 6.5 years. Change the daily figure and both
+downstream numbers must be recomputed.
+
+**1h 47m/day is a product claim, not arithmetic.** It needs a basis you can
+point to before this page is public. The 87-year life expectancy is also an
+assumption worth stating on the page or in a footnote.
+
 ### Unverified claims on the page — resolve before launch
 
 Two elements in the hero assert things that need to be true:
