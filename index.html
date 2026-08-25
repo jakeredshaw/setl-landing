@@ -103,7 +103,7 @@ h3{font-size:clamp(23px,6vw,34px)}
 .stage .pin{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:clamp(20px,5vw,34px);padding:92px 22px 34px;text-align:center}
-.stage .litp{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;
+.stage .litp{position:absolute;left:50%;top:0;transform:translate(-50%,0);z-index:4;
   width:min(17ch,calc(100% - 44px));
   font-size:clamp(25px,6.8vw,42px);font-weight:600;letter-spacing:-.032em;line-height:1.2;
   will-change:opacity,transform}
@@ -720,7 +720,9 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       var stagePreLit=(stageLp.getAttribute('data-prelit')|0);
 
       /* phase boundaries as a fraction of the stage's scroll range */
-      var A0=0.00, A1=0.38,   /* text lights            */
+      var A0=0.00, A1=0.38,   /* A1 = phone starts climbing */
+          LIT1=0.55,          /* words fully lit, on the lock-relative progress */
+          START=0.25,         /* copy centre starts a quarter-screen below the stage top */
           B1=0.52,            /* phone reaches the 20% mark */
           C1=0.86;            /* phone at rest          */
 
@@ -744,8 +746,15 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
             y20    =box*0.80-restTop,     /* top edge 20% up from the bottom */
             yRest  =0;
 
-        /* A — light the words */
-        var a=seg(p,A0,A1);
+        /* A — light the words.
+           pLock is zero at the exact moment the copy locks to the middle of the
+           screen, so highlighting begins as the lock lands rather than a
+           quarter-screen later. */
+        var vh=window.innerHeight;
+        var lockAt=vh*0.5, startY=vh*START;
+        var pLock=span>0?(lockAt-startY-r.top)/span:0;
+        if(pLock<0)pLock=0; if(pLock>1)pLock=1;
+        var a=seg(pLock,A0,LIT1);
         var n=Math.round(a*stageSpans.length);
         if(n<stagePreLit)n=stagePreLit;
         for(var i=0;i<stageSpans.length;i++){ stageSpans[i].classList.toggle('on', i<n); }
@@ -759,11 +768,14 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var y=c>0 ? lerp(y20,yRest,ce) : lerp(yHidden,y20,b);
         stagePh.style.transform='translateY('+y.toFixed(1)+'px) scale('+lerp(0.9,1,ce).toFixed(3)+')';
 
-        /* No fade. The moment the phone reaches the 20% mark the copy is released
-           and travels at exactly scroll speed, so it reads as ordinary scrolling
-           and simply leaves through the top of the screen. */
+        /* The copy rides up with the scroll until its centre reaches the middle of
+           the screen, then holds there while the hero finishes scrolling out
+           behind it. No fade: once the phone reaches the 20% mark it is released
+           and travels at exactly scroll speed, out through the top. */
         var rel=Math.max(0,p-B1)*span;
-        stageLp.style.transform='translate(-50%,calc(-50% - '+rel.toFixed(1)+'px))';
+        var centreY=Math.max(lockAt, r.top+startY)-rel;
+        var pinTop=stagePin.getBoundingClientRect().top;
+        stageLp.style.transform='translate(-50%,'+(centreY-pinTop-stageLp.offsetHeight/2).toFixed(1)+'px)';
         if(stageCp) stageCp.classList.toggle('on', ce>0.55);
       };
 
