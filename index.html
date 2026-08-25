@@ -367,6 +367,23 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   .rcard{opacity:1;transform:rotate(var(--tilt));transition:none}
 }
 
+/* stage2: the 98% copy lights, then the next headline rises to the 20% mark */
+.stage2{position:relative;background:#000}
+.stage2 .pin{position:sticky;top:0;height:100svh;min-height:500px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  padding:92px 22px 40px;text-align:center}
+.stage2 .litp2{position:absolute;left:50%;top:0;transform:translate(-50%,0);z-index:4;
+  width:min(17ch,calc(100% - 44px));
+  font-size:clamp(25px,6.8vw,42px);font-weight:600;letter-spacing:-.032em;line-height:1.2;
+  will-change:transform}
+.stage2 .litp2 span{color:#3B3B45;transition:color .3s linear}
+.stage2 .litp2 span.on{color:#fff}
+.stage2 .riser{position:relative;z-index:5;will-change:transform;transform-origin:50% 0}
+@media(prefers-reduced-motion:reduce){
+  .stage2 .litp2{position:relative;left:auto;transform:none}
+  .stage2 .litp2 span{color:#fff}
+}
+
 /* SETL saves you - three pinned steps */
 .counter{position:relative;background:#000}
 .counter .cpin{position:sticky;top:0;height:100svh;min-height:500px;
@@ -494,17 +511,19 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   </div>
 </section>
 
-<!-- THE SCREEN THAT COMES WITH YOU -->
-<section class="lit">
-  <div class="pin"><p id="litText">And 98% of the time, the problem isn't getting into bed. It's the screen that comes with you. One video. One message. One more scroll. And bedtime moves again.</p></div>
+<!-- THE SCREEN THAT COMES WITH YOU  (pinned: lights, then the next headline rises) -->
+<section class="stage2" id="screen">
+  <div class="pin">
+    <p class="litp2" id="litText">And 98% of the time, the problem isn't getting into bed. It's the screen that comes with you. One video. One message. One more scroll. And bedtime moves again.</p>
+    <div class="riser" id="blockRise">
+      <h2 class="up">Distractions<br>end at bedtime.</h2>
+    </div>
+  </div>
 </section>
-
-<!-- SETL THE NIGHT -->
 
 <!-- DISTRACTIONS END AT BEDTIME -->
 <section class="sec" id="blocking">
   <div class="wrap">
-    <h2 class="up rv">Distractions<br>end at bedtime.</h2>
     <div class="dgrid" id="dgrid">
       <div class="dtile"><span>Social</span><i class="lock"></i></div>
       <div class="dtile"><span>Video</span><i class="lock"></i></div>
@@ -1037,6 +1056,70 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       window.addEventListener('resize',revTick);
     }else{
       revCards.forEach(function(rc){ rc.classList.add('in'); });
+    }
+  }catch(e){}
+
+
+  /* STAGE 2 - same choreography as the first stage:
+     the copy rides up, locks dead centre and lights word by word while the
+     section above it scrolls out behind; the moment the last word lands the
+     next headline climbs to 20% into the screen, and from there copy and
+     headline are locked to each other and travel at scroll speed. */
+  try{
+    var s2Sec=document.getElementById('screen'),
+        s2Lp =document.getElementById('litText'),
+        s2Ph =document.getElementById('blockRise');
+    if(s2Sec&&s2Lp&&s2Ph&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+      s2Sec.style.height='215vh';
+      var s2Pin=s2Sec.querySelector('.pin');
+
+      var s2Words=s2Lp.textContent.trim().split(/\s+/);
+      s2Lp.innerHTML=s2Words.map(function(w){return '<span>'+w+'</span>'}).join(' ');
+      var s2Spans=[].slice.call(s2Lp.querySelectorAll('span'));
+
+      var S2_LIT=0.55,     /* words fully lit, on the lock-relative progress */
+          S2_START=0.20,   /* 60% closer than the old half-screen offset      */
+          S2_CLIMB=0.16;   /* stage fraction spent climbing to the 20% mark   */
+
+      var s2Seg=function(v,a,b){ var t=(v-a)/(b-a); return t<0?0:t>1?1:t; };
+
+      var s2Tick=function(){
+        var rr=s2Sec.getBoundingClientRect(),
+            sp=rr.height-window.innerHeight,
+            pp=sp>0?(-rr.top)/sp:0;
+        if(pp<0)pp=0; if(pp>1)pp=1;
+
+        var box=s2Pin.getBoundingClientRect().height,
+            rest=s2Ph.offsetTop,
+            vh2=window.innerHeight,
+            lock=vh2*0.5, start=vh2*S2_START;
+
+        /* lighting, measured from the moment the copy locks */
+        var pl=sp>0?(lock-start-rr.top)/sp:0;
+        if(pl<0)pl=0; if(pl>1)pl=1;
+        var lit=s2Seg(pl,0,S2_LIT);
+        var n2=Math.round(lit*s2Spans.length);
+        for(var k=0;k<s2Spans.length;k++){ s2Spans[k].classList.toggle('on', k<n2); }
+
+        /* the headline starts climbing as the last word lands */
+        var done=S2_LIT-(lock-start)/sp,
+            from=done<0.02?0.02:done,
+            at20=from+S2_CLIMB;
+
+        var rel2=Math.max(0,pp-at20)*sp;
+        var climb=s2Seg(pp,from,at20);
+        var y2=(box-rest)+((box*0.80-rest)-(box-rest))*climb-rel2;
+        s2Ph.style.transform='translateY('+y2.toFixed(1)+'px)';
+
+        var mid=Math.max(lock, rr.top+start)-rel2;
+        s2Lp.style.transform='translate(-50%,'+(mid-s2Pin.getBoundingClientRect().top-s2Lp.offsetHeight/2).toFixed(1)+'px)';
+      };
+
+      var s2Raf=false;
+      var s2Scroll=function(){ if(!s2Raf){ s2Raf=true; requestAnimationFrame(function(){ s2Raf=false; s2Tick(); }); } };
+      s2Tick();
+      window.addEventListener('scroll',s2Scroll,{passive:true});
+      window.addEventListener('resize',s2Tick);
     }
   }catch(e){}
 
