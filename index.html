@@ -720,11 +720,11 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       var stagePreLit=(stageLp.getAttribute('data-prelit')|0);
 
       /* phase boundaries as a fraction of the stage's scroll range */
-      var A0=0.00, A1=0.38,   /* A1 = phone starts climbing */
+      var A0=0.00,
           LIT1=0.55,          /* words fully lit, on the lock-relative progress */
           START=0.15,         /* copy centre starts 15% of a screen below the stage top */
-          B1=0.52,            /* phone reaches the 20% mark */
-          C1=0.86;            /* phone at rest          */
+          CLIMB=0.16,         /* stage fraction spent climbing to the 20% mark */
+          SETTLE=0.36;        /* stage fraction spent settling to rest         */
 
       var stagePin=stageSec.querySelector('.pin');
 
@@ -759,10 +759,18 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         if(n<stagePreLit)n=stagePreLit;
         for(var i=0;i<stageSpans.length;i++){ stageSpans[i].classList.toggle('on', i<n); }
 
+        /* The phone starts the instant the last word lights - no dead scroll in
+           between. Deriving these from litDone rather than hard-coding them
+           keeps the handoff tight whatever the viewport height. */
+        var litDone=LIT1-(lockAt-startY)/span,
+            pStart =litDone<0.02?0.02:litDone,
+            pTwenty=pStart+CLIMB,
+            pRest  =pTwenty+SETTLE;
+
         /* B — phone climbs into the bottom fifth of the screen */
-        var b=seg(p,A1,B1);
-        /* C — phone settles, text clears out */
-        var c=seg(p,B1,C1);
+        var b=seg(p,pStart,pTwenty);
+        /* C — phone settles to rest */
+        var c=seg(p,pTwenty,pRest);
         var ce=1-Math.pow(1-c,3);
 
         var y=c>0 ? lerp(y20,yRest,ce) : lerp(yHidden,y20,b);
@@ -772,7 +780,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
            the screen, then holds there while the hero finishes scrolling out
            behind it. No fade: once the phone reaches the 20% mark it is released
            and travels at exactly scroll speed, out through the top. */
-        var rel=Math.max(0,p-B1)*span;
+        var rel=Math.max(0,p-pTwenty)*span;
         var centreY=Math.max(lockAt, r.top+startY)-rel;
         var pinTop=stagePin.getBoundingClientRect().top;
         stageLp.style.transform='translate(-50%,'+(centreY-pinTop-stageLp.offsetHeight/2).toFixed(1)+'px)';
