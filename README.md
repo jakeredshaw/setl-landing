@@ -50,6 +50,17 @@ renders with an empty phone screen.
 Existing app screenshots in `assets/` predate the Tomorrow tab, so none of them can
 stand in for it.
 
+### SETL Sessions section — wrong image
+
+The Sessions section is a duplicate of the Sleep Reserve section, so it is
+currently showing the **Sleep Reserve device render**. That image says
+"7h 30m left until wake-up", which contradicts the copy next to it about
+daytime focus.
+
+Replace it with the Sessions screen ("Unblock distractions for... / Hold to
+unblock"). Drop the file into `assets/` and swap the `src` on the `.glow` img
+inside the section marked `<!-- SETL SESSIONS -->`.
+
 ### Numbers behind the "SETL saves you" counter
 
 The counter derives everything from one input: **1h 47m saved per day**.
