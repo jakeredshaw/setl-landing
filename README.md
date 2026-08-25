@@ -75,6 +75,22 @@ downstream numbers must be recomputed.
 point to before this page is public. The 87-year life expectancy is also an
 assumption worth stating on the page or in a footnote.
 
+### Reviews — must be real before launch
+
+Three named, five-star testimonials sit under the SETL Sleep block. They are
+attributed to specific people and make specific claims:
+
+- an ADHD outcome ("my ADHD brain finally switches off")
+- a price anchor ("I would genuinely pay $1,000")
+- a physical health outcome ("the bags under my eyes are gone")
+
+A testimonial is a factual claim about a real person's experience. These need
+to be genuine and attributable, with permission to publish, or they need to
+come down. Health and pricing claims are the two categories that attract the
+most scrutiny.
+
+Avatars are initials, not photographs, by design - see the commit note.
+
 ### Unverified claims on the page — resolve before launch
 
 Two elements in the hero assert things that need to be true:

@@ -338,20 +338,29 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 .iphone .sd-pw {right:-1.0%;top:25.4%;width:1.2%;height:11.2%;
   background:linear-gradient(270deg,#868C96,#454A52 55%,#2B2F36)}
 
-/* single review */
-.review-sec{padding-block:clamp(40px,10vw,84px)}
-.review{margin:0 auto;max-width:36ch;text-align:center;
-  border:1px solid var(--line);border-radius:22px;
-  padding:clamp(26px,7vw,38px) clamp(20px,5.5vw,32px);
-  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))}
-.review .stars{font-size:13px;letter-spacing:.24em;color:#CFD2E4}
-.review blockquote{margin:15px 0 0;font-size:clamp(15.5px,4.2vw,18px);line-height:1.55;color:#E6E7F1}
-.review blockquote p + p{margin-top:13px}
-.review figcaption{margin-top:20px;font-size:13.5px;color:var(--dim2)}
-/* dashed = not real yet, must be replaced before launch.
-   NB: .ph is already taken by the testimonial avatars, hence .fillin */
-.fillin{display:inline-block;border:1px dashed rgba(255,255,255,.32);border-radius:6px;
-  padding:2px 10px;color:#9B9BA3;font-style:normal;white-space:nowrap}
+/* three review cards, reversible reveal */
+.reviews{padding-block:clamp(38px,9vw,80px)}
+.rlist{display:flex;flex-direction:column;gap:clamp(14px,3.6vw,20px);
+  max-width:640px;margin-inline:auto}
+.rcard{position:relative;text-align:left;border-radius:26px;
+  padding:clamp(18px,4.6vw,24px) clamp(18px,4.6vw,26px);
+  background:linear-gradient(180deg,#17171B 0%,#101013 100%);
+  border:1px solid rgba(255,255,255,.075);
+  box-shadow:0 20px 44px -24px rgba(0,0,0,.95);
+  opacity:0;transform:translateY(30px) scale(.985);
+  transition:opacity .55s cubic-bezier(.22,.7,.3,1),transform .55s cubic-bezier(.22,.7,.3,1)}
+.rcard.in{opacity:1;transform:none}
+.rhead{display:flex;align-items:center;gap:14px}
+.ravatar{flex:none;width:clamp(44px,11.5vw,54px);aspect-ratio:1;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(18px,4.6vw,22px);font-weight:600;color:#fff;background:var(--av,#6E63E6)}
+.rname{display:block;font-size:clamp(17px,4.5vw,20px);font-weight:600;letter-spacing:-.012em}
+.rstars{display:block;margin-top:3px;font-size:clamp(12.5px,3.3vw,14.5px);
+  letter-spacing:.08em;color:#F5C13C}
+.rquote{margin:14px 0 0;font-size:clamp(15px,4vw,17px);line-height:1.5;color:#D9DAE4}
+@media(prefers-reduced-motion:reduce){
+  .rcard{opacity:1;transform:none;transition:none}
+}
 
 /* SETL saves you - three pinned steps */
 .counter{position:relative;background:#000}
@@ -427,19 +436,41 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   </div>
 </section>
 
-<!-- REVIEW  (draft: replace with a real, attributable quote before launch) -->
-<section class="sec review-sec">
+<!-- REVIEWS  (names and quotes must be real and attributable before launch) -->
+<section class="sec reviews" id="reviews">
   <div class="wrap">
-    <figure class="review rv">
-      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <blockquote>
-        <p>Getting into bed was never my problem. It was what happened after. One more video, and then it&rsquo;s 1am and I&rsquo;m up at six.</p>
-        <p>I&rsquo;d already tried screen time limits. I tapped &ldquo;ignore&rdquo; without even reading it, every single night.</p>
-        <p>SETL just closes the apps at ten. There&rsquo;s nothing to argue with. Three weeks in and I haven&rsquo;t once stayed up past my bedtime.</p>
-        <p>If you know you should put it down and you don&rsquo;t, get this.</p>
-      </blockquote>
-      <figcaption>&mdash; <span class="fillin">Name</span> <span class="fillin">who they are</span></figcaption>
-    </figure>
+    <div class="rlist">
+      <figure class="rcard">
+        <div class="rhead">
+          <span class="ravatar" style="--av:#5C63DE" aria-hidden="true">A</span>
+          <div>
+            <b class="rname">Aisha M.</b>
+            <span class="rstars" aria-label="Rated 5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+        </div>
+        <blockquote class="rquote">&ldquo;First routine I&rsquo;ve ever stuck to. A whole week. My ADHD brain finally switches off and I can focus at work.&rdquo;</blockquote>
+      </figure>
+      <figure class="rcard">
+        <div class="rhead">
+          <span class="ravatar" style="--av:#3E86C9" aria-hidden="true">M</span>
+          <div>
+            <b class="rname">Marco R.</b>
+            <span class="rstars" aria-label="Rated 5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+        </div>
+        <blockquote class="rquote">&ldquo;Stupidly cheap. I would genuinely pay $1,000 for what this fixed. Same bedtime three weeks straight.&rdquo;</blockquote>
+      </figure>
+      <figure class="rcard">
+        <div class="rhead">
+          <span class="ravatar" style="--av:#7C5CE6" aria-hidden="true">P</span>
+          <div>
+            <b class="rname">Priya S.</b>
+            <span class="rstars" aria-label="Rated 5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+        </div>
+        <blockquote class="rquote">&ldquo;I stopped scrolling at 2 AM for the first time in years. I wake up clear and the bags under my eyes are gone.&rdquo;</blockquote>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -974,6 +1005,33 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         window.addEventListener('scroll',cScroll,{passive:true});
         window.addEventListener('resize',cTick);
       }
+    }
+  }catch(e){}
+
+
+  /* Review cards: each rises as it climbs past the reveal line, and drops back
+     out again if you scroll up. Scroll-driven rather than IntersectionObserver
+     so it is deterministic and matches the rest of the page's motion. */
+  try{
+    var revCards=[].slice.call(document.querySelectorAll('.rcard'));
+    if(revCards.length && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+      var revTick=function(){
+        var rvh=window.innerHeight;
+        revCards.forEach(function(rc){
+          /* revealed once the card's top has risen above 88% of the screen;
+             scrolling back up drops it below the line and it reverses */
+          rc.classList.toggle('in', rc.getBoundingClientRect().top < rvh*0.88);
+        });
+      };
+      var revRaf=false;
+      var revScroll=function(){
+        if(!revRaf){ revRaf=true; requestAnimationFrame(function(){ revRaf=false; revTick(); }); }
+      };
+      revTick();
+      window.addEventListener('scroll',revScroll,{passive:true});
+      window.addEventListener('resize',revTick);
+    }else{
+      revCards.forEach(function(rc){ rc.classList.add('in'); });
     }
   }catch(e){}
 
