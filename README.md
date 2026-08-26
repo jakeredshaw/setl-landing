@@ -75,6 +75,34 @@ downstream numbers must be recomputed.
 point to before this page is public. The 87-year life expectancy is also an
 assumption worth stating on the page or in a footnote.
 
+## Swapping the phone screenshots
+
+Every phone on the page except the hero one is drawn by CSS. The image you drop
+in is a **plain screenshot with no phone around it** - the frame, bezel, side
+buttons and shadow are all CSS. Just save the file over the right name:
+
+| Section                | File                    | Screen to capture              |
+|------------------------|-------------------------|--------------------------------|
+| Sleep Reserve          | `assets/scr-reserve.png`| Tonight tab, Sleep Reserve      |
+| SETL Sessions          | `assets/scr-sessions.png`| Focus session running          |
+
+Steps: take the screenshot in the Simulator (Cmd-S saves to the Desktop), rename
+it to the file name above, drop it into `assets/`, refresh. Nothing else to
+change - no code edit, no resizing, no cropping.
+
+**Do not send a screenshot that already has a phone drawn around it.** It will
+be framed twice and look like a phone inside a phone. Bare screen only.
+
+If a file is missing the frame removes itself, so the section still reads
+correctly instead of showing an empty black phone.
+
+### The hero phone is different
+
+`assets/setl-device.png` is a pre-rendered image with the phone body baked into
+the pixels, so it has no CSS frame. To change it you either supply another
+render of the same kind, or send a bare Tonight screenshot and it can be moved
+onto the CSS frame like the other two - after which all three work the same way.
+
 ### Instagram link needs the real handle
 
 The community block links to `https://instagram.com/SETL_HANDLE`. Replace
