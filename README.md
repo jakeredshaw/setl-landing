@@ -75,6 +75,12 @@ downstream numbers must be recomputed.
 point to before this page is public. The 87-year life expectancy is also an
 assumption worth stating on the page or in a footnote.
 
+### Instagram link needs the real handle
+
+The community block links to `https://instagram.com/SETL_HANDLE`. Replace
+SETL_HANDLE with the actual account before launch - as it stands the button
+goes to a profile that does not exist.
+
 ### Reviews — must be real before launch
 
 Three named, five-star testimonials sit under the SETL Sleep block. They are
