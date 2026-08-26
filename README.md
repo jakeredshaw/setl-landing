@@ -13,7 +13,8 @@ Signups append a row to a Google Sheet. No CRM, no email platform, no monthly co
 
 **One-time setup (about 10 minutes, all on your side):**
 
-1. Create a new Google Sheet. Name it something like `SETL Waitlist`.
+1. ~~Create a new Google Sheet~~ - already created: **SETL Waitlist**
+   https://docs.google.com/spreadsheets/d/1HstfyprIWvqdwVI9by7l81WYGI9zGYTl8R4fNVXvTKw/edit
 2. In that sheet: **Extensions > Apps Script**. Delete the placeholder code.
 3. Paste in the contents of `waitlist-sheet/Code.gs` from this repo. Save.
 4. **Deploy > New deployment**, pick type **Web app**:
@@ -22,7 +23,8 @@ Signups append a row to a Google Sheet. No CRM, no email platform, no monthly co
 5. Authorise when Google prompts (it will warn the app is unverified — it is your
    own script, so continue through the advanced link).
 6. Copy the deployment URL. It ends in `/exec`.
-7. Paste that URL into `ENDPOINT` in `index.html` (search for `var ENDPOINT=''`).
+7. Send the `/exec` URL back and it goes into `ENDPOINT` in `index.html`
+   (or paste it yourself: search for `var ENDPOINT=''`).
 
 The sheet fills in with four columns: Email, Signed up (UTC), Source (hero or
 footer), Notes. Duplicate emails are rejected server-side.

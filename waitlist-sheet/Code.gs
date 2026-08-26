@@ -10,6 +10,10 @@
 
 var SHEET_NAME = 'Waitlist';
 
+// The SETL Waitlist spreadsheet. Hard-coded so this works whether the script is
+// bound to the sheet or standalone.
+var SHEET_ID = '1HstfyprIWvqdwVI9by7l81WYGI9zGYTl8R4fNVXvTKw';
+
 function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.waitLock(20000);
@@ -50,7 +54,7 @@ function doGet() {
 }
 
 function sheet() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.openById(SHEET_ID);
   var sh = ss.getSheetByName(SHEET_NAME);
   if (!sh) {
     sh = ss.insertSheet(SHEET_NAME);
