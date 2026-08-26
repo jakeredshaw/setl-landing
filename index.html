@@ -112,6 +112,8 @@ h3{font-size:clamp(23px,6vw,34px)}
 /* stage: lit text -> phone rises, one continuous pin */
 .stage{position:relative;background:#000}
 .stage .pin{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 86%,transparent 100%);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:clamp(20px,5vw,34px);padding:92px 22px 34px;text-align:center}
 .stage .litp{position:absolute;left:50%;top:0;transform:translate(-50%,0);z-index:4;
@@ -130,9 +132,11 @@ h3{font-size:clamp(23px,6vw,34px)}
 .stage .iphone{position:relative;z-index:5;width:min(232px,56vw);
   will-change:transform;transform-origin:50% 0}
 .stage .copy{position:absolute;left:50%;top:0;z-index:3;   /* behind .device (5) */
-  width:min(22ch,calc(100% - 44px));opacity:0;
+  width:min(34ch,calc(100% - 12px));opacity:0;
   transition:opacity .5s ease}
 .stage .copy.on{opacity:1}
+.stage .copy .sub{max-width:none}
+.stage .copy h2{margin-top:10px !important}
 @media(prefers-reduced-motion:reduce){
   .stage .litp{position:relative;left:auto;top:auto;transform:none;opacity:1}
   .stage .litp span{color:#fff}
@@ -297,7 +301,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   box-shadow:0 34px 68px -14px rgba(0,0,0,.92),0 0 0 .5px rgba(0,0,0,.9),
     inset 0 1px 1px rgba(255,255,255,.30),inset 0 -1px 1px rgba(0,0,0,.55)}
 .iphone .scr{position:relative;z-index:2;width:100%;height:100%;
-  border:1.5px solid #05060b;border-radius:14.2%/6.8%;overflow:hidden;background:#000}
+  border:1.5px solid #05060b;border-radius:14.2%/6.8%;overflow:hidden;background:transparent}
 .iphone .scr img{width:100%;height:100%;object-fit:cover;object-position:50% 0%}
 /* side hardware */
 .iphone .sd{position:absolute;z-index:1;border-radius:2px;
@@ -340,6 +344,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 /* stage2: the 98% copy lights, then the next headline rises to the 20% mark */
 .stage2{position:relative;background:#000}
 .stage2 .pin{position:sticky;top:0;height:100svh;min-height:500px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 86%,transparent 100%);
   display:flex;align-items:center;justify-content:center;
   padding:92px 22px 40px;text-align:center}
 .stage2 .litp2{position:absolute;left:50%;top:0;transform:translate(-50%,0);z-index:4;
@@ -357,6 +363,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 /* SETL saves you - three pinned steps */
 .counter{position:relative;background:#000}
 .counter .cpin{position:sticky;top:0;height:100svh;min-height:500px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 86%,transparent 100%);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:clamp(16px,4.4vw,26px);padding:92px 22px 40px;text-align:center}
 .counter .cblock{position:absolute;left:50%;top:0;transform:translate(-50%,0);z-index:4;
@@ -501,7 +509,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <span class="tag rv">Any hour, not just bedtime</span>
     <h2 class="rv mt-tag" style="max-width:14ch;margin-inline:auto">Focus isn&rsquo;t only a night problem.</h2>
     <p class="sub rv mt-sub">The same block runs whenever you ask for it. Start a session, and the apps that pull you away stay shut until you end it.</p>
-    <div class="iphone" style="margin:clamp(28px,7vw,40px) auto 0"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-appblock.png" alt="Choosing which app categories SETL blocks" loading="lazy" onerror="this.closest('.iphone').remove()"></div></div>
+    <div class="iphone" style="margin:clamp(28px,7vw,40px) auto 0"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-appblock.png" alt="Choosing which app categories SETL blocks" onerror="this.closest('.iphone').remove()"></div></div>
     <div class="chips rv">
       <span>Deep work</span><span>Revision</span><span>The gym</span><span>Meetings</span><span>Driving</span>
     </div>
@@ -578,7 +586,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <span class="tag rv">SETL Sessions</span>
     <h2 class="rv" style="margin-top:18px">Deep work, on demand.</h2>
     <p class="sub rv mt-sub">Sessions bring the same blocking into your day. Pick the apps, pick how long, and work with nothing competing for your attention. End it the moment you genuinely need something back.</p>
-    <div class="iphone" style="margin:clamp(26px,7vw,40px) auto 0"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-sessions.png" alt="The SETL focus session screen, apps blocked with a timer running" loading="lazy" onerror="this.closest('.iphone').remove()"></div></div>
+    <div class="iphone" style="margin:clamp(26px,7vw,40px) auto 0"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-sessions.png" alt="The SETL focus session screen, apps blocked with a timer running" onerror="this.closest('.iphone').remove()"></div></div>
   </div>
 </section>
 
@@ -734,6 +742,18 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 
       var stagePin=stageSec.querySelector('.pin');
 
+      /* Static measurements, taken once and refreshed only on resize/load.
+         Reading these every frame forced a synchronous layout in between the
+         style writes below - that read/write/read thrash is what made the
+         scroll stutter and tear on mobile. */
+      var mBox=0, mRest=0, mPhH=0, mLpH=0;
+      var stageMeasure=function(){
+        mBox =stagePin.getBoundingClientRect().height;
+        mRest=stagePh.offsetTop;
+        mPhH =stagePh.offsetHeight;
+        mLpH =stageLp.offsetHeight;
+      };
+
       var lerp=function(a,b,t){ return a+(b-a)*t; };
       var seg =function(p,a,b){ var t=(p-a)/(b-a); return t<0?0:t>1?1:t; };
 
@@ -746,9 +766,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         /* measure against the pinned box, not innerHeight: the pin is 100svh and
            clips its overflow, so the bottom of the pin IS the bottom of the screen.
            offsetTop is layout-only, so it stays correct whatever transform is applied. */
-        var box=stagePin.getBoundingClientRect().height,
-            restTop=stagePh.offsetTop;
-        var yHidden=box-restTop,          /* fully below the fold */
+        var box=mBox, restTop=mRest;
+        var yHidden=box*1.10-restTop,     /* a clear 10% below the fold, not flush with it */
             y20    =box*0.80-restTop;     /* top edge 20% up from the bottom */
 
         /* A — light the words.
@@ -778,13 +797,13 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var rel=Math.max(0,p-pTwenty)*span;
         var b=seg(p,pStart,pTwenty);
         var y=lerp(yHidden,y20,b)-rel;
-        stagePh.style.transform='translateY('+y.toFixed(1)+'px)';
+        stagePh.style.transform='translate3d(0,'+Math.round(y)+'px,0)';
 
         /* Meet SETL rides directly beneath the device, tucked behind its lower
            edge, so the phone passes over it rather than beside it. */
-        var copyY=restTop+y+stagePh.offsetHeight-TUCK;
+        var copyY=restTop+y+mPhH-TUCK;
         if(stageCp){
-          stageCp.style.transform='translate(-50%,'+copyY.toFixed(1)+'px)';
+          stageCp.style.transform='translate3d(-50%,'+Math.round(copyY)+'px,0)';
           stageCp.classList.toggle('on', copyY < box*0.94);
         }
 
@@ -793,14 +812,17 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
            behind it. No fade: once the phone reaches the 20% mark it is released
            and travels at exactly scroll speed, out through the top. */
         var centreY=Math.max(lockAt, r.top+startY)-rel;
-        var pinTop=stagePin.getBoundingClientRect().top;
-        stageLp.style.transform='translate(-50%,'+(centreY-pinTop-stageLp.offsetHeight/2).toFixed(1)+'px)';
+        /* where the sticky pin currently sits, derived from the rect already
+           read rather than measured again */
+        var pinTop=Math.min(Math.max(0,r.top), r.bottom-box);
+        stageLp.style.transform='translate3d(-50%,'+Math.round(centreY-pinTop-mLpH/2)+'px,0)';
       };
 
       var stageRaf=false;
       var stageScroll=function(){ if(!stageRaf){ stageRaf=true; requestAnimationFrame(function(){ stageRaf=false; stageTick(); }); } };
-      var stageResize=function(){ stageTick(); };
-      stageTick();
+      var stageResize=function(){ stageMeasure(); stageTick(); };
+      stageMeasure(); stageTick();
+      window.addEventListener('load',stageMeasure);
       window.addEventListener('scroll',stageScroll,{passive:true});
       window.addEventListener('resize',stageResize);
       window.addEventListener('load',stageResize);
@@ -952,6 +974,12 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
           S3_START=0.20,   /* 60% closer to the section above than centring it */
           S3_CLIMB=0.16;
 
+      var m3Box=0,m3Rest=0,m3BlkH=0;
+      var s3Measure=function(){
+        m3Box =s3Pin.getBoundingClientRect().height;
+        m3Rest=s3Ph.offsetTop;
+        m3BlkH=s3Blk.offsetHeight;
+      };
       var s3Seg=function(v,a2,b2){ var t3=(v-a2)/(b2-a2); return t3<0?0:t3>1?1:t3; };
 
       var s3Tick=function(){
@@ -960,8 +988,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
             pp=sp>0?(-rr.top)/sp:0;
         if(pp<0)pp=0; if(pp>1)pp=1;
 
-        var box=s3Pin.getBoundingClientRect().height,
-            rest=s3Ph.offsetTop,
+        var box=m3Box,
+            rest=m3Rest,
             vh3=window.innerHeight,
             lock=vh3*0.5, start=vh3*S3_START;
 
@@ -980,18 +1008,20 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 
         var rel3=Math.max(0,pp-at20)*sp;
         var climb=s3Seg(pp,from,at20);
-        var y3=(box-rest)+((box*0.80-rest)-(box-rest))*climb-rel3;
-        s3Ph.style.transform='translateY('+y3.toFixed(1)+'px)';
+        var y3=(box*1.10-rest)+((box*0.80-rest)-(box*1.10-rest))*climb-rel3;
+        s3Ph.style.transform='translate3d(0,'+Math.round(y3)+'px,0)';
 
         var mid=Math.max(lock, rr.top+start)-rel3;
-        s3Blk.style.transform='translate(-50%,'+(mid-s3Pin.getBoundingClientRect().top-s3Blk.offsetHeight/2).toFixed(1)+'px)';
+        var pinTop3=Math.min(Math.max(0,rr.top), rr.bottom-box);
+        s3Blk.style.transform='translate3d(-50%,'+Math.round(mid-pinTop3-m3BlkH/2)+'px,0)';
       };
 
       var s3Raf=false;
       var s3Scroll=function(){ if(!s3Raf){ s3Raf=true; requestAnimationFrame(function(){ s3Raf=false; s3Tick(); }); } };
-      s3Tick();
+      s3Measure(); s3Tick();
       window.addEventListener('scroll',s3Scroll,{passive:true});
-      window.addEventListener('resize',s3Tick);
+      window.addEventListener('resize',function(){ s3Measure(); s3Tick(); });
+      window.addEventListener('load',s3Measure);
     }
   }catch(e){}
 
@@ -1043,6 +1073,12 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
           S2_START=0.20,   /* 60% closer than the old half-screen offset      */
           S2_CLIMB=0.16;   /* stage fraction spent climbing to the 20% mark   */
 
+      var m2Box=0,m2Rest=0,m2LpH=0;
+      var s2Measure=function(){
+        m2Box =s2Pin.getBoundingClientRect().height;
+        m2Rest=s2Ph.offsetTop;
+        m2LpH =s2Lp.offsetHeight;
+      };
       var s2Seg=function(v,a,b){ var t=(v-a)/(b-a); return t<0?0:t>1?1:t; };
 
       var s2Tick=function(){
@@ -1051,8 +1087,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
             pp=sp>0?(-rr.top)/sp:0;
         if(pp<0)pp=0; if(pp>1)pp=1;
 
-        var box=s2Pin.getBoundingClientRect().height,
-            rest=s2Ph.offsetTop,
+        var box=m2Box,
+            rest=m2Rest,
             vh2=window.innerHeight,
             lock=vh2*0.5, start=vh2*S2_START;
 
@@ -1070,18 +1106,20 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 
         var rel2=Math.max(0,pp-at20)*sp;
         var climb=s2Seg(pp,from,at20);
-        var y2=(box-rest)+((box*0.80-rest)-(box-rest))*climb-rel2;
-        s2Ph.style.transform='translateY('+y2.toFixed(1)+'px)';
+        var y2=(box*1.10-rest)+((box*0.80-rest)-(box*1.10-rest))*climb-rel2;
+        s2Ph.style.transform='translate3d(0,'+Math.round(y2)+'px,0)';
 
         var mid=Math.max(lock, rr.top+start)-rel2;
-        s2Lp.style.transform='translate(-50%,'+(mid-s2Pin.getBoundingClientRect().top-s2Lp.offsetHeight/2).toFixed(1)+'px)';
+        var pinTop2=Math.min(Math.max(0,rr.top), rr.bottom-box);
+        s2Lp.style.transform='translate3d(-50%,'+Math.round(mid-pinTop2-m2LpH/2)+'px,0)';
       };
 
       var s2Raf=false;
       var s2Scroll=function(){ if(!s2Raf){ s2Raf=true; requestAnimationFrame(function(){ s2Raf=false; s2Tick(); }); } };
-      s2Tick();
+      s2Measure(); s2Tick();
       window.addEventListener('scroll',s2Scroll,{passive:true});
-      window.addEventListener('resize',s2Tick);
+      window.addEventListener('resize',function(){ s2Measure(); s2Tick(); });
+      window.addEventListener('load',s2Measure);
     }
   }catch(e){}
 
