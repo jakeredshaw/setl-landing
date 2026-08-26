@@ -264,7 +264,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   font-size:clamp(30px,8.6vw,56px)}
 
 /* distraction grid */
-.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,3.2vw,18px);margin-top:clamp(10px,2.6vw,18px)}
+.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,3.2vw,18px);margin-top:clamp(32px,7.5vw,54px)}
 .dtile{position:relative;aspect-ratio:1;border-radius:clamp(16px,4.8vw,24px);display:grid;place-items:center;
   border:1px solid rgba(255,255,255,.10);
   background:linear-gradient(165deg,#232C4A,#1A2138);
@@ -274,9 +274,9 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   transition:opacity .45s ease;background:#8B8B93;
   -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 10V7a6 6 0 1 1 12 0v3' fill='none' stroke='black' stroke-width='2.4'/><rect x='4' y='10' width='16' height='11' rx='2.4'/></svg>") center/contain no-repeat;
   mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 10V7a6 6 0 1 1 12 0v3' fill='none' stroke='black' stroke-width='2.4'/><rect x='4' y='10' width='16' height='11' rx='2.4'/></svg>") center/contain no-repeat}
-.dgrid.locked .dtile{background:linear-gradient(165deg,#0D0D11,#08080B);border-color:rgba(255,255,255,.07);transform:scale(.985)}
-.dgrid.locked .dtile span{opacity:0}
-.dgrid.locked .dtile .lock{opacity:1}
+.dtile.shut{background:linear-gradient(165deg,#0D0D11,#08080B);border-color:rgba(255,255,255,.07);transform:scale(.985)}
+.dtile.shut span{opacity:0}
+.dtile.shut .lock{opacity:1}
 .dstatus{margin-top:clamp(24px,6vw,38px);text-align:center;font-size:clamp(12px,3.2vw,14px);
   letter-spacing:.18em;color:#7C808F;transition:color .5s ease}
 .dstatus.on{color:#7FD8E8}
@@ -536,14 +536,14 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <div class="riser" id="blockRise">
       <h2 class="up">Distractions now<br>end at bedtime.<br>Because of SETL.</h2>
     <div class="dgrid" id="dgrid">
-      <div class="dtile"><span>Social</span><i class="lock"></i></div>
-      <div class="dtile"><span>Video</span><i class="lock"></i></div>
-      <div class="dtile"><span>Shorts</span><i class="lock"></i></div>
-      <div class="dtile"><span>Forums</span><i class="lock"></i></div>
-      <div class="dtile"><span>News</span><i class="lock"></i></div>
-      <div class="dtile"><span>Games</span><i class="lock"></i></div>
-      <div class="dtile"><span>Shopping</span><i class="lock"></i></div>
-      <div class="dtile"><span>Browser</span><i class="lock"></i></div>
+      <div class="dtile"><span>Instagram</span><i class="lock"></i></div>
+      <div class="dtile"><span>TikTok</span><i class="lock"></i></div>
+      <div class="dtile"><span>YouTube</span><i class="lock"></i></div>
+      <div class="dtile"><span>Facebook</span><i class="lock"></i></div>
+      <div class="dtile"><span>Reddit</span><i class="lock"></i></div>
+      <div class="dtile"><span>X</span><i class="lock"></i></div>
+      <div class="dtile"><span>Snapchat</span><i class="lock"></i></div>
+      <div class="dtile"><span>LinkedIn</span><i class="lock"></i></div>
     </div>
     <p class="dstatus" id="dstatus">22:59 &middot; OPEN</p>
     <div class="bedcard">
@@ -585,7 +585,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   <div class="wrap">
     <span class="tag rv">SETL Sessions</span>
     <h2 class="rv" style="margin-top:18px">Deep work, on demand.</h2>
-    <p class="sub rv mt-sub">Sessions bring the same blocking into your day. Pick the apps, pick how long, and work with nothing competing for your attention. End it the moment you genuinely need something back.</p>
+    <p class="sub rv mt-sub">SETL Sessions bring the same app blocking into the daytime. You pick the apps that distract you, you pick how long to block them for, and you work with no distractions at any time of day. End it the moment you genuinely need something back.</p>
     <div class="iphone" style="margin:clamp(26px,7vw,40px) auto 0"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-sessions.png" alt="The SETL focus session screen, apps blocked with a timer running" onerror="this.closest('.iphone').remove()"></div></div>
   </div>
 </section>
@@ -609,7 +609,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <div class="pcard rv">
       <div class="prow"><div class="p">90%</div><b>Better focus, night and day</b><span>Not just after dark. The same block runs whenever you need your attention back.</span></div>
       <div class="prow"><div class="p">100%</div><b>A streamlined bedtime</b><span>One time, set once. The decision stops being yours to make every night.</span></div>
-      <div class="prow"><div class="p">92%</div><b>More discipline after a week</b><span>Seven nights is enough for the routine to stop feeling like effort.</span></div>
+      <div class="prow"><div class="p">92%</div><b>More discipline after a week</b><span>Seven nights is enough for healthy habits to start forming.</span></div>
       <div class="prow"><div class="p">92%</div><b>More disciplined everywhere else</b><span>Training, work, food, money. It travels further than bedtime.</span></div>
     </div>
   </div>
@@ -633,10 +633,10 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <p class="sub rv mt-sub">If you already know you should put your phone down at night, and you don&rsquo;t, this is built for you.</p>
     <div class="wfor">
       <div class="wf rv"><i></i><div><b>People with ADHD</b><span>Telling yourself to stop doesn&rsquo;t work. SETL closes the apps so you don&rsquo;t have to decide.</span></div></div>
-      <div class="wf rv"><i></i><div><b>Doom scrollers</b><span>You open one app for a second and lose an hour. At bedtime, SETL shuts them.</span></div></div>
+      <div class="wf rv"><i></i><div><b>Doom scrollers</b><span>You open one for a second and lose an hour. At bedtime, or at any time of day, SETL shuts them for you.</span></div></div>
       <div class="wf rv"><i></i><div><b>Students</b><span>Exams, revision, 9am lectures. A midnight scroll costs you the whole morning.</span></div></div>
-      <div class="wf rv"><i></i><div><b>Athletes and gym-goers</b><span>Last night shows up in today&rsquo;s training. Sleep is the part most people skip.</span></div></div>
-      <div class="wf rv"><i></i><div><b>Busy parents and shift workers</b><span>You&rsquo;re exhausted and still scrolling. SETL ends the night for you.</span></div></div>
+      <div class="wf rv"><i></i><div><b>Athletes and gym-goers</b><span>Rest matters as much as the training itself. If you are distracted while you rest, or while you train, you need SETL.</span></div></div>
+      <div class="wf rv"><i></i><div><b>Busy parents and shift workers</b><span>You work hard, and a scroll is a fair reward. SETL just gives you back the hours you never meant to lose to it.</span></div></div>
     </div>
   </div>
 </section>
@@ -853,17 +853,32 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   try{
     var g=$('dgrid'), st=$('dstatus');
     if(g&&st){
-      var gio=new IntersectionObserver(function(es){
-        es.forEach(function(e){
-          if(!e.isIntersecting)return; gio.unobserve(e.target);
-          setTimeout(function(){
-            g.classList.add('locked');
-            st.classList.add('on');
-            st.textContent='23:00 \u00B7 BLOCKED UNTIL MORNING';
-          },900);
+      var tiles=[].slice.call(g.querySelectorAll('.dtile'));
+      /* cumulative offsets from the moment the grid reaches the bottom of the
+         screen: the first shuts immediately, then the gaps close up so the last
+         four snap shut in quick succession */
+      var when=[0,2000,3000,3500,4000,4250,4500,4750];
+      var started=false;
+      var runLock=function(){
+        if(started)return;
+        started=true;
+        tiles.forEach(function(tile,i){
+          setTimeout(function(){ tile.classList.add('shut'); }, when[i]!==undefined?when[i]:when[when.length-1]);
         });
-      },{threshold:.45});
-      gio.observe(g);
+        setTimeout(function(){
+          st.classList.add('on');
+          st.textContent='23:00 \u00B7 BLOCKED UNTIL MORNING';
+        }, when[when.length-1]+350);
+      };
+      /* scroll-driven rather than IntersectionObserver: this needs to fire once,
+         reliably, the moment the grid clears the bottom edge */
+      var lockWatch=function(){
+        if(started){ window.removeEventListener('scroll',lockWatch); return; }
+        if(g.getBoundingClientRect().top < window.innerHeight*0.92) runLock();
+      };
+      lockWatch();
+      window.addEventListener('scroll',lockWatch,{passive:true});
+      window.addEventListener('resize',lockWatch);
     }
   }catch(e){}
 
