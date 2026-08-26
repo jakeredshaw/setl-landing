@@ -124,8 +124,11 @@ h3{font-size:clamp(23px,6vw,34px)}
   width:min(620px,150vw);aspect-ratio:1;pointer-events:none;z-index:1;
   background:radial-gradient(circle,rgba(110,124,205,.20) 0%,rgba(40,48,96,.09) 44%,transparent 68%)}
 .device{display:block;width:min(232px,56vw);height:auto;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 75%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 75%,transparent 100%);
   filter:drop-shadow(0 30px 56px rgba(0,0,0,.85))}
-.stage .device{position:relative;z-index:5;will-change:transform;transform-origin:50% 0}
+.stage .iphone{position:relative;z-index:5;width:min(232px,56vw);
+  will-change:transform;transform-origin:50% 0}
 .stage .copy{position:absolute;left:50%;top:0;z-index:3;   /* behind .device (5) */
   width:min(22ch,calc(100% - 44px));opacity:0;
   transition:opacity .5s ease}
@@ -287,6 +290,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   width:min(620px,150vw);aspect-ratio:1;pointer-events:none;
   background:radial-gradient(circle,rgba(110,124,205,.20) 0%,rgba(40,48,96,.09) 44%,transparent 68%)}
 .iphone{position:relative;z-index:2;width:min(212px,52vw);aspect-ratio:71/147;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 75%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 75%,transparent 100%);
   border-radius:16%/7.7%;padding:2.1%;
   background:linear-gradient(135deg,#A5ABB5 0%,#545A63 9%,#2C3037 24%,#191C21 50%,#33373F 74%,#6B7178 90%,#AEB4BE 100%);
   box-shadow:0 34px 68px -14px rgba(0,0,0,.92),0 0 0 .5px rgba(0,0,0,.9),
@@ -440,7 +445,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   <div class="pin">
     <div class="glowbg"></div>
     <p class="litp" id="litWin" data-prelit="1">Winners choose better sleep. Your best work, best training and best days don't begin in the morning. They begin the night before.</p>
-    <img class="device" id="risePh" src="assets/setl-device.png" alt="SETL running on iPhone, showing Sleep Reserve and tonight's plan">
+    <div class="iphone" id="risePh"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-tonight.png" alt="SETL's Tonight screen, showing Sleep Reserve" onerror="this.closest('.iphone').remove()"></div></div>
     <div class="copy" id="riseCopy">
       <span class="tag">SETL Sleep</span>
       <h2 style="margin-top:14px">Unlock True Greatness</h2>
@@ -495,6 +500,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <span class="tag rv">Any hour, not just bedtime</span>
     <h2 class="rv mt-tag" style="max-width:14ch;margin-inline:auto">Focus isn&rsquo;t only a night problem.</h2>
     <p class="sub rv mt-sub">The same block runs whenever you ask for it. Start a session, and the apps that pull you away stay shut until you end it.</p>
+    <div class="iphone" style="margin:clamp(28px,7vw,40px) auto 0"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-appblock.png" alt="Choosing which app categories SETL blocks" loading="lazy" onerror="this.closest('.iphone').remove()"></div></div>
     <div class="chips rv">
       <span>Deep work</span><span>Revision</span><span>The gym</span><span>Meetings</span><span>Driving</span>
     </div>

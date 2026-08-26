@@ -81,10 +81,15 @@ Every phone on the page except the hero one is drawn by CSS. The image you drop
 in is a **plain screenshot with no phone around it** - the frame, bezel, side
 buttons and shadow are all CSS. Just save the file over the right name:
 
-| Section                | File                    | Screen to capture              |
-|------------------------|-------------------------|--------------------------------|
-| Sleep Reserve          | `assets/scr-reserve.png`| Tonight tab, Sleep Reserve      |
-| SETL Sessions          | `assets/scr-sessions.png`| Focus session running          |
+| Section                 | File                      | Screen                     |
+|-------------------------|---------------------------|----------------------------|
+| Hero / SETL Sleep       | `assets/scr-tonight.png`  | Tonight, Sleep Reserve     |
+| Focus isn't only a night problem | `assets/scr-appblock.png` | Choose Activities |
+| Sleep Reserve           | `assets/scr-reserve.png`  | Tonight, Sleep Reserve     |
+| SETL Sessions           | `assets/scr-sessions.png` | New session setup          |
+
+Unused and waiting for a home: `assets/scr-plans.png` (Plans / calendar). The
+section it would have fitted was removed earlier.
 
 Steps: take the screenshot in the Simulator (Cmd-S saves to the Desktop), rename
 it to the file name above, drop it into `assets/`, refresh. Nothing else to
@@ -96,12 +101,13 @@ be framed twice and look like a phone inside a phone. Bare screen only.
 If a file is missing the frame removes itself, so the section still reads
 correctly instead of showing an empty black phone.
 
-### The hero phone is different
+All four phones now use the same CSS frame, so every one of them swaps the same
+way. `assets/setl-device.png` (the old pre-rendered hero) is kept in the repo but
+is no longer referenced.
 
-`assets/setl-device.png` is a pre-rendered image with the phone body baked into
-the pixels, so it has no CSS frame. To change it you either supply another
-render of the same kind, or send a bare Tonight screenshot and it can be moved
-onto the CSS frame like the other two - after which all three work the same way.
+Each phone fades out over its bottom 25% via a CSS mask, so it dissolves into
+whatever is behind it rather than ending on a hard edge. That is applied to the
+frame, not baked into the files, so it works on any screenshot you drop in.
 
 ### Instagram link needs the real handle
 
