@@ -81,6 +81,21 @@ The community block links to `https://instagram.com/SETL_HANDLE`. Replace
 SETL_HANDLE with the actual account before launch - as it stands the button
 goes to a profile that does not exist.
 
+### The four figures in "What SETL buys you"
+
+    90%   better focus, night and day
+    100%  a streamlined bedtime
+    92%   more discipline after a week
+    92%   more disciplined everywhere else
+
+None of these are derived from anything in this repo - unlike the counter,
+which at least computes from a single stated input. They are outcome claims
+about what the product does to people, stated as percentages, on a commercial
+page. They need a study, a sample size and a method behind them, or they need
+to become qualitative statements.
+
+Note the last two are both 92% and read as near-duplicates; likely a slip.
+
 ### Reviews — must be real before launch
 
 Three named, five-star testimonials sit under the SETL Sleep block. They are
