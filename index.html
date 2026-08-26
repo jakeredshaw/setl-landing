@@ -758,8 +758,11 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       var seg =function(p,a,b){ var t=(p-a)/(b-a); return t<0?0:t>1?1:t; };
 
       var stageTick=function(){
+        /* mBox is the pin's height, i.e. 100svh. Unlike window.innerHeight it does
+           NOT change when a mobile URL bar collapses mid-scroll, so every value
+           derived from it stays put and the locked copy cannot drift. */
         var r=stageSec.getBoundingClientRect(),
-            span=r.height-window.innerHeight,
+            span=r.height-mBox,
             p=span>0?(-r.top)/span:0;
         if(p<0)p=0; if(p>1)p=1;
 
@@ -774,7 +777,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
            pLock is zero at the exact moment the copy locks to the middle of the
            screen, so highlighting begins as the lock lands rather than a
            quarter-screen later. */
-        var vh=window.innerHeight;
+        var vh=mBox;
         var lockAt=vh*0.5, startY=vh*START;
         var pLock=span>0?(lockAt-startY-r.top)/span:0;
         if(pLock<0)pLock=0; if(pLock>1)pLock=1;
@@ -999,13 +1002,13 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 
       var s3Tick=function(){
         var rr=s3Sec.getBoundingClientRect(),
-            sp=rr.height-window.innerHeight,
+            sp=rr.height-m3Box,
             pp=sp>0?(-rr.top)/sp:0;
         if(pp<0)pp=0; if(pp>1)pp=1;
 
         var box=m3Box,
             rest=m3Rest,
-            vh3=window.innerHeight,
+            vh3=m3Box,
             lock=vh3*0.5, start=vh3*S3_START;
 
         /* progress measured from the moment the block locks to centre */
@@ -1098,13 +1101,13 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 
       var s2Tick=function(){
         var rr=s2Sec.getBoundingClientRect(),
-            sp=rr.height-window.innerHeight,
+            sp=rr.height-m2Box,
             pp=sp>0?(-rr.top)/sp:0;
         if(pp<0)pp=0; if(pp>1)pp=1;
 
         var box=m2Box,
             rest=m2Rest,
-            vh2=window.innerHeight,
+            vh2=m2Box,
             lock=vh2*0.5, start=vh2*S2_START;
 
         /* lighting, measured from the moment the copy locks */
