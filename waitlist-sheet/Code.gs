@@ -27,14 +27,9 @@ function doPost(e) {
 
     var sh = sheet();
 
-    // Skip duplicates so one person can't pad the list.
-    var existing = sh.getLastRow() > 1
-      ? sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues().map(function (r) {
-          return String(r[0]).trim().toLowerCase();
-        })
-      : [];
-    if (existing.indexOf(email) !== -1) return out('duplicate');
-
+    // Every submission is recorded, including repeats from the same address.
+    // Deliberately no duplicate check: a rejected repeat looked to the visitor
+    // like the form had silently failed.
     sh.appendRow([
       email,
       p.ts || new Date().toISOString(),
