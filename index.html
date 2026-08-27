@@ -131,7 +131,8 @@ h3{font-size:clamp(23px,6vw,34px)}
   filter:drop-shadow(0 30px 56px rgba(0,0,0,.85))}
 .stage .iphone{position:relative;z-index:5;width:min(232px,56vw);
   will-change:transform;transform-origin:50% 0}
-.stage .copy{position:absolute;left:50%;top:0;z-index:3;   /* behind .device (5) */
+.stage .copy{position:absolute;left:50%;top:0;z-index:12;  /* above the pin's
+  bottom fade (9), which is meant to dissolve the phone, not the words */
   width:min(34ch,calc(100% - 12px));opacity:0;
   transition:opacity .5s ease}
 .stage .copy.on{opacity:1}
@@ -762,7 +763,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
     if(stageSec&&stagePh&&stageLp&&!reduce){
-      stageSec.style.height='210vh';
+      stageSec.style.height='232vh';
 
       /* split the paragraph into words once */
       var stageWords=stageLp.textContent.trim().split(/\s+/);
