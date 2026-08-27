@@ -65,8 +65,10 @@ h3{font-size:clamp(23px,6vw,34px)}
 /* waitlist form states */
 .wait .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
 .wait.busy .btn{opacity:.6;pointer-events:none}
-.wait .msg{margin-top:10px;font-size:14px;line-height:1.4;text-align:center;color:var(--dim2);min-height:0}
-.wait .msg.err{color:#FF8E8E}
+.wait .msg{margin-top:12px;font-size:15px;line-height:1.45;text-align:center;
+  color:#CFD2E4;min-height:0}
+.wait .msg.err{color:#FF9B9B;font-weight:500}
+.wait.done .msg{color:#B9BCD0}
 .wait.done{gap:0}
 .wait.done input,.wait.done .btn{display:none}
 .wait .ok{display:none;align-items:center;justify-content:center;gap:9px;
@@ -930,7 +932,10 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var email=(inp.value||'').trim();
         if(!RX.test(email)){ say('Enter a valid email address.',1); inp.focus(); return; }
         if(hp&&hp.value){ return; }               /* bot filled the honeypot */
-        if(!ENDPOINT){ say('Waitlist is not connected yet.',1); return; }
+        if(!ENDPOINT){
+          say('The waitlist is not live yet. Nothing was saved, so please try again shortly.',1);
+          return;
+        }
 
         f.classList.add('busy'); say('');
 
@@ -944,6 +949,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
           .then(function(){
             f.classList.remove('busy');
             f.classList.add('done');
+            say('We are releasing very soon. Keep an eye on your inbox over the next few days.');
             try{ localStorage.setItem('setl_waitlist',email); }catch(e){}
           })
           .catch(function(){
