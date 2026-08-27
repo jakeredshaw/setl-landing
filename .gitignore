@@ -4,3 +4,6 @@ node_modules/
 .env
 .env.local
 *.log
+
+# large video sources - the compressed mp4 is what ships
+*.mov

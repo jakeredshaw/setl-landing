@@ -302,7 +302,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     inset 0 1px 1px rgba(255,255,255,.30),inset 0 -1px 1px rgba(0,0,0,.55)}
 .iphone .scr{position:relative;z-index:2;width:100%;height:100%;
   border:1.5px solid #05060b;border-radius:14.2%/6.8%;overflow:hidden;background:transparent}
-.iphone .scr img{width:100%;height:100%;object-fit:cover;object-position:50% 0%}
+.iphone .scr img,.iphone .scr video{width:100%;height:100%;
+  object-fit:cover;object-position:50% 0%;display:block}
 /* side hardware */
 .iphone .sd{position:absolute;z-index:1;border-radius:2px;
   background:linear-gradient(90deg,#868C96,#454A52 55%,#2B2F36)}
@@ -480,7 +481,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   <div class="pin">
     <div class="glowbg"></div>
     <p class="litp" id="litWin" data-prelit="1">Winners choose better sleep. Your best work, best training and best days don't begin in the morning. They begin the night before.</p>
-    <div class="iphone" id="risePh"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-tonight.png" alt="SETL's Tonight screen, showing Sleep Reserve" onerror="this.closest('.iphone').remove()"></div></div>
+    <div class="iphone" id="risePh"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><video src="assets/setl-screen.mp4" poster="assets/setl-screen-poster.jpg" autoplay loop muted playsinline preload="metadata" aria-label="SETL running on iPhone, showing the Tonight screen"></video></div></div>
     <div class="copy" id="riseCopy">
       <span class="tag">SETL Sleep</span>
       <h2 style="margin-top:14px">Unlock True Greatness</h2>
