@@ -99,6 +99,13 @@ h3{font-size:clamp(23px,6vw,34px)}
 .hero h1{max-width:15ch;margin-inline:auto}
 .hero h1 span{display:block;margin-top:11px;font-size:clamp(15.5px,4vw,21px);font-weight:500;
   letter-spacing:-.02em;line-height:1.2;color:rgba(255,255,255,.86)}
+.scrollcue{position:absolute;left:50%;bottom:clamp(12px,3vw,24px);z-index:3;
+  color:rgba(255,255,255,.5);pointer-events:none;transition:opacity .5s ease;
+  transform:translateX(-50%);animation:cuebob 2.6s ease-in-out infinite}
+.scrollcue svg{display:block;width:24px;height:24px}
+.scrollcue.gone{opacity:0}
+@keyframes cuebob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+@media (prefers-reduced-motion:reduce){.scrollcue{animation:none}}
 .hero .sub{margin-top:18px;color:rgba(255,255,255,.82);max-width:31ch}
 .hero .btn{margin-top:32px}
 .hero .wait .btn{margin-top:0}   /* the form sets its own 3px gap */
@@ -474,6 +481,9 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     </div>
     
   </div>
+  <div class="scrollcue" id="scrollcue" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
 </header>
 
 <!-- WINNERS (scroll-lit) -->
@@ -732,6 +742,21 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   var revealAll=function(){ Array.prototype.forEach.call(document.querySelectorAll('.rv'),function(el){el.classList.add('in')}); };
   setTimeout(revealAll,1500);
   window.addEventListener('load',function(){ setTimeout(revealAll,400); });
+
+  /* hide the scroll cue once they've taken the hint */
+  try{
+    var cue=document.getElementById('scrollcue');
+    if(cue){
+      var hideCue=function(){
+        if(window.pageYOffset>40){
+          cue.classList.add('gone');
+          window.removeEventListener('scroll',hideCue);
+        }
+      };
+      window.addEventListener('scroll',hideCue,{passive:true});
+      hideCue();
+    }
+  }catch(e){}
 
   /* scroll-lit paragraphs */
   try{
