@@ -908,11 +908,15 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
            the screen, then holds there while the hero finishes scrolling out
            behind it. No fade: once the phone reaches the 20% mark it is released
            and travels at exactly scroll speed, out through the top. */
-        var centreY=Math.max(lockAt, r.top+startY)-rel;
-        /* where the sticky pin currently sits, derived from the rect already
-           read rather than measured again */
-        var pinTop=Math.min(Math.max(0,r.top), r.bottom-box);
-        stageLp.style.transform='translate3d(-50%,'+(centreY-pinTop-mLpH/2).toFixed(2)+'px,0)';
+        /* Held position is relative to the pin, never to the viewport. While
+           the pin has not yet stuck it is still in normal flow, so the
+           browser scrolls it on the compositor and the text rides along
+           smoothly. Referencing r.top here meant recomputing a cancelling
+           offset every frame on the main thread, always a frame behind the
+           compositor: the text lurched with the page and was yanked back.
+           That is the shake. rel stays 0 until long after the pin sticks,
+           so through the approach and the hold this is a constant. */
+        stageLp.style.transform='translate3d(-50%,'+(lockAt-mLpH/2-rel).toFixed(2)+'px,0)';
       };
 
       var stageRaf=false;
@@ -1144,9 +1148,15 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var y3=(box*1.10-rest)+((box*0.80-rest)-(box*1.10-rest))*climb-rel3;
         s3Ph.style.transform='translate3d(0,'+y3.toFixed(2)+'px,0)';
 
-        var mid=Math.max(lock, rr.top+start)-rel3;
-        var pinTop3=Math.min(Math.max(0,rr.top), rr.bottom-box);
-        s3Blk.style.transform='translate3d(-50%,'+(mid-pinTop3-m3BlkH/2).toFixed(2)+'px,0)';
+        /* Held position is relative to the pin, never to the viewport. While
+           the pin has not yet stuck it is still in normal flow, so the
+           browser scrolls it on the compositor and the text rides along
+           smoothly. Referencing r.top here meant recomputing a cancelling
+           offset every frame on the main thread, always a frame behind the
+           compositor: the text lurched with the page and was yanked back.
+           That is the shake. rel stays 0 until long after the pin sticks,
+           so through the approach and the hold this is a constant. */
+        s3Blk.style.transform='translate3d(-50%,'+(lock-m3BlkH/2-rel3).toFixed(2)+'px,0)';
       };
 
       var s3Raf=false;
@@ -1247,9 +1257,15 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var y2=(box*1.10-rest)+((box*0.80-rest)-(box*1.10-rest))*climb-rel2;
         s2Ph.style.transform='translate3d(0,'+y2.toFixed(2)+'px,0)';
 
-        var mid=Math.max(lock, rr.top+start)-rel2;
-        var pinTop2=Math.min(Math.max(0,rr.top), rr.bottom-box);
-        s2Lp.style.transform='translate3d(-50%,'+(mid-pinTop2-m2LpH/2).toFixed(2)+'px,0)';
+        /* Held position is relative to the pin, never to the viewport. While
+           the pin has not yet stuck it is still in normal flow, so the
+           browser scrolls it on the compositor and the text rides along
+           smoothly. Referencing r.top here meant recomputing a cancelling
+           offset every frame on the main thread, always a frame behind the
+           compositor: the text lurched with the page and was yanked back.
+           That is the shake. rel stays 0 until long after the pin sticks,
+           so through the approach and the hold this is a constant. */
+        s2Lp.style.transform='translate3d(-50%,'+(lock-m2LpH/2-rel2).toFixed(2)+'px,0)';
       };
 
       var s2Raf=false;
