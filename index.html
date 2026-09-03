@@ -498,7 +498,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 <section class="stage" id="winners">
   <div class="pin">
     <div class="glowbg"></div>
-    <p class="litp" id="litWin" data-prelit="4">1 to 3 hours. That&rsquo;s how long our beta testers spend on their phone every night, often without realising. It&rsquo;s time to fight back.</p>
+    <p class="litp" id="litWin" data-prelit="7">1 to 3 hours out of 8. That&rsquo;s how long you will spend on your phone most nights, often without realising. It&rsquo;s time to fight back.</p>
     <div class="iphone" id="risePh"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><video src="assets/setl-screen.mp4" poster="assets/setl-screen-poster.jpg" autoplay loop muted playsinline preload="metadata" aria-label="SETL running on iPhone, showing the Tonight screen"></video></div></div>
     <div class="copy" id="riseCopy">
       <span class="tag">SETL Sleep&trade;</span>
@@ -784,8 +784,11 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       var spans=[].slice.call(lt.querySelectorAll('span'));
       var preLit=(lt.getAttribute('data-prelit')|0);
       for(var q=0;q<preLit;q++){ spans[q].classList.add('on'); }
+      var litPin=sec.querySelector('.pin');
+      var litVh=(litPin?litPin.getBoundingClientRect().height:window.innerHeight);
+      var litMeasure=function(){ litVh=(litPin?litPin.getBoundingClientRect().height:window.innerHeight); };
       var tick=function(){
-        var r=sec.getBoundingClientRect(), span=r.height-window.innerHeight;
+        var r=sec.getBoundingClientRect(), span=r.height-litVh;
         var p=span>0?(-r.top)/span:0;
         p=(p-0.06)/0.74;
         if(p<0)p=0; if(p>1)p=1;
@@ -794,7 +797,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         for(var i=0;i<spans.length;i++){ spans[i].classList.toggle('on', i<n); }
       };
       window.addEventListener('scroll',tick,{passive:true});
-      window.addEventListener('resize',tick);
+      window.addEventListener('resize',function(){litMeasure();tick();});
       tick();
     });
   }catch(e){}
@@ -891,13 +894,13 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var rel=Math.max(0,p-pTwenty)*span;
         var b=seg(p,pStart,pTwenty);
         var y=lerp(yHidden,y20,b)-rel;
-        stagePh.style.transform='translate3d(0,'+Math.round(y)+'px,0)';
+        stagePh.style.transform='translate3d(0,'+y.toFixed(2)+'px,0)';
 
         /* Meet SETL rides directly beneath the device, tucked behind its lower
            edge, so the phone passes over it rather than beside it. */
         var copyY=restTop+y+mPhH-TUCK;
         if(stageCp){
-          stageCp.style.transform='translate3d(-50%,'+Math.round(copyY)+'px,0)';
+          stageCp.style.transform='translate3d(-50%,'+copyY.toFixed(2)+'px,0)';
           stageCp.classList.toggle('on', copyY < box*0.94);
         }
 
@@ -909,7 +912,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         /* where the sticky pin currently sits, derived from the rect already
            read rather than measured again */
         var pinTop=Math.min(Math.max(0,r.top), r.bottom-box);
-        stageLp.style.transform='translate3d(-50%,'+Math.round(centreY-pinTop-mLpH/2)+'px,0)';
+        stageLp.style.transform='translate3d(-50%,'+(centreY-pinTop-mLpH/2).toFixed(2)+'px,0)';
       };
 
       var stageRaf=false;
@@ -1139,11 +1142,11 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var rel3=Math.max(0,pp-at20)*sp;
         var climb=s3Seg(pp,from,at20);
         var y3=(box*1.10-rest)+((box*0.80-rest)-(box*1.10-rest))*climb-rel3;
-        s3Ph.style.transform='translate3d(0,'+Math.round(y3)+'px,0)';
+        s3Ph.style.transform='translate3d(0,'+y3.toFixed(2)+'px,0)';
 
         var mid=Math.max(lock, rr.top+start)-rel3;
         var pinTop3=Math.min(Math.max(0,rr.top), rr.bottom-box);
-        s3Blk.style.transform='translate3d(-50%,'+Math.round(mid-pinTop3-m3BlkH/2)+'px,0)';
+        s3Blk.style.transform='translate3d(-50%,'+(mid-pinTop3-m3BlkH/2).toFixed(2)+'px,0)';
       };
 
       var s3Raf=false;
@@ -1242,11 +1245,11 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         var rel2=Math.max(0,pp-at20)*sp;
         var climb=s2Seg(pp,from,at20);
         var y2=(box*1.10-rest)+((box*0.80-rest)-(box*1.10-rest))*climb-rel2;
-        s2Ph.style.transform='translate3d(0,'+Math.round(y2)+'px,0)';
+        s2Ph.style.transform='translate3d(0,'+y2.toFixed(2)+'px,0)';
 
         var mid=Math.max(lock, rr.top+start)-rel2;
         var pinTop2=Math.min(Math.max(0,rr.top), rr.bottom-box);
-        s2Lp.style.transform='translate3d(-50%,'+Math.round(mid-pinTop2-m2LpH/2)+'px,0)';
+        s2Lp.style.transform='translate3d(-50%,'+(mid-pinTop2-m2LpH/2).toFixed(2)+'px,0)';
       };
 
       var s2Raf=false;
