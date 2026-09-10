@@ -1,0 +1,8 @@
+# https://www.setlsleep.com/
+User-agent: *
+Allow: /
+
+# Nothing here is private, but there is no value in indexing raw assets.
+Disallow: /assets/
+
+Sitemap: https://www.setlsleep.com/sitemap.xml
