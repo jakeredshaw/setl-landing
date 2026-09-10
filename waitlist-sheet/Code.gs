@@ -44,8 +44,28 @@ function doPost(e) {
   }
 }
 
-function doGet() {
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+
+  // ?action=count -> the real number of rows on the waitlist, as JSON.
+  // Used by the sign-up counter on the landing page. Counts data rows only,
+  // so the header row is excluded and an empty sheet returns 0.
+  if (p.action === 'count') {
+    try {
+      var rows = Math.max(0, sheet().getLastRow() - 1);
+      return json({ count: rows });
+    } catch (err) {
+      return json({ error: String(err) });
+    }
+  }
+
   return out('SETL waitlist endpoint is live.');
+}
+
+function json(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function sheet() {

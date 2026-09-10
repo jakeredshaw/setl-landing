@@ -107,6 +107,51 @@ h3{font-size:clamp(23px,6vw,34px)}
 .fnav a{font-size:13.5px;color:#8A8E9C;text-decoration:none;transition:color .2s ease}
 .fnav a:hover,.fnav a:focus-visible{color:#E9EBF2}
 .fmeta{margin:24px 0 0;color:#6C7080;font-size:12.5px}
+/* ---- moon collection ---- */
+.moons{padding-bottom:clamp(30px,7vw,54px)}
+.mrail{overflow:hidden;margin-top:clamp(22px,5vw,34px);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.mrail+.mrail{margin-top:clamp(14px,3vw,22px)}
+.mtrack{display:flex;gap:clamp(14px,3.2vw,26px);width:max-content;will-change:transform}
+.mtrack-a{animation:mrail-l 64s linear infinite}
+.mtrack-b{animation:mrail-r 78s linear infinite}
+@keyframes mrail-l{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@keyframes mrail-r{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
+.mrail:hover .mtrack{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.mtrack{animation:none}}
+.moon{margin:0;text-align:center;flex:0 0 auto;width:clamp(84px,20vw,112px)}
+.mdisc{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:1;
+  border-radius:50%;overflow:hidden;
+  background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.10),rgba(255,255,255,.02) 62%,transparent);
+  border:1px dashed rgba(255,255,255,.16)}
+.mdisc img{width:100%;height:100%;object-fit:contain;display:block;position:relative;z-index:2}
+.mdisc .mph{position:absolute;z-index:1;font-style:normal;font-size:15px;font-weight:600;
+  letter-spacing:.06em;color:rgba(255,255,255,.30)}
+.moon figcaption{margin-top:9px;display:block}
+.moon b{display:block;font-size:clamp(11px,2.7vw,12.5px);font-weight:600;color:#E9EBF2;
+  letter-spacing:-.01em;line-height:1.25}
+.moon span{display:block;margin-top:2px;font-size:clamp(9.5px,2.2vw,10.5px);
+  letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+
+/* live sign-up pill: same glass treatment as the nav, bottom centre */
+.livecount{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:200;
+  display:flex;align-items:center;gap:9px;height:34px;padding:0 14px;border-radius:100px;
+  background:rgba(18,18,22,.78);backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  border:1px solid rgba(255,255,255,.06);pointer-events:none;
+  opacity:0;transition:opacity .5s ease}
+.livecount.on{opacity:1}
+.lc-label{font-size:10.5px;letter-spacing:.10em;text-transform:uppercase;
+  color:rgba(255,255,255,.52);white-space:nowrap}
+.lc-num{display:flex;font-size:13.5px;font-weight:600;letter-spacing:.01em;color:#fff;
+  font-variant-numeric:tabular-nums}
+/* one reel per digit; the strip slides so the new digit drops in from above */
+.lc-d{display:inline-block;height:16px;overflow:hidden;width:.62em}
+.lc-d i{display:block;font-style:normal;line-height:16px;
+  transition:transform .45s cubic-bezier(.22,.8,.28,1)}
+.lc-sep{width:.28em;text-align:center}
+@media (prefers-reduced-motion:reduce){.lc-d i{transition:none}}
 .scrollcue{margin:9px auto 0;display:flex;justify-content:center;
   color:rgba(255,255,255,.5);pointer-events:none;transition:opacity .5s ease;
   animation:cuebob 2.6s ease-in-out infinite}
@@ -483,10 +528,14 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
         <svg class="wreath flip" viewBox="0 0 60 100" fill="currentColor" aria-hidden="true"><path d="M50 6 Q6 50 50 94" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="40.2" cy="7.0" rx="7.6" ry="3.1" transform="rotate(149.3 40.2 7.0)"/><ellipse cx="32.2" cy="17.4" rx="7.6" ry="3.1" transform="rotate(141.4 32.2 17.4)"/><ellipse cx="26.3" cy="28.0" rx="7.6" ry="3.1" transform="rotate(131.7 26.3 28.0)"/><ellipse cx="22.7" cy="38.9" rx="7.6" ry="3.1" transform="rotate(120.4 22.7 38.9)"/><ellipse cx="21.5" cy="50.0" rx="7.6" ry="3.1" transform="rotate(108.0 21.5 50.0)"/><ellipse cx="22.7" cy="61.1" rx="7.6" ry="3.1" transform="rotate(95.6 22.7 61.1)"/><ellipse cx="26.3" cy="72.0" rx="7.6" ry="3.1" transform="rotate(84.3 26.3 72.0)"/><ellipse cx="32.2" cy="82.6" rx="7.6" ry="3.1" transform="rotate(74.6 32.2 82.6)"/><ellipse cx="40.2" cy="93.0" rx="7.6" ry="3.1" transform="rotate(66.7 40.2 93.0)"/></svg>
       </div>
       <div class="count">
-        <div class="n">200,000+</div>
-        <div class="cap">POTENTIAL USERS</div>
+        <div class="n">100%</div>
+        <div class="cap">BETA TEST SUCCESS</div>
       </div>
     </div>
+    <div class="livecount" id="liveCount" aria-live="polite">
+    <span class="lc-label">Current sign-ups</span>
+    <span class="lc-num" id="lcNum"></span>
+  </div>
     <div class="scrollcue" id="scrollcue" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
@@ -642,6 +691,24 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   </div>
 </section>
 
+<!-- MOONS -->
+<section class="sec center moons" id="moons">
+  <div class="wrap">
+    <span class="tag rv">Moon collection</span>
+    <h2 class="rv mt-tag" style="max-width:16ch;margin-inline:auto">Every night you keep earns a moon.</h2>
+    <p class="sub rv mt-sub">Keep your bedtime and the moon for that night is yours. Miss it and you start the climb again.</p>
+  </div>
+  <div class="mrail rv" aria-label="Moons you can collect">
+    <div class="mtrack mtrack-a"><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-01.png" alt="First Light moon" loading="lazy" onerror="this.remove()"><em class="mph">01</em></span><figcaption><b>First Light</b><span>1 night</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-02.png" alt="Crescent moon" loading="lazy" onerror="this.remove()"><em class="mph">02</em></span><figcaption><b>Crescent</b><span>3 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-03.png" alt="Waxing moon" loading="lazy" onerror="this.remove()"><em class="mph">03</em></span><figcaption><b>Waxing</b><span>7 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-04.png" alt="Half Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">04</em></span><figcaption><b>Half Moon</b><span>14 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-05.png" alt="Gibbous moon" loading="lazy" onerror="this.remove()"><em class="mph">05</em></span><figcaption><b>Gibbous</b><span>21 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-06.png" alt="Full Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">06</em></span><figcaption><b>Full Moon</b><span>30 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-07.png" alt="Harvest moon" loading="lazy" onerror="this.remove()"><em class="mph">07</em></span><figcaption><b>Harvest</b><span>45 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-08.png" alt="Blood Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">08</em></span><figcaption><b>Blood Moon</b><span>60 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-09.png" alt="Blue Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">09</em></span><figcaption><b>Blue Moon</b><span>75 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-10.png" alt="Supermoon moon" loading="lazy" onerror="this.remove()"><em class="mph">10</em></span><figcaption><b>Supermoon</b><span>90 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-11.png" alt="Eclipse moon" loading="lazy" onerror="this.remove()"><em class="mph">11</em></span><figcaption><b>Eclipse</b><span>110 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-12.png" alt="Wolf Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">12</em></span><figcaption><b>Wolf Moon</b><span>130 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-13.png" alt="Snow Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">13</em></span><figcaption><b>Snow Moon</b><span>150 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-01.png" alt="First Light moon" loading="lazy" onerror="this.remove()"><em class="mph">01</em></span><figcaption><b>First Light</b><span>1 night</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-02.png" alt="Crescent moon" loading="lazy" onerror="this.remove()"><em class="mph">02</em></span><figcaption><b>Crescent</b><span>3 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-03.png" alt="Waxing moon" loading="lazy" onerror="this.remove()"><em class="mph">03</em></span><figcaption><b>Waxing</b><span>7 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-04.png" alt="Half Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">04</em></span><figcaption><b>Half Moon</b><span>14 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-05.png" alt="Gibbous moon" loading="lazy" onerror="this.remove()"><em class="mph">05</em></span><figcaption><b>Gibbous</b><span>21 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-06.png" alt="Full Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">06</em></span><figcaption><b>Full Moon</b><span>30 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-07.png" alt="Harvest moon" loading="lazy" onerror="this.remove()"><em class="mph">07</em></span><figcaption><b>Harvest</b><span>45 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-08.png" alt="Blood Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">08</em></span><figcaption><b>Blood Moon</b><span>60 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-09.png" alt="Blue Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">09</em></span><figcaption><b>Blue Moon</b><span>75 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-10.png" alt="Supermoon moon" loading="lazy" onerror="this.remove()"><em class="mph">10</em></span><figcaption><b>Supermoon</b><span>90 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-11.png" alt="Eclipse moon" loading="lazy" onerror="this.remove()"><em class="mph">11</em></span><figcaption><b>Eclipse</b><span>110 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-12.png" alt="Wolf Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">12</em></span><figcaption><b>Wolf Moon</b><span>130 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-13.png" alt="Snow Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">13</em></span><figcaption><b>Snow Moon</b><span>150 nights</span></figcaption></figure></div>
+  </div>
+  <div class="mrail rv" aria-hidden="true">
+    <div class="mtrack mtrack-b"><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-14.png" alt="Worm Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">14</em></span><figcaption><b>Worm Moon</b><span>175 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-15.png" alt="Pink Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">15</em></span><figcaption><b>Pink Moon</b><span>200 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-16.png" alt="Flower Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">16</em></span><figcaption><b>Flower Moon</b><span>225 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-17.png" alt="Strawberry Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">17</em></span><figcaption><b>Strawberry Moon</b><span>250 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-18.png" alt="Buck Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">18</em></span><figcaption><b>Buck Moon</b><span>275 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-19.png" alt="Sturgeon Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">19</em></span><figcaption><b>Sturgeon Moon</b><span>300 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-20.png" alt="Corn Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">20</em></span><figcaption><b>Corn Moon</b><span>325 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-21.png" alt="Hunter's Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">21</em></span><figcaption><b>Hunter's Moon</b><span>350 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-22.png" alt="Beaver Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">22</em></span><figcaption><b>Beaver Moon</b><span>365 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-23.png" alt="Cold Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">23</em></span><figcaption><b>Cold Moon</b><span>400 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-24.png" alt="Black Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">24</em></span><figcaption><b>Black Moon</b><span>450 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-25.png" alt="Void Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">25</em></span><figcaption><b>Void Moon</b><span>500 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-14.png" alt="Worm Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">14</em></span><figcaption><b>Worm Moon</b><span>175 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-15.png" alt="Pink Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">15</em></span><figcaption><b>Pink Moon</b><span>200 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-16.png" alt="Flower Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">16</em></span><figcaption><b>Flower Moon</b><span>225 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-17.png" alt="Strawberry Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">17</em></span><figcaption><b>Strawberry Moon</b><span>250 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-18.png" alt="Buck Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">18</em></span><figcaption><b>Buck Moon</b><span>275 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-19.png" alt="Sturgeon Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">19</em></span><figcaption><b>Sturgeon Moon</b><span>300 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-20.png" alt="Corn Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">20</em></span><figcaption><b>Corn Moon</b><span>325 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-21.png" alt="Hunter's Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">21</em></span><figcaption><b>Hunter's Moon</b><span>350 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-22.png" alt="Beaver Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">22</em></span><figcaption><b>Beaver Moon</b><span>365 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-23.png" alt="Cold Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">23</em></span><figcaption><b>Cold Moon</b><span>400 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-24.png" alt="Black Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">24</em></span><figcaption><b>Black Moon</b><span>450 nights</span></figcaption></figure><figure class="moon"><span class="mdisc"><img src="assets/moons/moon-25.png" alt="Void Moon moon" loading="lazy" onerror="this.remove()"><em class="mph">25</em></span><figcaption><b>Void Moon</b><span>500 nights</span></figcaption></figure></div>
+  </div>
+  <div class="wrap">
+    <p class="sub rv mt-sub" style="margin-top:clamp(22px,5vw,34px)">Twenty five to collect. The last one takes five hundred nights.</p>
+  </div>
+</section>
+
 <!-- BRIDGE -->
 <section class="sec center">
   <div class="wrap">
@@ -758,6 +825,61 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   var revealAll=function(){ Array.prototype.forEach.call(document.querySelectorAll('.rv'),function(el){el.classList.add('in')}); };
   setTimeout(revealAll,1500);
   window.addEventListener('load',function(){ setTimeout(revealAll,400); });
+
+  /* Live sign-up counter.
+     The number shown is real: LC_OFFSET is the count already held outside
+     the Sheet (set it to the true figure, or 0), and the rest comes from
+     the waitlist endpoint. Nothing here invents growth on a timer - the
+     digits only move when the real total moves. */
+  try{
+    var lcEl=document.getElementById('lcNum'), lcBox=document.getElementById('liveCount');
+    if(lcEl&&lcBox){
+      var LC_OFFSET=0;              /* <- set to your real off-Sheet total */
+      var LC_POLL=30000;            /* re-check every 30s */
+      var lcShown=null;
+      var lcRender=function(total){
+        var str=total.toLocaleString('en-GB');
+        if(lcShown===null){
+          lcEl.innerHTML='';
+          for(var i=0;i<str.length;i++){
+            var ch=str[i];
+            if(ch<'0'||ch>'9'){
+              var sep=document.createElement('span');
+              sep.className='lc-sep'; sep.textContent=ch; lcEl.appendChild(sep);
+            }else{
+              var d=document.createElement('span'); d.className='lc-d';
+              var strip=document.createElement('i');
+              strip.textContent='0123456789'.split('').join('\n');
+              strip.style.whiteSpace='pre';
+              strip.style.transform='translateY('+(-16*(+ch))+'px)';
+              d.appendChild(strip); lcEl.appendChild(d);
+            }
+          }
+          lcBox.classList.add('on');
+        }else{
+          var digits=lcEl.querySelectorAll('.lc-d'), k=0;
+          for(var j=0;j<str.length;j++){
+            var c=str[j];
+            if(c>='0'&&c<='9'&&digits[k]){
+              digits[k].firstChild.style.transform='translateY('+(-16*(+c))+'px)';
+              k++;
+            }
+          }
+        }
+        lcShown=total;
+      };
+      var lcFetch=function(){
+        fetch(ENDPOINT+'?action=count',{method:'GET'})
+          .then(function(r){return r.json()})
+          .then(function(d){
+            if(d&&typeof d.count==='number') lcRender(LC_OFFSET+d.count);
+          })
+          .catch(function(){});
+      };
+      lcFetch();
+      setInterval(lcFetch,LC_POLL);
+    }
+  }catch(e){}
 
   /* hide the scroll cue once they've taken the hint */
   try{
