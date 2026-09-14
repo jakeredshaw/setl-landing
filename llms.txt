@@ -1,0 +1,37 @@
+# SETL: Focus on Life.
+
+> SETL (pronounced settle) is an iPhone app blocker built bedtime first. SETL Sleep blocks chosen distracting apps automatically at bedtime every night; SETL Sessions blocks them on demand for daytime focus; SETL Plans schedules nights off. Built in the UK by founder Jacob Redshaw. Pricing: $39.99 a year ($3.33 a month), $5.99 a month or $2.99 a week. Free nights: 7 on yearly, 3 on monthly, 1 on weekly. iPhone only.
+
+Also searched as: SETL Sleep, setl, settle sleep, SETL app blocker.
+
+In SETL's 2026 beta, testers reported an average of 4 hours 3 minutes less screen time a day (about 3 hours by day, 1 hour at night).
+
+## Product pages
+- [SETL Sleep](https://www.setlsleep.com/setl-sleep.html)
+- [SETL Sessions](https://www.setlsleep.com/setl-sessions.html)
+- [App blocker for iPhone](https://www.setlsleep.com/app-blocker.html)
+- [Screen time blocker](https://www.setlsleep.com/screen-time-blocker.html)
+- [Apple Screen Time alternative](https://www.setlsleep.com/apple-screen-time-alternative.html)
+- [SETL vs Opal](https://www.setlsleep.com/setl-vs-opal.html)
+- [Pricing](https://www.setlsleep.com/pricing.html)
+- [About SETL and its founder](https://www.setlsleep.com/about.html)
+- [Mission](https://www.setlsleep.com/mission.html)
+
+## Guides
+- [How to stop scrolling in bed: 7 fixes that actually work](https://www.setlsleep.com/blog/how-to-stop-scrolling-in-bed.html): Can't stop scrolling in bed? Seven evidence-based ways to cut screen time at night that don't rely on willpower, from the team behind SETL.
+- [The best app blocker for sleep in 2026](https://www.setlsleep.com/blog/best-app-blocker-for-sleep.html): What makes the best app blocker for sleep? How screen blocker apps work on iPhone, and how Apple Downtime, Opal, Sunbreak and SETL compare.
+- [What is an app blocker, and how does it work?](https://www.setlsleep.com/blog/what-is-an-app-blocker.html): An app blocker stops you opening chosen apps at set times. Here's how app blockers work on iPhone with Apple's Screen Time API and what to look for.
+- [Screen Time limits not working? Why they are easy to ignore, and how to make them stick](https://www.setlsleep.com/blog/screen-time-limits-not-working.html): Screen Time limits not working? By default Apple lets you skip them. Here is why, the settings that make limits stick, and when an app blocker helps.
+- [How to use Downtime on iPhone for sleep, including the iOS 27 changes](https://www.setlsleep.com/blog/how-to-use-downtime-on-iphone.html): How to set up Downtime on iPhone step by step, what it does and does not block at night, where it went in iOS 27, and how it compares with Sleep Focus.
+- [How to reduce screen time on iPhone: 8 practical methods](https://www.setlsleep.com/blog/how-to-reduce-screen-time-on-iphone.html): Eight practical ways to reduce screen time on iPhone, from your Screen Time report and app limits to grayscale, Focus and app blockers, with sources.
+- [The best screen time apps for iPhone in 2026](https://www.setlsleep.com/blog/best-screen-time-apps-for-iphone.html): The best screen time apps for iPhone in 2026 compared: Apple Screen Time, Opal, one sec, ScreenZen, Brick, Sunbreak and SETL, with prices and platforms.
+- [Opal alternatives: 6 apps like Opal, compared honestly](https://www.setlsleep.com/blog/opal-alternatives.html): Looking for Opal alternatives? Compare 6 apps like Opal on price, platform and bedtime blocking, from free Apple Screen Time to one sec, Brick and SETL.
+- [Bedtime procrastination: why you stay up late, and how to stop](https://www.setlsleep.com/blog/bedtime-procrastination.html): Bedtime procrastination means going to bed later than you meant to when nothing is stopping you. Here is what research says and how to break the habit.
+- [How to stop doomscrolling, especially at night](https://www.setlsleep.com/blog/how-to-stop-doomscrolling.html): Doomscrolling is endlessly scrolling through bad news. See why feeds are so hard to put down, what research links it to, and 9 practical fixes to try.
+- [Phone addiction: the signs, and how to break the habit](https://www.setlsleep.com/blog/phone-addiction-signs.html): Phone addiction is not a formal diagnosis, but problematic smartphone use is real. Learn the signs researchers look for and practical ways to cut back.
+- [Why apps are addictive: the design tricks that keep you hooked](https://www.setlsleep.com/blog/why-apps-are-addictive.html): Why apps are addictive comes down to design: infinite scroll, variable rewards, notifications, autoplay, streaks and likes. Here is how each one works.
+- [App blocker for ADHD: does blocking apps actually help?](https://www.setlsleep.com/blog/app-blocker-for-adhd.html): Can an app blocker for ADHD help? What research says about ADHD, phone use and sleep, why removing the option beats willpower, and how to set one up.
+- [How much screen time is too much for adults?](https://www.setlsleep.com/blog/how-much-screen-time-is-too-much.html): How much screen time is too much? There is no official adult limit. See UK averages from Ofcom and judge your own use by what it pushes out of your day.
+- [Does grayscale reduce screen time? What the studies show](https://www.setlsleep.com/blog/does-grayscale-reduce-screen-time.html): Does grayscale reduce screen time? Two studies found drops of about 20 to 38 minutes a day. See what the research shows and how to turn it on for iPhone.
+- [Does it really take 23 minutes to refocus?](https://www.setlsleep.com/blog/does-it-take-23-minutes-to-refocus.html): The '23 minutes to refocus' figure is everywhere. Where it really comes from, what the research found, and what it means for focus.
+- [Screens, melatonin and sleep: what your phone does after dark](https://www.setlsleep.com/blog/screens-melatonin-and-sleep.html): How screen time at night affects melatonin, your body clock and sleep, and what screens really do to your eyes. Sourced and plainly explained.

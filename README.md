@@ -177,3 +177,9 @@ It rewrites `about.html`, `mission.html`, `pricing.html`, `setl-vs-opal.html`,
 structured data. Shared styles live in `assets/site.css`, behaviour in
 `assets/site.js`. The homepage (`index.html`) is separate and hand-maintained.
 When adding a page, also add it to `sitemap.xml`.
+
+## SEO content system
+- `python3 tools/build_pages.py` builds every content page, the keyword landing pages, blog posts, `sitemap.xml` and `llms.txt`.
+- New blog posts: add `tools/posts/<slug>.py` following `tools/posts/BRIEF.md`, then run `python3 tools/posts/check.py tools/posts/<slug>.py`.
+- `python3 tools/audit_seo.py` checks titles, descriptions, h1, FAQ schema, internal links and dashes on every page.
+- `SHOW_BETA` in `tools/build_pages.py` turns the beta screen time figures on or off site wide.
