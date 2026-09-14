@@ -164,3 +164,16 @@ public. See `no-invented-proof` in the project notes.
 python3 -m http.server 8000
 ```
 Then open http://localhost:8000
+
+## Content pages (about, mission, pricing, SETL vs Opal, blog)
+
+These are generated, not hand-written. Edit copy, prices or sources in
+`tools/build_pages.py`, then run:
+
+    python3 tools/build_pages.py
+
+It rewrites `about.html`, `mission.html`, `pricing.html`, `setl-vs-opal.html`,
+`404.html` and everything in `blog/`, all sharing one nav, footer and set of
+structured data. Shared styles live in `assets/site.css`, behaviour in
+`assets/site.js`. The homepage (`index.html`) is separate and hand-maintained.
+When adding a page, also add it to `sitemap.xml`.
