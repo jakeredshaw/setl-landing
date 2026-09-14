@@ -66,3 +66,11 @@
     }else{ run(); }
   }
 })();
+
+/* close the nav Menu on outside click, Escape, or choosing a link */
+(function(){
+  var m=document.querySelector('.nav details.nmenu'); if(!m) return;
+  document.addEventListener('click',function(e){ if(m.open&&!m.contains(e.target)) m.open=false; });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') m.open=false; });
+  m.addEventListener('click',function(e){ if(e.target.closest('a')) m.open=false; });
+})();

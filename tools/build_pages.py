@@ -36,6 +36,8 @@ SRC = {
  "aaodev": ("American Academy of Ophthalmology, Digital Devices and Your Eyes",
             "https://www.aao.org/eye-health/tips-prevention/digital-devices-your-eyes"),
  "opal": ("Opal, pricing page (US prices)", "https://www.opalapp.com/pricing"),
+ "opalstore": ("Opal on the US App Store", "https://apps.apple.com/us/app/opal-screen-time-for-focus/id1497465230"),
+ "opalsleep": ("Opal Help, How do I use Sleep Mode?", "https://opalapp.com/help/how-do-i-use-sleep-mode"),
  "lally": ("Lally et al., European Journal of Social Psychology, 2010",
            "https://onlinelibrary.wiley.com/doi/abs/10.1002/ejsp.674"),
  "sunbreak": ("Sunbreak on the UK App Store", "https://apps.apple.com/gb/app/sunbreak-nightly-app-blocker/id6752121964"),
@@ -84,6 +86,9 @@ def faq_ld(faqs):
     return {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer":
             {"@type": "Answer", "text": _re.sub(r"<[^>]+>", "", a)}} for q, a in faqs]}
 
+MENU_LINKS = [("/setl-sleep.html", "SETL Sleep"), ("/setl-sessions.html", "SETL Sessions"), ("/app-blocker.html", "App blocker"),
+              ("/pricing.html", "Pricing"), ("/setl-vs-opal.html", "SETL vs Opal"), ("/blog/", "Blog"), ("/about.html", "About"),
+              ("/mission.html", "Mission"), ("/#get", "Join the waitlist")]
 NAV_LINKS = [("/app-blocker.html", "App blocker"), ("/blog/", "Blog"), ("/pricing.html", "Pricing"), ("/about.html", "About")]
 PRODUCT_LINKS = [("/setl-sleep.html", "SETL Sleep"), ("/setl-sessions.html", "SETL Sessions"),
                  ("/app-blocker.html", "App blocker for iPhone"), ("/screen-time-blocker.html", "Screen time blocker"),
@@ -92,13 +97,12 @@ PRODUCT_LINKS = [("/setl-sleep.html", "SETL Sleep"), ("/setl-sessions.html", "SE
 def nav(current):
     links = "".join('<a href="%s"%s>%s</a>' % (h, ' aria-current="page"' if h == current else "", t) for h, t in NAV_LINKS)
     menu = "".join('<a href="%s">%s</a>' % (h, t) for h, t in
-                   [("/setl-sleep.html", "SETL Sleep"), ("/setl-sessions.html", "SETL Sessions")] + NAV_LINKS +
-                   [("/mission.html", "Mission"), ("/setl-vs-opal.html", "SETL vs Opal"), ("/", "Join the waitlist")])
+                   MENU_LINKS)
     return ('<header class="nav" role="banner">'
             '<a class="brand" href="/" aria-label="SETL home"><img class="ic" src="/assets/nav-ic.png" alt="" width="23" height="25">'
             '<img class="wm" src="/assets/nav-wm.png" alt="SETL" width="56" height="11"></a>'
-            '<nav class="links" aria-label="Primary">%s<a class="try" href="/">Join waitlist</a></nav>'
-            '<details><summary>Menu</summary><nav class="menu" aria-label="Menu">%s</nav></details>'
+            '<div class="navr"><nav class="links" aria-label="Primary">%s</nav>'
+            '<details class="nmenu"><summary>Menu</summary><nav class="menu" aria-label="Menu">%s</nav></details></div>'
             '</header>') % (links, menu)
 
 FOOT = ('<footer class="foot"><div class="wrap">'
@@ -158,7 +162,7 @@ def page(path, title, desc, body, current="", ld=None, body_class="", og_type="w
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=2">
+<link rel="stylesheet" href="/assets/site.css?v=3">
 {extra_head}<script type="application/ld+json">{ld}</script>
 </head>
 <body{bc}>
@@ -168,7 +172,7 @@ def page(path, title, desc, body, current="", ld=None, body_class="", og_type="w
 {body}
 </main>
 {foot}
-<script src="/assets/site.js?v=1" defer></script>
+<script src="/assets/site.js?v=2" defer></script>
 </body>
 </html>
 """.format(title=html.escape(title), desc=html.escape(desc), url=url, site=SITE, og_type=og_type,
@@ -412,20 +416,25 @@ built.append(page("pricing.html",
 # =====================================================================
 # SETL vs OPAL
 # =====================================================================
+# status per cell: ok (green), mid (amber), no (red). SETL cells are never "no".
 rows = [
- ("Built around", "Bedtime first, then your day", "Daytime focus, with a Sleep Mode"),
- ("Price per year", "$39.99", "$99.99 (Pro)"),
- ("Price per month", "$5.99", "$19.99 (Pro)"),
- ("Lifetime plan", '<span class="no">No</span>', "$399"),
- ("Free option", "7 nights free on yearly, 3 on monthly, 1 on weekly", "Free plan with 1 rule, plus free trials"),
- ("Automatic night blocking", '<span class="yes">Yes</span>', '<span class="yes">Yes</span>, Sleep Mode'),
- ("Daytime focus sessions", '<span class="yes">Yes</span>, SETL Sessions', '<span class="yes">Yes</span>'),
- ("Plan nights off in advance", '<span class="yes">Yes</span>, SETL Plans', "Schedules"),
- ("Hours left until morning", '<span class="yes">Yes</span>, Sleep Reserve widget', "Not a core feature"),
- ("iPhone", '<span class="yes">Yes</span>', '<span class="yes">Yes</span>'),
- ("Android and Mac", '<span class="no">Not yet</span>', '<span class="yes">Yes</span>'),
+ ("Built around", ("ok", "Bedtime first, then your day"), ("ok", "Daytime focus, with a Sleep Mode")),
+ ("Price per year", ("ok", "$39.99"), ("no", "$99.99 for Pro")),
+ ("Price per month", ("ok", "$5.99"), ("no", "$19.99 for Pro")),
+ ("Free to start", ("ok", "7 nights free on yearly"), ("ok", "Free plan with 1 rule")),
+ ("Automatic bedtime blocking", ("ok", "Yes, every night"), ("ok", "Yes, Sleep Mode")),
+ ("Daytime focus sessions", ("ok", "Yes, SETL Sessions"), ("ok", "Yes, focus sessions")),
+ ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("ok", "Yes, with schedules")),
+ ("Sleep left, on your Lock Screen", ("ok", "Yes, Sleep Reserve"), ("no", "Not listed")),
+ ("Private by design", ("ok", "Screen Time data stays on iPhone"), ("ok", "Browsing data stays on device")),
+ ("Devices", ("mid", "iPhone"), ("ok", "iPhone, Android and Mac")),
 ]
-tbl = "".join('<tr><th scope="row">%s</th><td class="us">%s</td><td>%s</td></tr>' % r for r in rows)
+MARK = {"ok": "Yes", "mid": "Partly", "no": "No"}
+def vs_cell(who, st, txt, us=False):
+    return ('<div class="vcell%s"><span class="vwho">%s</span><i class="vdot %s" role="img" aria-label="%s"></i>'
+            '<span class="vtxt">%s</span></div>') % (" us" if us else "", who, st, MARK[st], txt)
+tbl = "".join('<div class="vrow rv"><p class="vlbl">%s</p>%s%s</div>' % (lbl, vs_cell("SETL", a[0], a[1], True), vs_cell("Opal", b[0], b[1]))
+              for lbl, a, b in rows)
 VS_FAQ = [
  ("Is SETL a good Opal alternative?", "If your screen time problem is worst at night, yes. SETL is an app blocker built bedtime first, with daytime focus sessions, for $39.99 a year against Opal Pro's $99.99."),
  ("What is the difference between SETL and Opal?", "Opal is a focus app for iPhone, Android and Mac with a Sleep Mode. SETL is iPhone only and built around bedtime, with SETL Plans for nights off and a Sleep Reserve widget."),
@@ -440,17 +449,18 @@ vs_body = """<section class="hero center"><div class="narrow">
 <p class="lead rv d2">Opal is built for your workday. SETL is built for your bedtime, at less than half the price.</p>
 </div></section>
 <section style="padding-bottom:clamp(64px,11vw,110px)"><div class="wrap">
-<div class="tablewrap rv"><table class="cmp">
-<caption class="fn" style="caption-side:bottom;text-align:left;padding:14px 20px">Opal details from %s, checked September 2026. SETL prices are launch prices.</caption>
-<thead><tr><th scope="col"></th><th scope="col">SETL</th><th scope="col">Opal</th></tr></thead>
-<tbody>%s</tbody></table></div>
+<div class="vs2" role="table" aria-label="SETL vs Opal comparison">
+<div class="vhead" aria-hidden="true"><span></span><b class="us">SETL</b><b>Opal</b></div>
+%s
+</div>
+<p class="fn center" style="margin-top:18px">Opal details from %s, its App Store listing and help centre, checked September 2026. SETL prices are launch prices.</p>
 </div></section>
 <section class="sec"><div class="wrap">
 <div class="grid g2">
 <div class="card rv"><span class="n">CHOOSE SETL IF</span><h3>Your problem starts at bedtime.</h3>
 <p>You lose evenings to your phone, want it locked at night, and want to pay $39.99 a year.</p></div>
 <div class="card rv d1"><span class="n">CHOOSE OPAL IF</span><h3>You need Mac or Android.</h3>
-<p>You want one blocker across a laptop and phone, a free plan, or a one off lifetime licence.</p></div>
+<p>You want one blocker across Android, Mac and iPhone, a free plan, or a one off $399 lifetime licence.</p></div>
 </div>
 </div></section>
 <section class="sec"><div class="narrow">
@@ -464,7 +474,7 @@ vs_body = """<section class="hero center"><div class="narrow">
 <div class="sources"><h2>Sources</h2><ol><li id="s1">%s</li><li id="s2">%s</li><li>%s</li><li>%s</li></ol></div>
 <p class="fn" style="margin-top:18px">Opal is a registered trademark of Opal OS Corporation. SETL is not affiliated with, endorsed by or sponsored by Opal. Product names are used only to identify and compare products.</p>
 </div></section>
-%s""" % (src("opal", "Opal's pricing page"), tbl, src("norway"), src("aasm"), src("opal"), src("opaltm"), CTA)
+%s""" % (tbl, src("opal", "Opal's pricing page"), src("norway"), src("aasm"), src("opal"), src("opaltm"), CTA)
 built.append(page("setl-vs-opal.html",
   "SETL vs Opal (2026): The Cheaper Opal Alternative",
   "SETL vs Opal compared: price, night blocking, focus sessions and devices. An honest look at the Opal alternative built for bedtime, 60% cheaper.",
