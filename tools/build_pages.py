@@ -13,7 +13,7 @@ AUTHOR = "Jacob Redshaw"
 
 ORG = {"@type": "Organization", "@id": SITE + "/#org", "name": "SETL", "url": SITE + "/",
        "logo": SITE + "/assets/icon-512.png", "slogan": "Focus on Life.",
-       "sameAs": []}
+       "sameAs": ["https://www.instagram.com/setl.sleep/"]}
 
 # ---------- verified sources (checked 2026-09-14) ----------
 SRC = {
@@ -116,7 +116,7 @@ FOOT = ('<footer class="foot"><div class="wrap">'
         '<nav aria-label="Products">' + "".join('<a href="%s">%s</a>' % l for l in PRODUCT_LINKS) + '</nav>'
         '<nav aria-label="Footer">'
         '<a href="/">Home</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a>'
-        '<a href="/about.html">About</a><a href="/founder-story.html">Founder story</a><a href="/mission.html">Mission</a><a href="/privacy.html">Privacy</a>'
+        '<a href="/about.html">About</a><a href="/founder-story.html">Founder story</a><a href="/mission.html">Mission</a><a href="/privacy.html">Privacy</a><a href="https://www.instagram.com/setl.sleep/" rel="noopener" target="_blank">Instagram</a>'
         '</nav>'
         '<p class="meta">&copy; <span data-year>2026</span> SETL. Built in the UK.</p>'
         '</div></footer>')
@@ -1318,7 +1318,8 @@ llms = ["# SETL: Focus on Life.", "",
  "> SETL (pronounced settle) is an iPhone app blocker built bedtime first. SETL Sleep blocks chosen distracting apps automatically "
  "at bedtime every night; SETL Sessions blocks them on demand for daytime focus; SETL Plans schedules nights off. Built in the UK "
  "by founder Jacob Redshaw. Pricing: $39.99 a year ($3.33 a month), $5.99 a month or $2.99 a week. Free nights: 7 on yearly, 3 on monthly, 1 on weekly. iPhone only.", "",
- "Also searched as: SETL Sleep, setl, settle sleep, SETL app blocker.", ""]
+ "Also searched as: SETL Sleep, setl, settle sleep, SETL app blocker.", "",
+ "Instagram: https://www.instagram.com/setl.sleep/", ""]
 if SHOW_BETA:
     llms += ["In SETL's 2026 beta, testers reported an average of 4 hours 3 minutes less screen time a day (about 3 hours by day, 1 hour at night).", ""]
 llms += ["## Product pages"] + ["- [%s](%s)" % (t, SITE + h) for h, t in PRODUCT_LINKS] + [
