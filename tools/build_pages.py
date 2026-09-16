@@ -40,6 +40,11 @@ SRC = {
  "opalsleep": ("Opal Help, How do I use Sleep Mode?", "https://opalapp.com/help/how-do-i-use-sleep-mode"),
  "lally": ("Lally et al., European Journal of Social Psychology, 2010",
            "https://onlinelibrary.wiley.com/doi/abs/10.1002/ejsp.674"),
+ "onesec": ("one sec, official site", "https://one-sec.app/"),
+ "screenzen": ("ScreenZen, official site", "https://screenzen.co/"),
+ "brick": ("Brick, official site", "https://getbrick.com/"),
+ "brickfaq": ("Brick, FAQ", "https://getbrick.com/pages/faq"),
+ "sunbreaksite": ("Sunbreak, official site", "https://www.getsunbreak.com/"),
  "sunbreak": ("Sunbreak on the UK App Store", "https://apps.apple.com/gb/app/sunbreak-nightly-app-blocker/id6752121964"),
  "applest": ("Apple Support, Use Screen Time on your iPhone or iPad", "https://support.apple.com/en-us/108806"),
  "apple27": ("Apple, iPhone User Guide (iOS 27), Set Screen Time schedules and time allowances",
@@ -163,6 +168,7 @@ def page(path, title, desc, body, current="", ld=None, body_class="", og_type="w
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css?v=4">
+<link rel="alternate" type="application/rss+xml" title="SETL Blog" href="/feed.xml">
 {extra_head}<script type="application/ld+json">{ld}</script>
 </head>
 <body{bc}>
@@ -214,6 +220,27 @@ def table_sec(h2, head, rows, note):
     return ('<section class="sec"><div class="wrap"><div class="sec-head"><h2 class="rv">%s</h2></div>'
             '<div class="tablewrap rv"><table class="cmp"><thead><tr><th scope="col"></th><th scope="col">%s</th><th scope="col">%s</th></tr></thead>'
             '<tbody>%s</tbody></table></div><p class="fn" style="margin-top:14px">%s</p></div></section>') % (h2, head[0], head[1], t, note)
+
+COMPARISONS = [("/setl-vs-opal.html", "Opal"), ("/setl-vs-sunbreak.html", "Sunbreak"), ("/setl-vs-one-sec.html", "one sec"),
+               ("/setl-vs-screenzen.html", "ScreenZen"), ("/setl-vs-brick.html", "Brick"),
+               ("/apple-screen-time-alternative.html", "Apple Screen Time")]
+MARK = {"ok": "Yes", "mid": "Partly", "no": "No"}
+
+def vs_cell(who, st, txt, us=False):
+    return ('<div class="vcell%s"><span class="vwho">%s</span><i class="vdot %s" role="img" aria-label="%s"></i>'
+            '<span class="vtxt">%s</span></div>') % (" us" if us else "", who, st, MARK[st], txt)
+
+def vs_block(rival, rows, note):
+    body = "".join('<div class="vrow rv"><p class="vlbl">%s</p>%s%s</div>' %
+                   (lbl, vs_cell("SETL", a[0], a[1], True), vs_cell(rival, b[0], b[1])) for lbl, a, b in rows)
+    return ('<div class="vs2" role="table" aria-label="SETL compared with %s">'
+            '<div class="vhead" aria-hidden="true"><span></span><b class="us">SETL</b><b>%s</b></div>%s</div>'
+            '<p class="fn center" style="margin-top:18px">%s</p>') % (rival, rival, body, note)
+
+def compare_strip(current):
+    links = "".join('<a class="chip" href="%s">SETL vs %s</a>' % (h, t) for h, t in COMPARISONS if h != current)
+    return ('<section class="sec" style="padding-top:0"><div class="narrow center">'
+            '<p class="kicker rv">Compare SETL</p><div class="chips rv">%s</div></div></section>') % links
 
 FEATURES = [
  ("SETL SLEEP", "Blocks apps at bedtime", 'Set your bedtime once. Your chosen apps lock automatically every night. <a href="/setl-sleep.html">About SETL Sleep</a>.'),
@@ -551,12 +578,8 @@ rows = [
  ("Private by design", ("ok", "Screen Time data stays on iPhone"), ("ok", "Browsing data stays on device")),
  ("Devices", ("mid", "iPhone"), ("ok", "iPhone, Android and Mac")),
 ]
-MARK = {"ok": "Yes", "mid": "Partly", "no": "No"}
-def vs_cell(who, st, txt, us=False):
-    return ('<div class="vcell%s"><span class="vwho">%s</span><i class="vdot %s" role="img" aria-label="%s"></i>'
-            '<span class="vtxt">%s</span></div>') % (" us" if us else "", who, st, MARK[st], txt)
 tbl = "".join('<div class="vrow rv"><p class="vlbl">%s</p>%s%s</div>' % (lbl, vs_cell("SETL", a[0], a[1], True), vs_cell("Opal", b[0], b[1]))
-              for lbl, a, b in rows)
+              for lbl, a, b in rows)   # the Opal page keeps its own longer layout
 VS_FAQ = [
  ("Is SETL a good Opal alternative?", "If your screen time problem is worst at night, yes. SETL is an app blocker built bedtime first, with daytime focus sessions, for $39.99 a year against Opal Pro's $99.99."),
  ("What is the difference between SETL and Opal?", "Opal is a focus app for iPhone, Android and Mac with a Sleep Mode. SETL is iPhone only and built around bedtime, with SETL Plans for nights off and a Sleep Reserve widget."),
@@ -594,15 +617,148 @@ vs_body = """<section class="hero center"><div class="narrow">
 <p>Read <a href="/blog/best-app-blocker-for-sleep.html">how to choose the best app blocker for sleep</a>, or see <a href="/pricing.html">SETL pricing</a>.</p>
 </div>
 <div class="sources"><h2>Sources</h2><ol><li id="s1">%s</li><li id="s2">%s</li><li>%s</li><li>%s</li></ol></div>
-<p class="fn" style="margin-top:18px">Opal is a registered trademark of Opal OS Corporation. SETL is not affiliated with, endorsed by or sponsored by Opal. Product names are used only to identify and compare products.</p>
+<p class="fn" style="margin-top:18px" id="tm">Opal is a registered trademark of Opal OS Corporation. SETL is not affiliated with, endorsed by or sponsored by Opal. Product names are used only to identify and compare products.</p>
 </div></section>
-%s""" % (tbl, src("opal", "Opal's pricing page"), src("norway"), src("aasm"), src("opal"), src("opaltm"), CTA)
+%s%s""" % (tbl, src("opal", "Opal's pricing page"), src("norway"), src("aasm"), src("opal"), src("opaltm"), compare_strip("/setl-vs-opal.html"), CTA)
 built.append(page("setl-vs-opal.html",
   "SETL vs Opal (2026): The Cheaper Opal Alternative",
   "SETL vs Opal compared: price, night blocking, focus sessions and devices. An honest look at the Opal alternative built for bedtime, 60% cheaper.",
   vs_body, "", faq=VS_FAQ, faq_title="SETL vs Opal: FAQs",
   ld=[{"@type": "WebPage", "name": "SETL vs Opal", "url": SITE + "/setl-vs-opal.html"},
       crumbs_ld([("Home", "/"), ("SETL vs Opal", "/setl-vs-opal.html")])]))
+
+# =====================================================================
+# HEAD TO HEAD PAGES
+# =====================================================================
+def versus(slug, rival, title, desc, h1, lead, intro, rows, note, cards, faq, keys):
+    body = ("""<section class="hero center"><div class="narrow">
+<span class="eyebrow rv"><i></i>SETL vs %s</span>
+<h1 class="rv d1">%s</h1>
+<p class="lead rv d2">%s</p>
+<div class="btn-row rv d3"><a class="btn" href="/">Join the waitlist</a><a class="btn ghost" href="/pricing.html">See pricing</a></div>
+</div></section>
+<section class="sec" style="padding-top:clamp(8px,2vw,20px)"><div class="wrap">%s</div></section>
+""" % (rival, h1, lead, vs_block(rival, rows, note))
+      + prose_sec("How SETL and %s differ" % rival, intro, keys)
+      + cards_sec("Which one fits you", "", cards)
+      + compare_strip("/" + slug) + CTA)
+    built.append(page(slug, title, desc, body, "", faq=faq, faq_title="SETL vs %s: FAQs" % rival,
+      ld=[{"@type": "WebPage", "name": "SETL vs %s" % rival, "url": SITE + "/" + slug, "description": desc,
+           "isPartOf": {"@id": SITE + "/#site"}, "publisher": {"@id": SITE + "/#org"}},
+          crumbs_ld([("Home", "/"), ("SETL vs %s" % rival, "/" + slug)])]))
+
+versus("setl-vs-sunbreak.html", "Sunbreak",
+ "SETL vs Sunbreak: Two Bedtime App Blockers Compared",
+ "SETL vs Sunbreak compared: bedtime blocking, unlock times, accountability partners, daytime focus and price. Two iPhone app blockers built for sleep.",
+ "SETL vs Sunbreak", "Both block your apps at bedtime. They disagree about what happens next.",
+ """
+<p>Sunbreak and SETL are the two iPhone app blockers built around sleep rather than the workday, so this is the closest comparison on the site.</p>
+<p>Sunbreak locks your apps at bedtime and keeps them locked <strong>until sunrise at your location</strong>, and it can name a friend who gets an email automatically if you break your bedtime.<sup><a href="#s1">1</a></sup></p>
+<p>SETL blocks at the bedtime you set, then hands the day back to you with <a href="/setl-sessions.html">SETL Sessions</a> and books your nights off in advance with SETL Plans.</p>
+<p>One leans on social pressure. The other leans on removing the decision. Both beat willpower at midnight.</p>""",
+ [("Built for bedtime", ("ok", "Yes, night first"), ("ok", "Yes, night first")),
+  ("When apps unlock", ("ok", "The wake time you choose"), ("ok", "Sunrise at your location")),
+  ("Daytime focus blocks", ("ok", "Yes, SETL Sessions"), ("no", "Not listed")),
+  ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("no", "Not listed")),
+  ("Accountability partner", ("mid", "No. It stays between you and your phone"), ("ok", "Yes, a friend gets an email")),
+  ("Sleep left, on your Lock Screen", ("ok", "Yes, Sleep Reserve"), ("no", "Not listed")),
+  ("Price", ("ok", "$39.99 a year, 7 nights free"), ("mid", "Free with in app purchases, plan price not published")),
+  ("Devices", ("ok", "iPhone"), ("ok", "iPhone and iPad")),
+ ],
+ 'Sunbreak details from its own site and App Store listing, checked September 2026. SETL prices are launch prices.',
+ [("CHOOSE SETL IF", "You want your day covered too", 'You lose evenings and hours of the working day, and you want one app for both. <a href="/setl-sessions.html">See SETL Sessions</a>.'),
+  ("CHOOSE SUNBREAK IF", "Shame is your motivator", "You want a friend told automatically when you break bedtime, and you like waking with the sun."),
+  ("EITHER WAY", "Stop the midnight scroll", 'Both are far stronger at night than a limit you can wave away. <a href="/blog/best-app-blocker-for-sleep.html">Compare the field</a>.')],
+ [("Is SETL or Sunbreak better for sleep?", "Both block apps at bedtime. SETL adds daytime focus sessions and planned nights off; Sunbreak adds an accountability partner and unlocks at sunrise."),
+  ("Does SETL have an accountability partner?", "No. SETL keeps it between you and your phone by removing the decision at bedtime, rather than telling a friend afterwards."),
+  ("How much does Sunbreak cost?", "Sunbreak is listed on the App Store as free with in app purchases, and no plan price is published on its site, checked September 2026."),
+  ("How much does SETL cost?", 'SETL is $39.99 a year, $5.99 a month or $2.99 a week, with 7 nights free on the yearly plan. <a href="/pricing.html">See pricing</a>.'),
+  ("Do both work on iPhone only?", "SETL is iPhone only for now. Sunbreak is on iPhone and iPad, and says Android is on its roadmap.")],
+ ["sunbreaksite", "sunbreak"])
+
+versus("setl-vs-one-sec.html", "one sec",
+ "SETL vs one sec: Block Apps or Pause Before Them",
+ "SETL vs one sec compared: blocking apps at bedtime versus a breathing pause before each app opens. Features, platforms and price, checked 2026.",
+ "SETL vs one sec", "A pause before you open, or a door that is already closed.",
+ """
+<p>These two app blockers solve the same problem in opposite ways.</p>
+<p><strong>one sec</strong> interrupts the moment you open an app, with a breathing exercise or a prompt before it lets you through, and says its essentials are free.<sup><a href="#s1">1</a></sup></p>
+<p><strong>SETL</strong> does not wait for that moment. Your chosen apps are closed from your bedtime until morning, so at 1am there is nothing to breathe through.</p>
+<p>A pause is gentler. A block is stronger when you are tired. Read <a href="/blog/what-is-an-app-blocker.html">how app blockers work</a>.</p>""",
+ [("Main method", ("ok", "Blocks chosen apps outright"), ("ok", "Adds a pause before an app opens")),
+  ("Built around", ("ok", "Bedtime first, then your day"), ("ok", "The moment you reach for an app")),
+  ("Automatic every night", ("ok", "Yes, at your bedtime"), ("no", "Not its design")),
+  ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("no", "Not listed")),
+  ("Sleep left, on your Lock Screen", ("ok", "Yes, Sleep Reserve"), ("no", "Not listed")),
+  ("Free option", ("ok", "7 nights free on yearly"), ("ok", "Essentials are free")),
+  ("Price", ("ok", "$39.99 a year"), ("mid", "Individual price not published on its site")),
+  ("Devices", ("mid", "iPhone"), ("ok", "iPhone, Android and browser extensions")),
+ ],
+ 'one sec details from its own site, checked September 2026. SETL prices are launch prices.',
+ [("CHOOSE SETL IF", "The problem is the night", "You keep losing evenings, and you want the apps simply gone until morning."),
+  ("CHOOSE ONE SEC IF", "You want a gentler nudge", "You would rather be asked to think for a second than be shut out, and you need Android or a laptop too."),
+  ("WORTH KNOWING", "Friction and blocking differ", 'Friction slows a habit. Blocking removes the option. <a href="/blog/why-apps-are-addictive.html">Why that matters</a>.')],
+ [("Is SETL or one sec better?", "It depends on when you slip. one sec interrupts you as you open an app. SETL blocks your chosen apps completely from bedtime until morning."),
+  ("Is one sec free?", "one sec says its essentials are free, with paid features beyond that. Its site does not publish an individual price, checked September 2026."),
+  ("Does one sec block apps at bedtime?", "Its design is a pause at the moment you open an app rather than an automatic nightly block, which is what SETL Sleep does."),
+  ("Does SETL work on Android?", "Not yet. SETL is iPhone only for now, while one sec lists iPhone, Android and browser extensions."),
+  ("Can I use both?", "Yes. Some people use a pause during the day and a hard block at night, which is what SETL is built for.")],
+ ["onesec"])
+
+versus("setl-vs-screenzen.html", "ScreenZen",
+ "SETL vs ScreenZen: Free App Blocker or Built for Bed",
+ "SETL vs ScreenZen compared: a free cross platform screen time app against an iPhone app blocker built for bedtime. Features, price and who each suits.",
+ "SETL vs ScreenZen", "One is free on everything. One is built for the hour you lose.",
+ """
+<p><strong>ScreenZen</strong> is free. Its site calls it "the only free screen time app for iOS, macOS, Windows and Android", supported by donations, with waits before apps open, daily limits and scheduled blocks.<sup><a href="#s1">1</a></sup></p>
+<p>That is a genuinely strong offer, and if budget is the deciding factor you should try it.</p>
+<p><strong>SETL</strong> is paid, iPhone only, and narrower on purpose: everything in it exists to protect the hours around your bedtime, then your focus during the day.</p>
+<p>See where both sit among <a href="/blog/best-screen-time-apps-for-iphone.html">the best screen time apps for iPhone</a>.</p>""",
+ [("Price", ("ok", "$39.99 a year, 7 nights free"), ("ok", "Free, donation supported")),
+  ("Built around", ("ok", "Bedtime first, then your day"), ("ok", "Waits, limits and focus blocks")),
+  ("Automatic bedtime blocking", ("ok", "Yes, every night"), ("ok", "Yes, scheduled blocks")),
+  ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("no", "Not listed")),
+  ("Sleep left, on your Lock Screen", ("ok", "Yes, Sleep Reserve"), ("no", "Not listed")),
+  ("Rewards for keeping nights", ("ok", "Yes, the moon collection"), ("no", "Not listed")),
+  ("Devices", ("mid", "iPhone"), ("ok", "iOS, macOS, Windows and Android")),
+ ],
+ 'ScreenZen details from its own site, checked September 2026. SETL prices are launch prices.',
+ [("CHOOSE SETL IF", "Bedtime is the battle", "You want one app that guards the night, plans your exceptions, and makes keeping it feel like progress."),
+  ("CHOOSE SCREENZEN IF", "Price decides it", "You want a capable blocker at no cost, across a laptop and a phone."),
+  ("HONEST NOTE", "Free is hard to beat", 'Pay for SETL because the night matters most to you, not because free tools do nothing. <a href="/pricing.html">See what you get</a>.')],
+ [("Is ScreenZen really free?", "Yes. ScreenZen says it is completely free and donation supported, across iOS, macOS, Windows and Android, checked September 2026."),
+  ("Why pay for SETL if ScreenZen is free?", "Because SETL is built for one job: the hours around your bedtime, with planned nights off, a Sleep Reserve widget and rewards for nights you keep."),
+  ("Which is better for sleep?", "SETL is designed for bedtime first. ScreenZen can schedule blocks too, but its design covers screen time generally."),
+  ("Does ScreenZen work on iPhone?", "Yes, and also on macOS, Windows and Android. SETL is iPhone only for now."),
+  ("How much is SETL?", 'SETL is $39.99 a year, $5.99 a month or $2.99 a week, with 7 nights free on yearly. <a href="/pricing.html">See pricing</a>.')],
+ ["screenzen"])
+
+versus("setl-vs-brick.html", "Brick",
+ "SETL vs Brick: App Blocker App or Physical Device",
+ "SETL vs Brick compared: a $59 physical device you tap to block apps, against an iPhone app blocker that locks your apps at bedtime automatically.",
+ "SETL vs Brick", "One asks you to carry something. One asks you to decide once.",
+ """
+<p><strong>Brick</strong> is a small physical device. You choose your apps, tap your phone on the Brick to start a session, and your phone stays blocked until you physically tap it again. It costs <strong>$59.00</strong> and works with iPhones on iOS 17.0 or later and Android 12.0 or later.<sup><a href="#s1">1</a></sup></p>
+<p>Ending a block needs a rescan, and there is a Strict Mode plus a small number of emergency unlocks if you lose it.<sup><a href="#s2">2</a></sup></p>
+<p><strong>SETL</strong> needs nothing extra. You set your bedtime once and your apps close on their own, every night, with no object to remember or leave in another room.</p>""",
+ [("Hardware needed", ("ok", "None, just your iPhone"), ("mid", "Yes, a $59 device to carry")),
+  ("Starts by itself at bedtime", ("ok", "Yes, automatically"), ("no", "No, you tap to start a session")),
+  ("Cost", ("ok", "$39.99 a year, 7 nights free"), ("ok", "$59.00 one off")),
+  ("If you lose the thing", ("ok", "Nothing to lose"), ("mid", "A limited number of emergency unlocks")),
+  ("Daytime focus blocks", ("ok", "Yes, SETL Sessions"), ("ok", "Yes, tap to start")),
+  ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("no", "Not listed")),
+  ("Devices", ("mid", "iPhone"), ("ok", "iPhone and Android")),
+ ],
+ 'Brick details from its own site and FAQ, checked September 2026. SETL prices are launch prices.',
+ [("CHOOSE SETL IF", "You will not carry a gadget", "You want the block to happen whether or not you remember anything, every single night."),
+  ("CHOOSE BRICK IF", "You want real distance", "Leaving the unlock in another room genuinely helps you, and a one off payment suits you better."),
+  ("WORTH KNOWING", "They can work together", 'Brick covers deliberate sessions. SETL covers the night you were not planning to lose. <a href="/setl-sleep.html">See SETL Sleep</a>.')],
+ [("Is Brick better than an app blocker?", "Brick adds physical distance, which some people need. It only blocks when you tap it, so it does not cover the night you did not plan for."),
+  ("How much does Brick cost?", "Brick's site lists the device at $59.00 as a one off purchase, checked September 2026. SETL is $39.99 a year."),
+  ("Does Brick work with iPhone?", "Yes. Brick's site says it works with iPhones on iOS 17.0 or later and Android devices on 12.0 or later."),
+  ("What happens if I lose my Brick?", "Brick's FAQ describes a limited number of emergency unlocks. With SETL there is nothing to lose, because the block lives on your phone."),
+  ("Does SETL start blocking on its own?", "Yes. You set your bedtime once and SETL Sleep blocks your chosen apps automatically every night.")],
+ ["brick", "brickfaq"])
 
 # =====================================================================
 # BLOG POSTS
@@ -1136,6 +1292,28 @@ sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps
     for p, pr, f in urls) + "</urlset>\n"
 open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(sm)
 
+rss_items = "".join("""  <item>
+    <title>%s</title>
+    <link>%s</link>
+    <guid isPermaLink="true">%s</guid>
+    <description>%s</description>
+    <category>%s</category>
+    <pubDate>Mon, 14 Sep 2026 09:00:00 +0100</pubDate>
+  </item>
+""" % (html.escape(p["h1"]), SITE + "/blog/%s.html" % p["slug"], SITE + "/blog/%s.html" % p["slug"],
+       html.escape(p["desc"]), html.escape(p["tagline"])) for p in POSTS)
+open(os.path.join(ROOT, "feed.xml"), "w", encoding="utf-8").write("""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>SETL Blog</title>
+  <link>%s/blog/</link>
+  <atom:link href="%s/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Sourced guides to app blockers, screen time, sleep and focus, from SETL.</description>
+  <language>en-gb</language>
+%s</channel>
+</rss>
+""" % (SITE, SITE, rss_items))
+
 llms = ["# SETL: Focus on Life.", "",
  "> SETL (pronounced settle) is an iPhone app blocker built bedtime first. SETL Sleep blocks chosen distracting apps automatically "
  "at bedtime every night; SETL Sessions blocks them on demand for daytime focus; SETL Plans schedules nights off. Built in the UK "
@@ -1147,5 +1325,8 @@ llms += ["## Product pages"] + ["- [%s](%s)" % (t, SITE + h) for h, t in PRODUCT
  "- [Pricing](%s/pricing.html)" % SITE, "- [About SETL and its founder](%s/about.html)" % SITE, "- [Mission](%s/mission.html)" % SITE, "",
  "## Guides"] + ["- [%s](%s/blog/%s.html): %s" % (p["h1"], SITE, p["slug"], p["desc"]) for p in POSTS] + [""]
 open(os.path.join(ROOT, "llms.txt"), "w", encoding="utf-8").write("\n".join(llms))
+
+# IndexNow: tell Bing (and the engines behind several AI assistants) the moment a page changes.
+open(os.path.join(ROOT, "tools", "indexnow_urls.txt"), "w").write("\n".join([loc(p) for p, _, _ in urls]))
 
 print("built %d pages:" % len(built), *built, sep="\n  ")
