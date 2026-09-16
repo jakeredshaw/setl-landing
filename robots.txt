@@ -1,8 +1,7 @@
 # https://www.setlsleep.com/
+# Everything is crawlable, including the CSS, JS and images search engines need
+# to render the pages properly. AI crawlers are welcome too.
 User-agent: *
 Allow: /
-
-# Nothing here is private, but there is no value in indexing raw assets.
-Disallow: /assets/
 
 Sitemap: https://www.setlsleep.com/sitemap.xml
