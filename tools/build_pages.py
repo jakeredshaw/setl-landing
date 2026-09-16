@@ -107,11 +107,11 @@ def nav(current):
 
 FOOT = ('<footer class="foot"><div class="wrap">'
         '<img class="ic" src="/assets/nav-ic.png" alt="" width="46" height="50">'
-        '<p class="brandline">SETL</p><p class="tag">Focus on Life.</p>'
+        '<p class="brandline">SETL</p><p class="tag">Focus on Life.</p><p class="goalline">On a mission to give the world a billion hours back.</p>'
         '<nav aria-label="Products">' + "".join('<a href="%s">%s</a>' % l for l in PRODUCT_LINKS) + '</nav>'
         '<nav aria-label="Footer">'
         '<a href="/">Home</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a>'
-        '<a href="/about.html">About</a><a href="/mission.html">Mission</a><a href="/privacy.html">Privacy</a>'
+        '<a href="/about.html">About</a><a href="/founder-story.html">Founder story</a><a href="/mission.html">Mission</a><a href="/privacy.html">Privacy</a>'
         '</nav>'
         '<p class="meta">&copy; <span data-year>2026</span> SETL. Built in the UK.</p>'
         '</div></footer>')
@@ -162,7 +162,7 @@ def page(path, title, desc, body, current="", ld=None, body_class="", og_type="w
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=3">
+<link rel="stylesheet" href="/assets/site.css?v=4">
 {extra_head}<script type="application/ld+json">{ld}</script>
 </head>
 <body{bc}>
@@ -192,6 +192,38 @@ CTA = """<section class="cta-band"><div class="narrow">
 
 built = []
 SITEMAP = []
+
+def sources_block(keys, start=1):
+    return '<div class="sources"><h2>Sources</h2><ol start="%d">%s</ol></div>' % (start, "".join(
+        '<li id="s%d">%s</li>' % (i + start, src(k)) for i, k in enumerate(keys)))
+
+def prose_sec(h2, inner, keys=None, start=1):
+    """start: first footnote number, so two sourced sections on one page never share ids."""
+    return ('<section class="sec"><div class="narrow"><div class="sec-head"><h2 class="rv">%s</h2></div>'
+            '<div class="prose rv">%s</div>%s</div></section>') % (h2, inner, sources_block(keys, start) if keys else "")
+
+def cards_sec(h2, lead, cards, cols="g3"):
+    c = "".join('<div class="card rv%s"><span class="n">%s</span><h3>%s</h3><p>%s</p></div>' % (["", " d1", " d2"][i % 3], n, h, p)
+                for i, (n, h, p) in enumerate(cards))
+    return ('<section class="sec"><div class="wrap"><div class="sec-head%s"><h2 class="rv">%s</h2>%s</div>'
+            '<div class="grid %s">%s</div></div></section>') % (" center" if lead else "", h2,
+            ('<p class="lead rv d1">%s</p>' % lead) if lead else "", cols, c)
+
+def table_sec(h2, head, rows, note):
+    t = "".join('<tr><th scope="row">%s</th><td>%s</td><td class="us">%s</td></tr>' % r for r in rows)
+    return ('<section class="sec"><div class="wrap"><div class="sec-head"><h2 class="rv">%s</h2></div>'
+            '<div class="tablewrap rv"><table class="cmp"><thead><tr><th scope="col"></th><th scope="col">%s</th><th scope="col">%s</th></tr></thead>'
+            '<tbody>%s</tbody></table></div><p class="fn" style="margin-top:14px">%s</p></div></section>') % (h2, head[0], head[1], t, note)
+
+FEATURES = [
+ ("SETL SLEEP", "Blocks apps at bedtime", 'Set your bedtime once. Your chosen apps lock automatically every night. <a href="/setl-sleep.html">About SETL Sleep</a>.'),
+ ("SETL SESSIONS", "Blocks apps on demand", 'Pick the apps and how long, and get deep work in the day. <a href="/setl-sessions.html">About SETL Sessions</a>.'),
+ ("SETL PLANS", "Nights off, planned ahead", "Weddings, birthdays, night shifts. Book them weeks ahead and SETL steps aside."),
+ ("SLEEP RESERVE", "Your night in one number", "A Lock Screen widget that shows how much of the night is left for sleep."),
+ ("PRIVATE", "Nothing leaves your phone", "Apple gives SETL private tokens, so we never learn which apps you block."),
+ ("PRICE", "From $3.33 a month", 'Billed $39.99 a year, with 7 nights free. <a href="/pricing.html">See pricing</a>.'),
+]
+
 
 # =====================================================================
 # ABOUT
@@ -252,7 +284,7 @@ chapters = [
 <p>Not a perfect life. Just mornings that start on your side.</p>
 <p>The work gets done. The training happens. You are actually present for the people in front of you.</p>
 <p>That is what an early night gives you back. I want everyone to have it.</p>
-""", "Our goal is a billion bedtimes kept. We are starting with yours.",
+""", "Our goal is a billion hours given back. We are starting with tonight.",
  """<div class="signoff rv"><img src="/assets/nav-ic.png" alt="" width="46" height="46">
 <div><b>Jacob Redshaw</b><span>Founder, SETL</span></div></div>
 <div class="btn-row rv d1"><a class="btn" href="/">Join the waitlist</a><a class="btn ghost" href="/mission.html">Read our mission</a></div>""", "dawn"),
@@ -270,15 +302,68 @@ for i, (t, lbl, h2, prose, pull, extra, cls) in enumerate(chapters):
 
 ABOUT_FAQ = [
  ("What is SETL?", "SETL (say it like settle) is an iPhone app blocker built for bedtime. SETL Sleep locks your distracting apps at the time you set, and SETL Sessions blocks them during the day when you need to focus."),
- ("Who founded SETL?", "SETL was founded in the UK by Jacob Redshaw, a nine figure copywriter with ADHD who wrote for brands including JD Sports and Manchester United, and built SETL to stop his own night scrolling."),
- ("Why did a copywriter build an app blocker?", "Because he knew the psychology of attention from the inside. Knowing how apps hold you did not stop them working on him, so he built a screen time blocker that removes the choice at night."),
+ ("How does SETL work?", "SETL is built on Apple's Screen Time framework. You choose the apps and the times, and iOS blocks them for you. Nothing about your usage leaves your phone."),
+ ("Who is behind SETL?", "SETL is built in the UK by founder Jacob Redshaw, a nine figure copywriter with ADHD who spent his career on attention and now builds tools that give it back. <a href=\"/founder-story.html\">Read the founder story</a>."),
  ("Is SETL the same as settle sleep?", "Yes. SETL is pronounced settle, and many people search for it as settle sleep or SETL Sleep. SETL Sleep is the bedtime app blocker inside the SETL app."),
  ("Is SETL a medical app?", "No. SETL is a screen time and app blocking tool, not a treatment for ADHD, insomnia or any condition. Speak to your doctor about ongoing sleep problems."),
  ("Where is SETL based?", "SETL is built in the UK and launching on iPhone. <a href=\"/\">Join the waitlist</a> and get up to 7 nights free."),
 ]
-about_body = """<section class="story-hero"><div class="narrow">
+about_body = """<section class="hero center"><div class="narrow">
+<span class="eyebrow rv"><i></i>About SETL</span>
+<h1 class="rv d1">Built for the hardest hour of the day.</h1>
+<p class="lead rv d2">SETL is an iPhone app blocker built bedtime first. This is what it does, the research behind it, and who builds it.</p>
+<div class="btn-row rv d3"><a class="btn" href="/">Join the waitlist</a><a class="btn ghost" href="/pricing.html">See pricing</a></div>
+</div></section>
+""" + prose_sec("What is SETL?", """
+<p><strong>SETL</strong> (say it <em>settle</em>) is an app blocker for iPhone. You choose the apps that take your evenings, and you choose the time they close.</p>
+<p>After that, nothing is left to decide. Your apps lock themselves at bedtime, every night.</p>
+<p>It is built on Apple's Screen Time framework, so your usage never leaves your phone, and SETL never learns which apps you picked.</p>
+""") + cards_sec("Three tools, one app", "", [
+ ("SETL SLEEP", "Your night, protected", 'Your chosen apps close at bedtime, automatically. <a href="/setl-sleep.html">See SETL Sleep</a>.'),
+ ("SETL SESSIONS", "Your day, on demand", 'Pick the apps and the length, and focus properly. <a href="/setl-sessions.html">See SETL Sessions</a>.'),
+ ("SETL PLANS", "Real life, allowed", "Book the nights you want your apps open, weeks ahead."),
+]) + prose_sec("Why SETL exists", """
+<p>Half of US adults use a screen in bed every day, and 38% say it is making their sleep worse.<sup><a href="#s1">1</a></sup></p>
+<p>The cost is measurable. In a 2025 study of 45,202 students, each extra hour on a screen in bed was linked to about <strong>24 minutes less sleep</strong>.<sup><a href="#s2">2</a></sup></p>
+<p>None of that is a discipline problem. Feeds are built to keep going, and bedtime is when you have the least left to fight with.</p>
+<p>So SETL moves the decision earlier, into daylight, when you are thinking clearly. <a href="/mission.html">Read our mission</a>.</p>
+""", ["aasm", "norway"]) + beta_strip() + """
+<section class="sec"><div class="wrap"><div class="sec-head"><h2 class="rv">Who builds SETL</h2></div>
+<div class="founder rv">
+<img src="/assets/disc-classic.webp" alt="" width="120" height="120">
+<div>
+<b>Jacob Redshaw</b><span class="role">Founder, SETL. Built in the UK.</span>
+<p>I am a nine figure copywriter. My job was attention: find the line that stops a thumb, then hold it there. I know that psychology from the inside, and it still beat me every night.</p>
+<p>I have ADHD, and no amount of trying harder fixed my bedtime. So I built the thing that decides for me, and now I want to help other people step out of it too.</p>
+<a class="btn ghost" href="/founder-story.html">Read the full story</a>
+</div>
+</div></div></section>
+""" + cards_sec("What SETL will never do", "Three promises we hold ourselves to.", [
+ ("PRIVACY", "Sell or share your data", 'Apple gives SETL private tokens. We cannot see which apps you block. <a href="/privacy.html">Read the policy</a>.'),
+ ("HONESTY", "Invent a number", "Every statistic on this site links to its source. If we cannot source it, we do not say it."),
+ ("FAIRNESS", "Charge premium prices", 'Everything is included, for $39.99 a year. <a href="/setl-vs-opal.html">Compare us with Opal</a>.'),
+]) + CTA
+
+built.append(page("about.html",
+  "About SETL: The iPhone App Blocker Built for Bedtime",
+  "About SETL, the iPhone app blocker built bedtime first. What SETL Sleep and SETL Sessions do, the research behind them, and who builds it.",
+  about_body, "/about.html", faq=ABOUT_FAQ, faq_title="About SETL: common questions",
+  ld=[{"@type": "AboutPage", "name": "About SETL", "url": SITE + "/about.html",
+       "about": {"@id": SITE + "/#org"},
+       "mainEntity": {"@id": SITE + "/#org"}},
+      crumbs_ld([("Home", "/"), ("About", "/about.html")])]))
+
+# ---------------- FOUNDER STORY (the night, told as one scroll) ----------------
+FOUNDER_FAQ = [
+ ("Who founded SETL?", "SETL was founded by Jacob Redshaw in the UK. He is a nine figure copywriter with ADHD who spent his career writing copy designed to hold attention."),
+ ("Why did a copywriter build an app blocker?", "Because he knew exactly how apps hold you, and it still worked on him every night. Knowing the trick does not stop the trick."),
+ ("Why is SETL built for bedtime first?", "Because bedtime is when willpower is lowest and the cost is highest. A lost night takes the next day with it."),
+ ("Is the founder story medical advice?", "No. It is one person's experience. Speak to your doctor about sleep, ADHD or medication."),
+ ("How do you say SETL?", "Like settle. SETL Sleep sounds like settle sleep."),
+]
+founder_body = """<section class="story-hero"><div class="narrow">
 <img class="moon" src="/assets/disc-classic.webp" alt="" width="190" height="190">
-<span class="eyebrow rv"><i></i>Our story</span>
+<span class="eyebrow rv"><i></i>Founder story</span>
 <h1 class="rv d1" style="margin-top:22px">Built by someone who could not put his phone down.</h1>
 <p class="lead rv d2" style="margin:22px auto 0">The story behind SETL, told across one night. Keep scrolling and watch it get light.</p>
 <p class="scrollhint rv d3">22:30 to 06:30</p>
@@ -291,15 +376,15 @@ about_body = """<section class="story-hero"><div class="narrow">
 </div>
 </div>
 %s""" % (clock, chap_html, CTA)
-
-built.append(page("about.html",
-  "About SETL: The Founder Behind the Sleep App Blocker",
-  "Why SETL exists: a nine figure copywriter with ADHD who knew how apps keep you scrolling, and built a sleep app blocker to help you step out.",
-  about_body, "/about.html", body_class="story", faq=ABOUT_FAQ, faq_title="About SETL: common questions",
-  ld=[{"@type": "AboutPage", "name": "About SETL", "url": SITE + "/about.html",
-       "about": {"@id": SITE + "/#org"},
-       "mainEntity": {"@type": "Person", "name": AUTHOR, "jobTitle": "Founder", "description": "Founder of SETL and former copywriter for brands including JD Sports and Manchester United.", "nationality": "GB", "worksFor": {"@id": SITE + "/#org"}}},
-      crumbs_ld([("Home", "/"), ("About", "/about.html")])]))
+built.append(page("founder-story.html",
+  "SETL Founder Story: Why I Built an App Blocker",
+  "The SETL founder story, told across one night: ADHD, a career spent writing copy that holds attention, and the app blocker that came out of it.",
+  founder_body, "", body_class="story", faq=FOUNDER_FAQ, faq_title="The founder story: FAQs",
+  ld=[{"@type": "AboutPage", "name": "SETL founder story", "url": SITE + "/founder-story.html",
+       "mainEntity": {"@type": "Person", "name": AUTHOR, "jobTitle": "Founder", "nationality": "GB",
+                      "description": "Founder of SETL and a nine figure copywriter, formerly writing for brands including JD Sports and Manchester United.",
+                      "worksFor": {"@id": SITE + "/#org"}}},
+      crumbs_ld([("Home", "/"), ("About", "/about.html"), ("Founder story", "/founder-story.html")])]))
 
 # =====================================================================
 # MISSION
@@ -321,8 +406,24 @@ principles = [
  ("Build for real life.", "Weddings, night shifts, birthdays. Plan your nights off and SETL steps aside."),
 ]
 pr_html = "".join('<div class="principle rv"><h3>%s</h3><p>%s</p></div>' % (a, b) for a, b in principles)
+MANIFESTO = [
+ ("We are not short of time.", "We are short of attention. The hours are there. Something else is spending them."),
+ ("The pull is designed.", "A feed has no bottom and no natural place to stop. Somebody chose that, and it is working."),
+ ("Willpower is the wrong tool.", "It runs lowest exactly where you need it most: late, dark, tired, in bed."),
+ ("So we move the decision.", "Choose your bedtime in daylight, while you are thinking clearly, and let your phone keep the promise."),
+ ("Win the night, win the day.", "Sleep is not the reward for a good day. It is the reason you get one."),
+]
+man_html = "".join('<div class="stanza rv"><h3>%s</h3><p>%s</p></div>' % (a, b) for a, b in MANIFESTO)
+_yr = BETA_DAY_MIN * 365 / 60                      # hours one person wins back in a year, at the beta average
+GOAL_HOURS = 1000000000
+people = "{:,}".format(int(round(GOAL_HOURS / _yr / 1000) * 1000))
+scale = [("%s people" % people, "Each getting a full year of hours back, at the beta average of 4 hours 3 minutes a day."),
+         ("114,000 years", "A billion hours, laid end to end."),
+         ("%d days" % (_yr / 24), "What one person wins back in a single year.")]
+scale_html = "".join('<div class="stat rv%s"><b>%s</b><p>%s</p></div>' % ([""," d1"," d2"][i], a, b) for i, (a, b) in enumerate(scale))
 MISSION_FAQ = [
- ("What is SETL's mission?", "A billion bedtimes kept. SETL wants to give people their evenings back by putting distracting apps to sleep first, so better sleep and better focus follow."),
+ ("What is SETL's mission?", "A billion hours given back. SETL blocks the apps that take your evenings so that time returns to sleep, to focus and to the people in the room."),
+ ("What is the SETL manifesto?", "That attention is not a character flaw. Feeds are built to hold you, willpower is lowest at night, so the decision should be made earlier and enforced for you."),
  ("How much screen time does SETL save?", "In SETL's 2026 beta, testers reported an average of 4 hours 3 minutes less screen time a day: about 3 hours in the day and 1 hour at night."),
  ("How much screen time do adults have?", "Ofcom found UK adults spent 4 hours 30 minutes a day online in 2025, with 77% of that time on a smartphone."),
  ("Does screen time in bed affect sleep?", "Research links it. A 2025 study of 45,202 students found each extra hour of screen use in bed was linked to about 24 minutes less sleep."),
@@ -331,9 +432,21 @@ MISSION_FAQ = [
 mission_body = """<section class="goal"><div class="narrow">
 <span class="eyebrow rv"><i></i>Our mission</span>
 <p class="big rv d1" style="margin-top:34px" data-countto="1000000000" aria-label="One billion">1,000,000,000</p>
-<p class="label rv d2">Bedtimes kept. That is the goal.</p>
-<h1 class="rv d2" style="margin-top:34px;font-size:var(--t-xl)">Give the world its evenings back.</h1>
-<p class="lead rv d3">One night where the phone goes to sleep first, a billion times over.</p>
+<p class="label rv d2">Hours given back. That is the goal.</p>
+<h1 class="rv d2" style="margin-top:34px;font-size:var(--t-xl)">Give the world a billion hours back.</h1>
+<p class="lead rv d3">Every hour SETL blocks is an hour returned to sleep, to work, and to the people in front of you.</p>
+</div></section>
+<section class="sec"><div class="wrap">
+<div class="sec-head center"><h2 class="rv">What a billion hours looks like</h2>
+<p class="lead rv d1">Big numbers hide their size. Here is this one, three ways.</p></div>
+<div class="grid g3">%s</div>
+<p class="fn center" style="margin:18px auto 0;max-width:70ch">%s</p>
+</div></section>
+<section class="sec manifesto"><div class="narrow">
+<span class="eyebrow rv"><i></i>The SETL manifesto</span>
+<h2 class="rv d1" style="margin-top:22px">Attention is not a character flaw.</h2>
+%s
+<p class="lead rv" style="margin-top:34px">That is the whole product, and the whole company.</p>
 </div></section>
 <section class="sec"><div class="wrap">
 <div class="sec-head center"><h2 class="rv">Why it matters</h2>
@@ -349,12 +462,14 @@ mission_body = """<section class="goal"><div class="narrow">
 <section class="sec"><div class="narrow center">
 <h2 class="rv">Focus is not a personality trait.</h2>
 <p class="lead rv d1">It is what is left when nothing is pulling at you. SETL removes the pull.</p>
-<div class="btn-row rv d2"><a class="btn" href="/about.html">Read the founder story</a><a class="btn ghost" href="/blog/">Read the research</a></div>
+<div class="btn-row rv d2"><a class="btn" href="/founder-story.html">Read the founder story</a><a class="btn ghost" href="/blog/">Read the research</a></div>
 </div></section>
-%s""" % (stat_html, beta_strip("What we have handed back so far", "In beta, SETL cut the average tester's screen time every day."), pr_html, CTA)
+%s""" % (scale_html, BETA_NOTE, man_html, stat_html,
+         beta_strip("What we have handed back so far", "In beta, SETL cut the average tester's screen time every day."),
+         pr_html, CTA)
 built.append(page("mission.html",
-  "SETL Mission: Less Screen Time, A Billion Bedtimes Kept",
-  "SETL's mission is a billion bedtimes kept: less screen time at night, better sleep and real focus by day. Here is what our app blocker stands for.",
+  "SETL Mission: A Billion Hours Given Back",
+  "SETL's mission is a billion hours given back: less screen time, better sleep and real focus. Read the SETL manifesto and what we stand for.",
   mission_body, "/mission.html", faq=MISSION_FAQ, faq_title="Screen time and our mission: FAQs",
   ld=[{"@type": "WebPage", "name": "Our mission", "url": SITE + "/mission.html", "about": {"@id": SITE + "/#org"}},
       crumbs_ld([("Home", "/"), ("Mission", "/mission.html")])]))
@@ -387,7 +502,14 @@ pricing_body = """<section class="hero center"><div class="narrow">
 <article class="plan rv d2"><h3>Monthly</h3><p class="price">$5.99<small>/month</small></p><p class="per">3 nights free. Cancel anytime.</p><ul>%s</ul><a class="btn ghost" href="/">Join the waitlist</a></article>
 </div>
 <p class="fn center" style="margin-top:22px">Launch prices in US dollars, charged by Apple. Local App Store prices may differ.</p>
+<div class="trustrow rv">
+<div><b>Free to start</b><span>7 nights on yearly, 3 on monthly, 1 on weekly.</span></div>
+<div><b>Cancel in two taps</b><span>Handled by Apple, in your iPhone settings.</span></div>
+<div><b>Private by design</b><span>Your Screen Time data never leaves your phone.</span></div>
+<div><b>Everything included</b><span>No feature is held back for a higher tier.</span></div>
+</div>
 </div></section>
+%s
 <section class="sec"><div class="wrap">
 <div class="sec-head center"><h2 class="rv">The same job as Opal, for less.</h2>
 <p class="lead rv d1">Compare a year of SETL with a year of Opal Pro.</p></div>
@@ -399,7 +521,7 @@ pricing_body = """<section class="hero center"><div class="narrow">
 </div>
 <p class="fn center" style="margin-top:14px">Opal price from %s, US, September 2026. <a href="/setl-vs-opal.html">See the full comparison</a>.</p>
 </div></section>
-%s""" % (inc, inc, inc, src("opal", "Opal's pricing page"), CTA)
+%s""" % (inc, inc, inc, cards_sec("What every plan includes", "One price, the whole app. No add ons, no upsells.", FEATURES), src("opal", "Opal's pricing page"), CTA)
 built.append(page("pricing.html",
   "SETL Pricing: Screen Time App Blocker from $3.33/Month",
   "SETL pricing: $39.99 a year ($3.33 a month), $5.99 a month or $2.99 a week, with up to 7 nights free. A screen time app blocker for 60% less than Opal.",
@@ -696,10 +818,16 @@ for f in sorted(glob.glob(os.path.join(ROOT, "tools", "posts", "*.py"))):
 POSTS.sort(key=lambda p: TOPIC_ORDER.index(p["slug"]) if p["slug"] in TOPIC_ORDER else 99)
 REG = {p["slug"]: p for p in POSTS}
 
-def post_card(slug, cls=""):
+CAT_SLUG = {"App blockers": "app-blockers", "Screen Time": "screen-time", "Sleep": "sleep",
+            "Psychology": "psychology", "Focus": "focus", "Science": "science"}
+
+def post_card(slug, cls="", big=False):
     p = REG[slug]
-    return ('<a class="post-card%s" href="/blog/%s.html"><span class="tagline">%s</span><h3>%s</h3><p>%s</p></a>' %
-            (cls, slug, html.escape(p["tagline"]), html.escape(p["h1"]), html.escape(p["desc"].split(". ")[0].rstrip(".") + ".")))
+    blurb = html.escape(p["desc"].split(". ")[0].rstrip(".") + ".")
+    return ('<a class="post-card%s%s" data-cat="%s" href="/blog/%s.html">'
+            '<span class="tagline">%s</span><h3>%s</h3><p>%s</p><span class="meta">%d min read</span></a>' %
+            (" big" if big else "", cls, CAT_SLUG.get(p["tagline"], "sleep"), slug,
+             html.escape(p["tagline"]), html.escape(p["h1"]), blurb, p["minutes"]))
 
 for P in POSTS:
     slug, url = P["slug"], "/blog/%s.html" % P["slug"]
@@ -717,6 +845,8 @@ for P in POSTS:
 </div></header>
 <div class="narrow">%s<div class="prose">%s</div>
 <div class="sources"><h2>Sources</h2><ol>%s</ol></div>
+<div class="authorbox"><img src="/assets/nav-ic.png" alt="" width="44" height="48">
+<div><b>Jacob Redshaw</b><span>Founder of SETL, the iPhone app blocker built bedtime first. Former copywriter, now building the tool he needed. <a href="/founder-story.html">Read his story</a>.</span></div></div>
 </div></article>
 %s<section class="sec" style="padding-top:0"><div class="narrow"><div class="related"><h2>Keep reading</h2><div class="posts">%s</div></div></div></section>
 %s""" % (html.escape(P["tagline"]), html.escape(P["h1"]), html.escape(P["intro"]), AUTHOR, PUBLISHED, P["minutes"],
@@ -741,19 +871,27 @@ for P in POSTS:
 GROUPS = [("App blockers", "App blockers and screen time apps"), ("Screen Time", "Apple Screen Time and cutting screen time"),
           ("Sleep", "Sleep and scrolling in bed"), ("Psychology", "Why we scroll: phone addiction and app design"),
           ("Focus", "Focus, ADHD and distraction"), ("Science", "The science of screens and sleep")]
+FEATURED = "how-to-stop-scrolling-in-bed"
+chips = "".join('<a class="chip" href="#%s">%s</a>' % (CAT_SLUG[t], t) for t, _ in GROUPS if any(p["tagline"] == t for p in POSTS))
 hub_secs = ""
 for tag, heading in GROUPS:
-    items = [p for p in POSTS if p["tagline"] == tag]
+    items = [p for p in POSTS if p["tagline"] == tag and p["slug"] != FEATURED]
     if items:
-        hub_secs += '<section class="sec" style="padding-top:0"><div class="wrap"><h2 class="rv" style="margin-bottom:22px">%s</h2><div class="posts">%s</div></div></section>' % (
-            heading, "".join(post_card(p["slug"], " rv") for p in items))
+        hub_secs += ('<section class="sec" id="%s" style="padding-top:0"><div class="wrap">'
+                     '<h2 class="rv" style="margin-bottom:22px">%s</h2><div class="posts">%s</div></div></section>') % (
+            CAT_SLUG[tag], heading, "".join(post_card(p["slug"], " rv") for p in items))
 hub = """<section class="hero center"><div class="narrow">
 <span class="eyebrow rv"><i></i>The SETL blog</span>
 <h1 class="rv d1">Screen time, app blockers, sleep and focus.</h1>
-<p class="lead rv d2">Short, sourced reads on why we scroll, what it costs, and how to stop.</p>
+<p class="lead rv d2">Short, sourced reads on why we scroll, what it costs, and how to stop. Every number links to the study it came from.</p>
+<div class="chips rv d3">%s</div>
+</div></section>
+<section class="sec" style="padding-top:clamp(10px,3vw,24px)"><div class="wrap">
+<p class="kicker rv">Start here</p>
+<div class="posts one">%s</div>
 </div></section>
 %s
-%s""" % (hub_secs, CTA)
+%s""" % (chips, post_card(FEATURED, " rv", big=True), hub_secs, CTA)
 HUB_FAQ = [
  ("What does the SETL blog cover?", "Sourced guides on app blockers, Apple Screen Time, reducing screen time, scrolling in bed, bedtime procrastination, phone addiction and focus."),
  ("Who writes the SETL blog?", "Jacob Redshaw, founder of SETL. Every statistic links to its original source, and nothing is published without one."),
@@ -772,28 +910,6 @@ built.append(page("blog/index.html",
 # =====================================================================
 # KEYWORD LANDING PAGES  (one search intent per page)
 # =====================================================================
-def sources_block(keys, start=1):
-    return '<div class="sources"><h2>Sources</h2><ol start="%d">%s</ol></div>' % (start, "".join(
-        '<li id="s%d">%s</li>' % (i + start, src(k)) for i, k in enumerate(keys)))
-
-def prose_sec(h2, inner, keys=None, start=1):
-    """start: first footnote number, so two sourced sections on one page never share ids."""
-    return ('<section class="sec"><div class="narrow"><div class="sec-head"><h2 class="rv">%s</h2></div>'
-            '<div class="prose rv">%s</div>%s</div></section>') % (h2, inner, sources_block(keys, start) if keys else "")
-
-def cards_sec(h2, lead, cards, cols="g3"):
-    c = "".join('<div class="card rv%s"><span class="n">%s</span><h3>%s</h3><p>%s</p></div>' % (["", " d1", " d2"][i % 3], n, h, p)
-                for i, (n, h, p) in enumerate(cards))
-    return ('<section class="sec"><div class="wrap"><div class="sec-head%s"><h2 class="rv">%s</h2>%s</div>'
-            '<div class="grid %s">%s</div></div></section>') % (" center" if lead else "", h2,
-            ('<p class="lead rv d1">%s</p>' % lead) if lead else "", cols, c)
-
-def table_sec(h2, head, rows, note):
-    t = "".join('<tr><th scope="row">%s</th><td>%s</td><td class="us">%s</td></tr>' % r for r in rows)
-    return ('<section class="sec"><div class="wrap"><div class="sec-head"><h2 class="rv">%s</h2></div>'
-            '<div class="tablewrap rv"><table class="cmp"><thead><tr><th scope="col"></th><th scope="col">%s</th><th scope="col">%s</th></tr></thead>'
-            '<tbody>%s</tbody></table></div><p class="fn" style="margin-top:14px">%s</p></div></section>') % (h2, head[0], head[1], t, note)
-
 def reads_sec(h2, slugs):
     cards = "".join(post_card(s, " rv") for s in slugs if s in REG)
     return ('<section class="sec"><div class="wrap"><div class="sec-head"><h2 class="rv">%s</h2></div>'
@@ -819,14 +935,6 @@ BETA_FAQ = ("How much screen time does SETL save?",
 def with_beta(faqs):
     return faqs + ([BETA_FAQ] if SHOW_BETA else [])
 
-FEATURES = [
- ("SETL SLEEP", "Blocks apps at bedtime", 'Set your bedtime once. Your chosen apps lock automatically every night. <a href="/setl-sleep.html">About SETL Sleep</a>.'),
- ("SETL SESSIONS", "Blocks apps on demand", 'Pick the apps and how long, and get deep work in the day. <a href="/setl-sessions.html">About SETL Sessions</a>.'),
- ("SETL PLANS", "Nights off, planned ahead", "Weddings, birthdays, night shifts. Book them weeks ahead and SETL steps aside."),
- ("SLEEP RESERVE", "Your night in one number", "A Lock Screen widget that shows how much of the night is left for sleep."),
- ("PRIVATE", "Nothing leaves your phone", "Apple gives SETL private tokens, so we never learn which apps you block."),
- ("PRICE", "From $3.33 a month", 'Billed $39.99 a year, with 7 nights free. <a href="/pricing.html">See pricing</a>.'),
-]
 
 # ---- 1. App blocker ----
 landing("app-blocker.html",

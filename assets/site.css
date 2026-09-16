@@ -305,3 +305,50 @@ body.story[data-hour="6"]{background:#2A1A22}
   .vtxt{text-align:left;min-width:0}
 }
 .nav .menu a:last-child{margin-top:4px;background:#fff;color:#000;font-weight:600;text-align:center}
+
+/* ---- manifesto (mission) ---- */
+.manifesto .stanza{border-top:1px solid var(--line);padding:26px 0 4px}
+.manifesto .stanza h3{font-size:clamp(24px,4.6vw,34px);letter-spacing:-.03em;margin:0 0 10px}
+.manifesto .stanza p{margin:0;color:var(--dim);font-size:clamp(15.5px,2.4vw,17.5px);line-height:1.55;max-width:56ch}
+.goalline{margin:8px 0 0;font-size:13.5px;color:var(--faint)}
+
+/* ---- founder card (about) ---- */
+.founder{display:grid;gap:20px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.founder img{width:96px;height:96px;border-radius:50%;opacity:.95}
+.founder b{display:block;font-size:20px;letter-spacing:-.02em}
+.founder .role{display:block;margin:4px 0 14px;font-size:14px;color:var(--moon);letter-spacing:.04em}
+.founder p{margin:0 0 12px;color:var(--dim);font-size:16px;line-height:1.6;max-width:62ch}
+.founder .btn{margin-top:6px}
+@media (min-width:760px){ .founder{grid-template-columns:120px 1fr;gap:28px;padding:34px} .founder img{width:120px;height:120px} }
+
+/* ---- pricing trust row ---- */
+.trustrow{display:grid;gap:12px;margin-top:26px}
+.trustrow div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.trustrow b{display:block;font-size:15.5px;margin-bottom:5px}
+.trustrow span{display:block;color:var(--dim);font-size:14.5px;line-height:1.45}
+@media (min-width:760px){ .trustrow{grid-template-columns:repeat(4,1fr)} }
+
+/* ---- blog: chips, featured card, category accents, author box ---- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:26px}
+.chip{font-size:14px;color:#C9CBD3;text-decoration:none;padding:9px 16px;border-radius:100px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);transition:color .2s,background .2s}
+.chip:hover{color:#fff;background:rgba(255,255,255,.08)}
+.kicker{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--moon);margin:0 0 14px}
+.posts.one{grid-template-columns:1fr}
+.post-card{position:relative;overflow:hidden}
+.post-card::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--cat,#7C6BF5);opacity:.85}
+.post-card[data-cat="app-blockers"]{--cat:#7C6BF5}
+.post-card[data-cat="screen-time"]{--cat:#4EA8FF}
+.post-card[data-cat="sleep"]{--cat:#9B8BFF}
+.post-card[data-cat="psychology"]{--cat:#FF8FA3}
+.post-card[data-cat="focus"]{--cat:#30D158}
+.post-card[data-cat="science"]{--cat:#FFB340}
+.post-card .tagline{color:var(--cat,#7C6BF5)}
+.post-card.big{padding:clamp(26px,5vw,44px)}
+.post-card.big h3{font-size:clamp(26px,4.4vw,38px);letter-spacing:-.03em}
+.post-card.big p{font-size:16.5px;max-width:60ch}
+.authorbox{display:flex;gap:16px;align-items:flex-start;margin-top:clamp(30px,5vw,44px);
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.authorbox img{width:44px;height:auto;flex:none;opacity:.9}
+.authorbox b{display:block;font-size:16px;margin-bottom:4px}
+.authorbox span{display:block;color:var(--dim);font-size:14.5px;line-height:1.5}
