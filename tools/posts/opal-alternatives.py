@@ -41,7 +41,7 @@ POST = {
 <tr><td>ScreenZen</td><td>Wait times, limits and strict blocks</td><td>iPhone (iOS 16.4 or later), iPad, Mac, Windows, Android</td><td>Free, donation supported</td></tr>
 <tr><td>Brick</td><td>Physical device plus app</td><td>iPhone (iOS 17.0 or later), Android 12.0 or later</td><td>$59 device</td></tr>
 <tr><td>Sunbreak</td><td>Bedtime lock with accountability</td><td>iPhone and iPad (iOS 17.0 or later)</td><td>Free download with in app purchases</td></tr>
-<tr><td>SETL</td><td>Bedtime first app blocker plus sessions</td><td>iPhone</td><td>$39.99 a year at launch</td></tr>
+<tr><td>SETL</td><td>Bedtime first app blocker plus sessions</td><td>iPhone</td><td>$49.99 a year at launch</td></tr>
 </tbody></table></div>
 
 <h2>1. Apple Screen Time: the alternative already on your iPhone</h2>
@@ -65,7 +65,7 @@ POST = {
 <p>It suits you if a friend knowing is what keeps you honest.</p>
 
 <h2>Is there an Opal alternative that's cheaper than Opal?</h2>
-<p>Yes, several. Apple Screen Time is included with your iPhone, ScreenZen says it is free, and one sec is free for one app. SETL's launch price is $39.99 a year or $5.99 a month, compared with $99.99 a year or $19.99 a month for Opal Pro. Opal's own free plan may also be enough if one rule covers what you need.<sup><a href="#fn2">2</a></sup></p>
+<p>Yes, several. Apple Screen Time is included with your iPhone, ScreenZen says it is free, and one sec is free for one app. SETL's launch price is $49.99 a year or $5.99 a month, compared with $99.99 a year or $19.99 a month for Opal Pro. Opal's own free plan may also be enough if one rule covers what you need.<sup><a href="#fn2">2</a></sup></p>
 <p>For the full breakdown, see <a href="/setl-vs-opal.html">SETL vs Opal</a> and our <a href="/pricing.html">SETL pricing</a> page. If you want a wider view, read our guide to the <a href="/blog/best-screen-time-apps-for-iphone.html">best screen time apps for iPhone</a>.</p>
 
 <h2>Where SETL fits</h2>
@@ -88,7 +88,7 @@ POST = {
  "faq": [
   ("What is the best Opal alternative?", "It depends why you are switching. For free, try Apple Screen Time or ScreenZen. For a gentle pause, try one sec. For a physical block, Brick. For bedtime, look at Sunbreak or SETL."),
   ("How much is Opal Pro?", "Opal's pricing page, checked September 2026, lists Opal Pro at $99.99 a year, $19.99 a month, or $399 for lifetime access. There is also a free plan with one rule."),
-  ("Is there an app like Opal that's cheaper?", "Yes. Apple Screen Time is built in, ScreenZen says it is free, and one sec is free for one app. SETL's launch price is $39.99 a year, compared with $99.99 a year for Opal Pro."),
+  ("Is there an app like Opal that's cheaper?", "Yes. Apple Screen Time is built in, ScreenZen says it is free, and one sec is free for one app. SETL's launch price is $49.99 a year, compared with $99.99 a year for Opal Pro."),
   ("Does Opal work on iPad?", "Opal's App Store listing, checked September 2026, says it is for iPhone only and needs iOS 18.0 or later. Opal's pricing page also lists apps for Android and Mac."),
   ("Can I keep using Opal for free?", "Yes. Opal's pricing page lists a free plan with one rule, basic timers and app blocking, and says you can cancel a subscription and keep using Opal for free."),
   ("Is SETL connected to Opal?", "No. SETL is an independent app with no connection to Opal or Opal OS Corporation. We mention Opal only to compare the two products."),
