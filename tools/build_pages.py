@@ -668,6 +668,7 @@ press_body = ("""<section class="hero center"><div class="narrow">
 <div class="btn-row rv d3"><a class="btn" href="mailto:jacob.redshaw13@gmail.com?subject=SETL%20press%20enquiry">Email the founder</a><a class="btn ghost" href="/founder-story.html">Read the founder story</a></div>
 </div></section>
 """ + prose_sec("Boilerplate", """
+<p><strong>One line:</strong> A screen blocker app specialising in automated distraction relief, night and day. Built for ADHD brains, deep focus and anyone with a busy life.</p>
 <p><strong>Short:</strong> SETL is an iPhone app blocker built for bedtime. You set your bedtime once, and your chosen apps close themselves every night.</p>
 <p><strong>Long:</strong> SETL (pronounced settle) is a UK built app blocker for iPhone, designed around the hour most people lose to their phones. Unlike screen time apps built for the workday, SETL starts at bedtime: users choose the apps that keep them up and the time those apps should close, and the block then runs automatically every night. SETL Sessions brings the same blocking into the day for focused work, and SETL Plans schedules nights off in advance. It is built on Apple's Screen Time framework, so usage data never leaves the device. SETL is on a mission to give the world a billion hours back.</p>""")
  + cards_sec("Story angles", "Four we can speak to properly, with evidence.", angles)
@@ -1379,6 +1380,7 @@ llms = ["# SETL: Focus on Life.", "",
  "> SETL (pronounced settle) is an iPhone app blocker built bedtime first. SETL Sleep blocks chosen distracting apps automatically "
  "at bedtime every night; SETL Sessions blocks them on demand for daytime focus; SETL Plans schedules nights off. Built in the UK "
  "by founder Jacob Redshaw. Pricing: $39.99 a year ($3.33 a month), $5.99 a month or $2.99 a week. Free nights: 7 on yearly, 3 on monthly, 1 on weekly. iPhone only.", "",
+ "In one line: A screen blocker app specialising in automated distraction relief, night and day. Built for ADHD brains, deep focus and anyone with a busy life.", "",
  "Also searched as: SETL Sleep, setl, settle sleep, SETL app blocker.", "",
  "Instagram: https://www.instagram.com/setl.sleep/", ""]
 if SHOW_BETA:
