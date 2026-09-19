@@ -490,6 +490,20 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 @media(prefers-reduced-motion:reduce){.cstep{transition:none}}
 
 
+/* everything in SETL */
+.fgrid{display:grid;gap:clamp(10px,2.4vw,14px);margin-top:clamp(30px,7vw,46px)}
+@media(min-width:680px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.fgrid{grid-template-columns:repeat(3,1fr)}}
+.fcard{position:relative;overflow:hidden;text-align:left;border:1px solid var(--line);border-radius:20px;
+  padding:clamp(20px,3.4vw,26px);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.012))}
+.fcard::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(124,107,245,.65),transparent)}
+.fcard .fl{display:block;font-size:11.5px;font-weight:600;letter-spacing:.16em;color:#9C8CFF;margin-bottom:12px}
+.fcard b{display:block;font-size:clamp(17px,4.2vw,19px);font-weight:600;letter-spacing:-.018em}
+.fcard p{margin-top:8px;font-size:clamp(14px,3.5vw,15px);line-height:1.5;color:var(--dim)}
+.srcline{margin-top:14px;font-size:12px;color:var(--dim2);line-height:1.5}
+.srcline a{color:#B9BCC8;text-decoration:underline;text-underline-offset:3px}
+
 /* homepage FAQ */
 .hfaq{max-width:640px;margin:clamp(28px,7vw,44px) auto 0;text-align:left;display:grid;gap:10px}
 .hfaq details{border:1px solid var(--line);border-radius:18px;padding:0 clamp(16px,4vw,22px);
@@ -702,7 +716,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       <div class="fig"><div class="head"></div><div class="body"></div></div>
       <div class="fig"><div class="head"></div><div class="body"></div></div>
     </div>
-    <p class="stat-line rv">Because 1 in 3 adults get under 7 hours<br>every single night.</p>
+    <p class="stat-line rv">Because 3 to 4 in every 10 adults<br>sleep less than seven hours.</p>
+        <p class="srcline rv">Share of US adults with short sleep, 2022, ranging from 30% in Vermont to 46% in Hawaii. <a href="https://www.cdc.gov/sleep/data-research/facts-stats/adults-sleep-facts-and-stats.html" target="_blank" rel="noopener">CDC</a></p>
   </div>
 </section>
 
@@ -784,6 +799,26 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   </div>
 </section>
 
+<!-- EVERYTHING IN SETL -->
+<section class="sec" id="features">
+  <div class="wrap">
+    <div class="center">
+      <h2 class="rv" style="max-width:15ch;margin-inline:auto">Everything in SETL</h2>
+      <p class="sub rv mt-sub">Four ways to block, one moon, and a reason to keep going. Every plan includes all of it.</p>
+    </div>
+    <div class="fgrid">
+      <div class="fcard rv"><span class="fl">TONIGHT</span><b>Your bedtime, kept</b><p>Set it once. Every night after that, the apps you chose settle themselves while you get on with going to bed.</p></div>
+      <div class="fcard rv"><span class="fl">BLOCKS</span><b>Any hour, on a schedule</b><p>Plan named blocks into a calendar. Work mornings, revision evenings, Sunday resets, repeating on the days you pick.</p></div>
+      <div class="fcard rv"><span class="fl">SESSIONS</span><b>Focus on demand</b><p>Pick the apps, pick how long, start. Ending early takes two questions and a 25 second hold, so a tired tap cannot undo it.</p></div>
+      <div class="fcard rv"><span class="fl">BREAKS</span><b>Room for real life</b><p>A party, a late shift, a trip. Plan the break ahead and SETL eases off, then goes straight back to normal.</p></div>
+      <div class="fcard rv"><span class="fl">SLEEP RESERVE</span><b>Your night in one number</b><p>A Lock Screen widget showing exactly how much of the night is left, without opening anything.</p></div>
+      <div class="fcard rv"><span class="fl">MOONS</span><b>Something to keep</b><p>A collection of moons you earn by keeping your nights, and wear on your Lock Screen.</p></div>
+    </div>
+    <p class="sub rv" style="margin-top:26px;max-width:none"><a class="ulink" href="/app-blocker.html">How the app blocker works</a> &middot; <a class="ulink" href="/pricing.html">See pricing</a></p>
+  </div>
+</section>
+
+
 <!-- BRIDGE -->
 <section class="sec center">
   <div class="wrap">
@@ -803,7 +838,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <div class="pcard rv">
       <div class="prow"><div class="p">90%</div><b>Better focus during the day</b><span>SETL Sessions&trade; gives you a clean space to work and live in, away from doom scrolling.</span></div>
       <div class="prow"><div class="p">100%</div><b>An easier bedtime</b><span>SETL Sleep&trade; takes away bedtime stress. No relying on willpower to stop scrolling at night.</span></div>
-      <div class="prow"><div class="p">92%</div><b>More discipline after a week</b><span>Seven nights is the standard time it takes for healthy habits, like eight hours&rsquo; sleep, to start forming.</span></div>
+      <div class="prow"><div class="p">92%</div><b>More discipline after a week</b><span>The decision is made once, in daylight, so a week of kept nights costs you no willpower at all.</span></div>
       <div class="prow"><div class="p">92%</div><b>More disciplined everywhere else</b><span>Training, work, food, money. It travels further than bedtime.</span></div>
     </div>
   </div>
