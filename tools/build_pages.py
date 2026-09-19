@@ -81,6 +81,11 @@ def beta_strip(heading="What SETL gave back in beta", lead="The average tester's
             '<p class="fn center" style="margin:18px auto 0;max-width:70ch">%s</p></div></section>') % (heading, lead, cells, BETA_NOTE)
 
 # ---------- FAQ: visible on the page and mirrored as FAQPage structured data ----------
+def proof_bar():
+    items = ["Built on Apple's Screen Time framework", "Nothing about your usage leaves your phone"]
+    items.append("4h 3m a day handed back in beta" if SHOW_BETA else "Night and day, from one app")
+    return '<div class="proofbar rv d3">%s</div>' % "".join("<span>%s</span>" % i for i in items)
+
 def faq_section(faqs, heading):
     items = "".join('<details class="rv"><summary>%s</summary><p>%s</p></details>' % (html.escape(q), a) for q, a in faqs)
     return ('<section class="sec" id="faq"><div class="narrow"><div class="sec-head"><h2 class="rv">%s</h2></div>'
@@ -110,16 +115,32 @@ def nav(current):
             '<details class="nmenu"><summary>Menu</summary><nav class="menu" aria-label="Menu">%s</nav></details></div>'
             '</header>') % (links, menu)
 
+FOOT_COLS = [
+ ("Product", [("/setl-sleep.html", "SETL Sleep"), ("/setl-sessions.html", "SETL Sessions"),
+              ("/app-blocker.html", "App blocker"), ("/screen-time-blocker.html", "Screen time blocker"),
+              ("/block.html", "Apps you can block")]),
+ ("Compare", [("/setl-vs-opal.html", "SETL vs Opal"), ("/setl-vs-sunbreak.html", "SETL vs Sunbreak"),
+              ("/setl-vs-one-sec.html", "SETL vs one sec"), ("/setl-vs-screenzen.html", "SETL vs ScreenZen"),
+              ("/apple-screen-time-alternative.html", "Apple Screen Time")]),
+ ("Learn", [("/blog/", "Blog"), ("/blog/how-to-stop-scrolling-in-bed.html", "Stop scrolling in bed"),
+            ("/blog/best-app-blocker-for-sleep.html", "Best app blocker for sleep"),
+            ("/blog/what-is-an-app-blocker.html", "What is an app blocker"),
+            ("/blog/bedtime-procrastination.html", "Bedtime procrastination")]),
+ ("Company", [("/about.html", "About SETL"), ("/founder-story.html", "Founder story"),
+              ("/mission.html", "Mission"), ("/press.html", "Press"), ("/pricing.html", "Pricing"),
+              ("/privacy.html", "Privacy")]),
+]
 FOOT = ('<footer class="foot"><div class="wrap">'
-        '<img class="ic" src="/assets/nav-ic.png" alt="" width="46" height="50">'
-        '<p class="brandline">SETL</p><p class="tag">Focus on Life.</p><p class="goalline">On a mission to give the world a billion hours back.</p>'
-        '<nav aria-label="Products">' + "".join('<a href="%s">%s</a>' % l for l in PRODUCT_LINKS) + '</nav>'
-        '<nav aria-label="Footer">'
-        '<a href="/">Home</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a>'
-        '<a href="/about.html">About</a><a href="/founder-story.html">Founder story</a><a href="/mission.html">Mission</a><a href="/press.html">Press</a><a href="/privacy.html">Privacy</a><a href="https://www.instagram.com/setl.sleep/" rel="noopener" target="_blank">Instagram</a>'
-        '</nav>'
-        '<p class="meta">&copy; <span data-year>2026</span> SETL. Built in the UK.</p>'
-        '</div></footer>')
+        '<div class="fcols">'
+        + "".join('<div><p class="fh">%s</p>%s</div>' % (h, "".join('<a href="%s">%s</a>' % l for l in ls))
+                  for h, ls in FOOT_COLS) +
+        '</div>'
+        '<div class="fbase">'
+        '<img class="ic" src="/assets/nav-ic.png" alt="" width="34" height="37">'
+        '<div><p class="brandline">SETL</p><p class="tag">Focus on Life.</p></div>'
+        '<p class="meta">&copy; <span data-year>2026</span> SETL. Built in the UK. '
+        '<a href="https://www.instagram.com/setl.sleep/" rel="noopener" target="_blank">Instagram</a></p>'
+        '</div></div></footer>')
 
 def crumbs_ld(items):
     return {"@type": "BreadcrumbList", "itemListElement": [
@@ -167,7 +188,7 @@ def page(path, title, desc, body, current="", ld=None, body_class="", og_type="w
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=4">
+<link rel="stylesheet" href="/assets/site.css?v=5">
 <link rel="alternate" type="application/rss+xml" title="SETL Blog" href="/feed.xml">
 {extra_head}<script type="application/ld+json">{ld}</script>
 </head>
@@ -1074,6 +1095,13 @@ for P in POSTS:
          answer, P["body"].strip(), src_list, "%FAQ%", rel, CTA)
     faq_html = faq_section(P["faq"], "%s: FAQs" % (P["primary"][:1].upper() + P["primary"][1:])) if P["faq"] else ""
     b = b.replace("%FAQ%", faq_html)
+    mid = ('<div class="inline-cta"><b>Your phone can go to sleep first.</b>'
+           '<p>SETL blocks the apps you choose, at bedtime and any hour you set.</p>'
+           '<a class="btn" href="/">Join the waitlist</a></div>')
+    parts = b.split("<h2>")                      # drop one offer in after the second section, Opal style
+    if len(parts) > 4:
+        parts[3] = parts[3].replace("</p>", "</p>" + mid, 1)
+        b = "<h2>".join(parts)
     ld = [{"@type": "BlogPosting", "headline": P["h1"], "description": P["desc"], "url": SITE + url,
            "datePublished": PUBLISHED, "dateModified": PUBLISHED, "inLanguage": "en-GB",
            "keywords": P["keywords"], "image": SITE + "/assets/og.jpg",
@@ -1142,7 +1170,8 @@ def landing(path, title, desc, eyebrow, h1, lead, sections, faq, faq_title, name
 <h1 class="rv d1">%s</h1>
 <p class="lead rv d2">%s</p>
 <div class="btn-row rv d3"><a class="btn" href="/">Join the waitlist</a><a class="btn ghost" href="/pricing.html">See pricing</a></div>
-</div></section>""" % (eyebrow, h1, lead)
+%s
+</div></section>""" % (eyebrow, h1, lead, proof_bar())
     built.append(page(path, title, desc, hero + "".join(sections) + CTA, "/" + path, faq=faq, faq_title=faq_title,
         ld=[{"@type": "WebPage", "name": name, "url": SITE + "/" + path, "description": desc, "about": about,
              "isPartOf": {"@id": SITE + "/#site"}, "publisher": {"@id": SITE + "/#org"}},
@@ -1328,6 +1357,55 @@ landing("setl-sessions.html",
   ("Can an app blocker help with ADHD focus?", 'Many people find removing the option easier than resisting it. SETL is not a treatment for ADHD. <a href="/blog/app-blocker-for-adhd.html">Read more</a>.'),
   ("Is SETL Sessions included in SETL?", "Yes. SETL Sessions, SETL Sleep and SETL Breaks are included in every plan, from $4.17 a month billed yearly."),
  ]), "SETL Sessions FAQs", "SETL Sessions", "focus app blocker")
+
+# =====================================================================
+# WHAT YOU CAN BLOCK  (one page that answers "can SETL block X?")
+# =====================================================================
+BLOCK_GROUPS = [
+ ("Social", "Instagram, TikTok, X, Facebook, Snapchat, Threads, Reddit, Pinterest, LinkedIn, BeReal, Bluesky, Mastodon"),
+ ("Video and streaming", "YouTube, Netflix, Disney+, Prime Video, Twitch, TikTok, Apple TV, Now, iPlayer, Hulu, Max"),
+ ("Games", "Roblox, Fortnite, Clash of Clans, Candy Crush, Among Us, Call of Duty Mobile, Subway Surfers, chess apps"),
+ ("Messaging", "WhatsApp, Messenger, Telegram, Discord, Signal, Slack, Teams, iMessage"),
+ ("News and forums", "Reddit, Apple News, BBC News, Sky News, The Guardian, X, Quora, Hacker News"),
+ ("Shopping and money", "Amazon, eBay, Vinted, Depop, Shein, Temu, betting apps, trading and crypto apps"),
+ ("Dating", "Tinder, Hinge, Bumble, Grindr, Feeld"),
+ ("Anything else", "Any app on your iPhone, plus website categories through Apple's Screen Time framework"),
+]
+bg_html = "".join('<div class="card rv"><span class="n">%s</span><p>%s</p></div>' % g for g in BLOCK_GROUPS)
+BLOCK_GUIDES = ["how-to-block-tiktok-at-night", "how-to-block-instagram-at-night", "how-to-block-youtube-at-night",
+                "how-to-block-snapchat-at-night", "how-to-block-reddit-at-night", "how-to-block-x-twitter-at-night",
+                "how-to-block-whatsapp-at-night", "how-to-block-netflix-and-streaming-at-night"]
+BLOCK_FAQ = [
+ ("What apps can SETL block?", "Any app on your iPhone. You pick them from Apple's own app picker, so social, video, games, messaging, shopping, dating and anything else you have installed."),
+ ("Can SETL block TikTok and Instagram?", 'Yes. Pick them once and they close at your bedtime every night, or during any block you schedule. <a href="/blog/how-to-block-tiktok-at-night.html">See the TikTok guide</a>.'),
+ ("Can SETL block websites?", "SETL blocks apps and the website categories Apple's Screen Time framework exposes. It is not a full browser filter."),
+ ("Does SETL know which apps I picked?", "No. Apple hands SETL private tokens rather than names, so your choices stay on your phone."),
+ ("Can I block different apps at different times?", "Yes. Your bedtime list can differ from a scheduled block or a focus session, so work hours and nights can look completely different."),
+ ("Can I block calls or my alarm?", "No. Calls and your alarm keep working. SETL only touches the apps you choose."),
+]
+block_body = ("""<section class="hero center"><div class="narrow">
+<span class="eyebrow rv"><i></i>What you can block</span>
+<h1 class="rv d1">Every app that takes your hours.</h1>
+<p class="lead rv d2">SETL blocks any app on your iPhone, at bedtime or any hour you choose. Here is what people block most.</p>
+<div class="btn-row rv d3"><a class="btn" href="/">Join the waitlist</a><a class="btn ghost" href="/pricing.html">See pricing</a></div>
+%s
+</div></section>
+<section class="sec"><div class="wrap"><div class="grid g3">%s</div>
+<p class="fn center" style="margin-top:18px;max-width:70ch;margin-inline:auto">App names are used only to describe what SETL can block. SETL is not affiliated with these companies.</p>
+</div></section>""" % (proof_bar(), bg_html)
+ + prose_sec("How blocking works on iPhone", """
+<p>You choose apps through Apple's own picker, so SETL never sees your list. It receives private tokens instead.<sup><a href="#s1">1</a></sup></p>
+<p>From then on, your choices settle on their own: at bedtime, inside a scheduled block, or during a focus session you start yourself.</p>
+<p>Everything you did not pick keeps working, including calls and your alarm. <a href="/app-blocker.html">More on how the app blocker works</a>.</p>""", ["applest"])
+ + reads_sec("Block one app at night", BLOCK_GUIDES[:4])
+ + compare_strip("/block.html") + CTA)
+built.append(page("block.html",
+  "What Apps Can SETL Block? Every App on iPhone",
+  "SETL blocks any app on your iPhone: TikTok, Instagram, YouTube, Snapchat, Reddit, games, messaging and more, at bedtime or any hour you schedule.",
+  block_body, "", faq=BLOCK_FAQ, faq_title="Blocking apps: FAQs",
+  ld=[{"@type": "WebPage", "name": "What you can block with SETL", "url": SITE + "/block.html",
+       "publisher": {"@id": SITE + "/#org"}},
+      crumbs_ld([("Home", "/"), ("What you can block", "/block.html")])]))
 
 # =====================================================================
 # 404
