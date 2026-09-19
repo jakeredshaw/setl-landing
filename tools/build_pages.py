@@ -1023,7 +1023,8 @@ TOPIC_ORDER = ["how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "wh
                "screen-time-limits-not-working", "how-to-use-downtime-on-iphone", "how-to-reduce-screen-time-on-iphone",
                "best-screen-time-apps-for-iphone", "opal-alternatives", "bedtime-procrastination", "how-to-stop-doomscrolling",
                "phone-addiction-signs", "why-apps-are-addictive", "app-blocker-for-adhd", "how-much-screen-time-is-too-much",
-               "does-grayscale-reduce-screen-time", "does-it-take-23-minutes-to-refocus", "screens-melatonin-and-sleep"]
+               "does-grayscale-reduce-screen-time", "does-it-take-23-minutes-to-refocus", "screens-melatonin-and-sleep",
+               "how-to-block-tiktok-at-night", "how-to-block-instagram-at-night", "how-to-block-youtube-at-night", "how-to-block-snapchat-at-night", "how-to-block-reddit-at-night", "how-to-block-x-twitter-at-night", "how-to-block-whatsapp-at-night", "how-to-block-netflix-and-streaming-at-night"]
 for f in sorted(glob.glob(os.path.join(ROOT, "tools", "posts", "*.py"))):
     if os.path.basename(f) == "check.py":
         continue
@@ -1036,7 +1037,7 @@ for f in sorted(glob.glob(os.path.join(ROOT, "tools", "posts", "*.py"))):
 POSTS.sort(key=lambda p: TOPIC_ORDER.index(p["slug"]) if p["slug"] in TOPIC_ORDER else 99)
 REG = {p["slug"]: p for p in POSTS}
 
-CAT_SLUG = {"App blockers": "app-blockers", "Screen Time": "screen-time", "Sleep": "sleep",
+CAT_SLUG = {"App blockers": "app-blockers", "Screen Time": "screen-time", "Sleep": "sleep", "Block an app": "block-an-app",
             "Psychology": "psychology", "Focus": "focus", "Science": "science"}
 
 def post_card(slug, cls="", big=False):
@@ -1086,7 +1087,7 @@ for P in POSTS:
 # =====================================================================
 # BLOG HUB  (grouped by topic so each group heading carries its keyword)
 # =====================================================================
-GROUPS = [("App blockers", "App blockers and screen time apps"), ("Screen Time", "Apple Screen Time and cutting screen time"),
+GROUPS = [("Block an app", "Block one app at night, step by step"), ("App blockers", "App blockers and screen time apps"), ("Screen Time", "Apple Screen Time and cutting screen time"),
           ("Sleep", "Sleep and scrolling in bed"), ("Psychology", "Why we scroll: phone addiction and app design"),
           ("Focus", "Focus, ADHD and distraction"), ("Science", "The science of screens and sleep")]
 FEATURED = "how-to-stop-scrolling-in-bed"
