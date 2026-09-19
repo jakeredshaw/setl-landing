@@ -116,7 +116,7 @@ FOOT = ('<footer class="foot"><div class="wrap">'
         '<nav aria-label="Products">' + "".join('<a href="%s">%s</a>' % l for l in PRODUCT_LINKS) + '</nav>'
         '<nav aria-label="Footer">'
         '<a href="/">Home</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a>'
-        '<a href="/about.html">About</a><a href="/founder-story.html">Founder story</a><a href="/mission.html">Mission</a><a href="/privacy.html">Privacy</a><a href="https://www.instagram.com/setl.sleep/" rel="noopener" target="_blank">Instagram</a>'
+        '<a href="/about.html">About</a><a href="/founder-story.html">Founder story</a><a href="/mission.html">Mission</a><a href="/press.html">Press</a><a href="/privacy.html">Privacy</a><a href="https://www.instagram.com/setl.sleep/" rel="noopener" target="_blank">Instagram</a>'
         '</nav>'
         '<p class="meta">&copy; <span data-year>2026</span> SETL. Built in the UK.</p>'
         '</div></footer>')
@@ -626,6 +626,67 @@ built.append(page("setl-vs-opal.html",
   vs_body, "", faq=VS_FAQ, faq_title="SETL vs Opal: FAQs",
   ld=[{"@type": "WebPage", "name": "SETL vs Opal", "url": SITE + "/setl-vs-opal.html"},
       crumbs_ld([("Home", "/"), ("SETL vs Opal", "/setl-vs-opal.html")])]))
+
+# =====================================================================
+# PRESS KIT  (what a journalist needs before they will write about you)
+# =====================================================================
+PRESS_FAQ = [
+ ("Who can I speak to at SETL?", "Jacob Redshaw, founder. Email jacob.redshaw13@gmail.com. He is available for interviews, written comment and podcast recordings, based in the UK."),
+ ("What is SETL in one line?", "SETL is an iPhone app blocker built for bedtime: you set your bedtime once, and your chosen distracting apps close themselves every night."),
+ ("Is SETL available yet?", "SETL is in beta ahead of its App Store launch, with a public waitlist at setlsleep.com. Press can request early access."),
+ ("Can I use your statistics?", "Yes, with a link. Every figure on this site names its source, and we will not supply a number we cannot evidence."),
+ ("Can I get images or the logo?", "Yes. App screenshots and logo files are available on request, and the marks below can be used in coverage."),
+ ("Does SETL pay for coverage or reviews?", "No. We do not buy reviews, trade links or pay for editorial. If we ever gift access for a review, we ask that it is disclosed."),
+]
+angles = [
+ ("THE FOUNDER", "The copywriter who quit the attention business",
+  "Jacob Redshaw wrote copy for a living, paid to stop thumbs and hold attention, for brands including JD Sports and Manchester United. He has ADHD, and the same techniques beat him every night. SETL is the tool he built against his own trade."),
+ ("THE DESIGN STORY", "Why Screen Time limits fail adults",
+  "Apple built Screen Time for families: a parent sets the passcode, the child lives with the limit. When you set limits for yourself you are both parent and child, and at midnight you are the one asking for more time."),
+ ("THE RESEARCH", "What the evidence really says about screens and sleep",
+  "Half of US adults take a screen to bed daily. A 2025 study of 45,202 students linked each extra hour on a screen in bed to about 24 minutes less sleep. Meanwhile the claim that screens damage your retina is not supported."),
+ ("THE CATEGORY", "The app blocker market has a night shift",
+  "Screen time apps were built for the workday. A wave of new apps, SETL among them, is being built for the hour people actually lose: bedtime."),
+]
+angle_html = "".join('<div class="card rv%s"><span class="n">%s</span><h3>%s</h3><p>%s</p></div>' %
+                     (["", " d1", " d2"][i % 3], n, h, b) for i, (n, h, b) in enumerate(angles))
+facts = [
+ ("What it is", "An app blocker for iPhone, built bedtime first"),
+ ("How it works", "Built on Apple's Screen Time framework. Usage data never leaves the phone"),
+ ("Three features", "SETL Sleep (nightly blocking), SETL Sessions (daytime focus), SETL Plans (planned nights off)"),
+ ("Price", "$39.99 a year, $5.99 a month or $2.99 a week. 7 nights free on yearly"),
+ ("Stage", "Beta, with a public waitlist ahead of the App Store launch"),
+ ("Founded", "2026, in the United Kingdom, by Jacob Redshaw"),
+ ("Mission", "A billion hours given back"),
+ ("Pronounced", "Settle. Often searched as settle sleep"),
+]
+fact_html = "".join('<div class="vrow rv"><p class="vlbl">%s</p><div class="vcell us" style="grid-column:span 2"><span class="vtxt">%s</span></div></div>' % f for f in facts)
+press_body = ("""<section class="hero center"><div class="narrow">
+<span class="eyebrow rv"><i></i>Press</span>
+<h1 class="rv d1">Press kit</h1>
+<p class="lead rv d2">Everything you need to write about SETL, including the things we will not claim. Interviews, early access and original data on request.</p>
+<div class="btn-row rv d3"><a class="btn" href="mailto:jacob.redshaw13@gmail.com?subject=SETL%20press%20enquiry">Email the founder</a><a class="btn ghost" href="/founder-story.html">Read the founder story</a></div>
+</div></section>
+""" + prose_sec("Boilerplate", """
+<p><strong>Short:</strong> SETL is an iPhone app blocker built for bedtime. You set your bedtime once, and your chosen apps close themselves every night.</p>
+<p><strong>Long:</strong> SETL (pronounced settle) is a UK built app blocker for iPhone, designed around the hour most people lose to their phones. Unlike screen time apps built for the workday, SETL starts at bedtime: users choose the apps that keep them up and the time those apps should close, and the block then runs automatically every night. SETL Sessions brings the same blocking into the day for focused work, and SETL Plans schedules nights off in advance. It is built on Apple's Screen Time framework, so usage data never leaves the device. SETL is on a mission to give the world a billion hours back.</p>""")
+ + cards_sec("Story angles", "Four we can speak to properly, with evidence.", angles)
+ + '<section class="sec"><div class="wrap"><div class="sec-head"><h2 class="rv">Fact sheet</h2></div><div class="vs2">%s</div></div></section>' % fact_html
+ + beta_strip("Beta results", "Reported by SETL beta testers. We will share the underlying method with any journalist who asks.")
+ + prose_sec("How we handle evidence", """
+<p>Every statistic on this site links to its original source, and we will happily point you to it.</p>
+<p>We do not publish invented reviews, user numbers or health outcomes. We do not pay for coverage, buy links or trade reviews. If we ever gift access for a review, we ask that it is disclosed.</p>
+<p>Where a popular claim is wrong, we say so: the widely quoted "23 minutes to refocus" figure comes from a 2006 interview rather than a study, and ophthalmologists say screens do not damage your retina.</p>
+<p>Logos, app screenshots and founder photography are available on request. <a href="/about.html">About SETL</a>.</p>""")
+ + CTA)
+built.append(page("press.html",
+  "SETL Press Kit: Facts, Story Angles and Contact",
+  "Press kit for SETL, the iPhone app blocker built for bedtime: boilerplate, fact sheet, story angles, beta results and founder contact details.",
+  press_body, "", faq=PRESS_FAQ, faq_title="Press FAQs",
+  ld=[{"@type": "WebPage", "name": "SETL press kit", "url": SITE + "/press.html",
+       "description": "Press kit for SETL, the iPhone app blocker built for bedtime.",
+       "publisher": {"@id": SITE + "/#org"}},
+      crumbs_ld([("Home", "/"), ("Press", "/press.html")])]))
 
 # =====================================================================
 # HEAD TO HEAD PAGES
