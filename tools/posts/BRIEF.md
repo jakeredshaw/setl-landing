@@ -57,7 +57,7 @@ Do not repeat the h1, intro, answer, sources or FAQ inside body (the template re
 - iPhone only for now (Android and Mac not yet). Built on Apple's Screen Time framework; Apple gives SETL private tokens, so SETL never learns which apps you picked, and Screen Time data stays on the phone.
 - SETL Sleep: set your bedtime once; your chosen apps are blocked automatically at bedtime every night.
 - SETL Sessions: daytime focus blocks. Pick the apps, pick how long. The block ends itself when time is up; opening early needs a deliberate press and hold, not a single tap.
-- SETL Plans: plan nights off in advance (weddings, night shifts, birthdays).
+- SETL Breaks: plan nights off in advance (weddings, night shifts, birthdays).
 - Sleep Reserve: Lock Screen widget showing how much of the night is left for sleep. Post bedtime nudges.
 - Moon collection: moons you earn by keeping nights.
 - Pricing (launch, USD, via Apple): $39.99 a year (shown as $3.33 a month), $5.99 a month, $2.99 a week. Free nights: 7 on yearly, 3 on monthly, 1 on weekly. Cancel in iPhone settings.

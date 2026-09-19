@@ -244,8 +244,9 @@ def compare_strip(current):
 
 FEATURES = [
  ("SETL SLEEP", "Blocks apps at bedtime", 'Set your bedtime once. Your chosen apps lock automatically every night. <a href="/setl-sleep.html">About SETL Sleep</a>.'),
+ ("SETL BLOCKS", "Scheduled blocks in your day", "Plan named blocks in a calendar, repeating on the days you choose, so your apps settle on schedule."),
  ("SETL SESSIONS", "Blocks apps on demand", 'Pick the apps and how long, and get deep work in the day. <a href="/setl-sessions.html">About SETL Sessions</a>.'),
- ("SETL PLANS", "Nights off, planned ahead", "Weddings, birthdays, night shifts. Book them weeks ahead and SETL steps aside."),
+ ("SETL BREAKS", "Planned time off blocking", "A party, a late shift, a trip. Book it ahead and SETL eases off, then goes back to normal."),
  ("SLEEP RESERVE", "Your night in one number", "A Lock Screen widget that shows how much of the night is left for sleep."),
  ("PRIVATE", "Nothing leaves your phone", "Apple gives SETL private tokens, so we never learn which apps you block."),
  ("PRICE", "From $3.33 a month", 'Billed $39.99 a year, with 7 nights free. <a href="/pricing.html">See pricing</a>.'),
@@ -348,7 +349,7 @@ about_body = """<section class="hero center"><div class="narrow">
 """) + cards_sec("Three tools, one app", "", [
  ("SETL SLEEP", "Your night, protected", 'Your chosen apps close at bedtime, automatically. <a href="/setl-sleep.html">See SETL Sleep</a>.'),
  ("SETL SESSIONS", "Your day, on demand", 'Pick the apps and the length, and focus properly. <a href="/setl-sessions.html">See SETL Sessions</a>.'),
- ("SETL PLANS", "Real life, allowed", "Book the nights you want your apps open, weeks ahead."),
+ ("SETL BREAKS", "Real life, allowed", "Plan a break from blocking, weeks ahead, then SETL returns to normal."),
 ]) + prose_sec("Why SETL exists", """
 <p>Half of US adults use a screen in bed every day, and 38% say it is making their sleep worse.<sup><a href="#s1">1</a></sup></p>
 <p>The cost is measurable. In a 2025 study of 45,202 students, each extra hour on a screen in bed was linked to about <strong>24 minutes less sleep</strong>.<sup><a href="#s2">2</a></sup></p>
@@ -504,12 +505,12 @@ built.append(page("mission.html",
 # =====================================================================
 # PRICING
 # =====================================================================
-included = ["Night blocking at your bedtime", "SETL Sessions for daytime focus", "SETL Plans for nights off",
+included = ["Night blocking at your bedtime", "SETL Blocks for scheduled day blocks", "SETL Sessions on demand", "SETL Breaks for planned time off",
             "Sleep Reserve Lock Screen widget", "Post bedtime nudges", "The full moon collection"]
 inc = "".join("<li>%s</li>" % x for x in included)
 faqs = [
- ("How much does SETL cost?", "SETL costs $39.99 a year (just $3.33 a month), $5.99 a month, or $2.99 a week. Every plan includes SETL Sleep, SETL Sessions and SETL Plans."),
- ("How do the free nights work?", "Every plan starts free: 7 nights on yearly, 3 nights on monthly and 1 night on weekly. Cancel before your free nights end and you pay nothing."),
+ ("How much does SETL cost?", "SETL costs $39.99 a year (just $3.33 a month), $5.99 a month, or $2.99 a week. Every plan includes SETL Sleep, SETL Blocks, SETL Sessions and SETL Breaks."),
+ ("How do the free nights work?", "Yearly starts with 7 nights free and monthly with 3. Weekly has no free trial, because the shortest introductory offer Apple allows is three days. Cancel before a trial ends and you pay nothing."),
  ("Is SETL cheaper than Opal?", "Yes. SETL is $39.99 a year. Opal Pro is $99.99 a year on Opal's US pricing page, so SETL costs 60% less. <a href=\"/setl-vs-opal.html\">Compare SETL vs Opal</a>."),
  ("Is there a free app blocker for iPhone?", "Apple Screen Time is free and built in, but a limit you set for yourself is easy to ignore. SETL is a paid app blocker with up to 7 nights free. <a href=\"/apple-screen-time-alternative.html\">See how they compare</a>."),
  ("Can I cancel anytime?", "Yes. Subscriptions are handled by Apple, so you cancel in your iPhone settings in a few taps."),
@@ -524,13 +525,13 @@ pricing_body = """<section class="hero center"><div class="narrow">
 </div></section>
 <section style="padding-bottom:clamp(64px,11vw,110px)"><div class="wrap">
 <div class="plans">
-<article class="plan rv"><h3>Weekly</h3><p class="price">$2.99<small>/week</small></p><p class="per">1 night free, then week by week.</p><ul>%s</ul><a class="btn ghost" href="/">Join the waitlist</a></article>
+<article class="plan rv"><h3>Weekly</h3><p class="price">$2.99<small>/week</small></p><p class="per">Week by week. No trial on weekly.</p><ul>%s</ul><a class="btn ghost" href="/">Join the waitlist</a></article>
 <article class="plan best rv d1"><span class="badge">BEST VALUE</span><h3>Annual</h3><p class="price">$3.33<small>/month</small></p><p class="per">7 nights free. Billed $39.99 a year, save 44%% on monthly.</p><ul>%s</ul><a class="btn" href="/">Join the waitlist</a></article>
 <article class="plan rv d2"><h3>Monthly</h3><p class="price">$5.99<small>/month</small></p><p class="per">3 nights free. Cancel anytime.</p><ul>%s</ul><a class="btn ghost" href="/">Join the waitlist</a></article>
 </div>
 <p class="fn center" style="margin-top:22px">Launch prices in US dollars, charged by Apple. Local App Store prices may differ.</p>
 <div class="trustrow rv">
-<div><b>Free to start</b><span>7 nights on yearly, 3 on monthly, 1 on weekly.</span></div>
+<div><b>Free to start</b><span>7 nights free on yearly, 3 on monthly.</span></div>
 <div><b>Cancel in two taps</b><span>Handled by Apple, in your iPhone settings.</span></div>
 <div><b>Private by design</b><span>Your Screen Time data never leaves your phone.</span></div>
 <div><b>Everything included</b><span>No feature is held back for a higher tier.</span></div>
@@ -573,7 +574,8 @@ rows = [
  ("Free to start", ("ok", "7 nights free on yearly"), ("ok", "Free plan with 1 rule")),
  ("Automatic bedtime blocking", ("ok", "Yes, every night"), ("ok", "Yes, Sleep Mode")),
  ("Daytime focus sessions", ("ok", "Yes, SETL Sessions"), ("ok", "Yes, focus sessions")),
- ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("ok", "Yes, with schedules")),
+ ("Scheduled blocks in your day", ("ok", "Yes, SETL Blocks"), ("ok", "Yes, rules and schedules")),
+ ("Planned time off blocking", ("ok", "Yes, SETL Breaks"), ("ok", "Yes, with schedules")),
  ("Sleep left, on your Lock Screen", ("ok", "Yes, Sleep Reserve"), ("no", "Not listed")),
  ("Private by design", ("ok", "Screen Time data stays on iPhone"), ("ok", "Browsing data stays on device")),
  ("Devices", ("mid", "iPhone"), ("ok", "iPhone, Android and Mac")),
@@ -582,7 +584,7 @@ tbl = "".join('<div class="vrow rv"><p class="vlbl">%s</p>%s%s</div>' % (lbl, vs
               for lbl, a, b in rows)   # the Opal page keeps its own longer layout
 VS_FAQ = [
  ("Is SETL a good Opal alternative?", "If your screen time problem is worst at night, yes. SETL is an app blocker built bedtime first, with daytime focus sessions, for $39.99 a year against Opal Pro's $99.99."),
- ("What is the difference between SETL and Opal?", "Opal is a focus app for iPhone, Android and Mac with a Sleep Mode. SETL is iPhone only and built around bedtime, with SETL Plans for nights off and a Sleep Reserve widget."),
+ ("What is the difference between SETL and Opal?", "Opal is a focus app for iPhone, Android and Mac with a Sleep Mode. SETL is iPhone only and built around bedtime, with SETL Breaks for nights off and a Sleep Reserve widget."),
  ("How much does Opal cost?", "On Opal's US pricing page, checked September 2026: a free plan, Opal Pro at $99.99 a year or $19.99 a month, and a $399 lifetime plan."),
  ("Is there a cheaper app like Opal?", "SETL costs $39.99 a year, $5.99 a month or $2.99 a week, which is less than half of Opal Pro's yearly price. <a href=\"/blog/opal-alternatives.html\">See more Opal alternatives</a>."),
  ("Does SETL work on Android like Opal?", "Not yet. SETL is iPhone only for now. If you need one blocker across Android or Mac, Opal covers those platforms."),
@@ -653,8 +655,8 @@ angle_html = "".join('<div class="card rv%s"><span class="n">%s</span><h3>%s</h3
 facts = [
  ("What it is", "An app blocker for iPhone, built bedtime first"),
  ("How it works", "Built on Apple's Screen Time framework. Usage data never leaves the phone"),
- ("Three features", "SETL Sleep (nightly blocking), SETL Sessions (daytime focus), SETL Plans (planned nights off)"),
- ("Price", "$39.99 a year, $5.99 a month or $2.99 a week. 7 nights free on yearly"),
+ ("Four features", "SETL Sleep (nightly blocking), SETL Blocks (scheduled blocks in your day), SETL Sessions (focus on demand), SETL Breaks (planned time off)"),
+ ("Price", "$39.99 a year, $5.99 a month or $2.99 a week. 7 nights free on yearly, 3 on monthly"),
  ("Stage", "Beta, with a public waitlist ahead of the App Store launch"),
  ("Founded", "2026, in the United Kingdom, by Jacob Redshaw"),
  ("Mission", "A billion hours given back"),
@@ -670,7 +672,7 @@ press_body = ("""<section class="hero center"><div class="narrow">
 """ + prose_sec("Boilerplate", """
 <p><strong>One line:</strong> A screen blocker app specialising in automated distraction relief, night and day. Built for ADHD brains, deep focus and anyone with a busy life.</p>
 <p><strong>Short:</strong> SETL is an iPhone app blocker built for bedtime. You set your bedtime once, and your chosen apps close themselves every night.</p>
-<p><strong>Long:</strong> SETL (pronounced settle) is a UK built app blocker for iPhone, designed around the hour most people lose to their phones. Unlike screen time apps built for the workday, SETL starts at bedtime: users choose the apps that keep them up and the time those apps should close, and the block then runs automatically every night. SETL Sessions brings the same blocking into the day for focused work, and SETL Plans schedules nights off in advance. It is built on Apple's Screen Time framework, so usage data never leaves the device. SETL is on a mission to give the world a billion hours back.</p>""")
+<p><strong>Long:</strong> SETL (pronounced settle) is a UK built app blocker for iPhone, designed around the hour most people lose to their phones. Unlike screen time apps built for the workday, SETL starts at bedtime: users choose the apps that keep them up and the time those apps should close, and the block then runs automatically every night. SETL Blocks schedules named blocks anywhere in the day, SETL Sessions blocks on demand for focused work, and SETL Breaks plans time off in advance. It is built on Apple's Screen Time framework, so usage data never leaves the device. SETL is on a mission to give the world a billion hours back.</p>""")
  + cards_sec("Story angles", "Four we can speak to properly, with evidence.", angles)
  + '<section class="sec"><div class="wrap"><div class="sec-head"><h2 class="rv">Fact sheet</h2></div><div class="vs2">%s</div></div></section>' % fact_html
  + beta_strip("Beta results", "Reported by SETL beta testers. We will share the underlying method with any journalist who asks.")
@@ -716,12 +718,12 @@ versus("setl-vs-sunbreak.html", "Sunbreak",
  """
 <p>Sunbreak and SETL are the two iPhone app blockers built around sleep rather than the workday, so this is the closest comparison on the site.</p>
 <p>Sunbreak locks your apps at bedtime and keeps them locked <strong>until sunrise at your location</strong>, and it can name a friend who gets an email automatically if you break your bedtime.<sup><a href="#s1">1</a></sup></p>
-<p>SETL blocks at the bedtime you set, then hands the day back to you with <a href="/setl-sessions.html">SETL Sessions</a> and books your nights off in advance with SETL Plans.</p>
+<p>SETL blocks at the bedtime you set, then hands the day back to you with <a href="/setl-sessions.html">SETL Sessions</a> and books your nights off in advance with SETL Breaks.</p>
 <p>One leans on social pressure. The other leans on removing the decision. Both beat willpower at midnight.</p>""",
  [("Built for bedtime", ("ok", "Yes, night first"), ("ok", "Yes, night first")),
   ("When apps unlock", ("ok", "The wake time you choose"), ("ok", "Sunrise at your location")),
   ("Daytime focus blocks", ("ok", "Yes, SETL Sessions"), ("no", "Not listed")),
-  ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("no", "Not listed")),
+  ("Nights off, planned ahead", ("ok", "Yes, SETL Breaks"), ("no", "Not listed")),
   ("Accountability partner", ("mid", "No. It stays between you and your phone"), ("ok", "Yes, a friend gets an email")),
   ("Sleep left, on your Lock Screen", ("ok", "Yes, Sleep Reserve"), ("no", "Not listed")),
   ("Price", ("ok", "$39.99 a year, 7 nights free"), ("mid", "Free with in app purchases, plan price not published")),
@@ -750,7 +752,7 @@ versus("setl-vs-one-sec.html", "one sec",
  [("Main method", ("ok", "Blocks chosen apps outright"), ("ok", "Adds a pause before an app opens")),
   ("Built around", ("ok", "Bedtime first, then your day"), ("ok", "The moment you reach for an app")),
   ("Automatic every night", ("ok", "Yes, at your bedtime"), ("no", "Not its design")),
-  ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("no", "Not listed")),
+  ("Nights off, planned ahead", ("ok", "Yes, SETL Breaks"), ("no", "Not listed")),
   ("Sleep left, on your Lock Screen", ("ok", "Yes, Sleep Reserve"), ("no", "Not listed")),
   ("Free option", ("ok", "7 nights free on yearly"), ("ok", "Essentials are free")),
   ("Price", ("ok", "$39.99 a year"), ("mid", "Individual price not published on its site")),
@@ -779,7 +781,7 @@ versus("setl-vs-screenzen.html", "ScreenZen",
  [("Price", ("ok", "$39.99 a year, 7 nights free"), ("ok", "Free, donation supported")),
   ("Built around", ("ok", "Bedtime first, then your day"), ("ok", "Waits, limits and focus blocks")),
   ("Automatic bedtime blocking", ("ok", "Yes, every night"), ("ok", "Yes, scheduled blocks")),
-  ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("no", "Not listed")),
+  ("Nights off, planned ahead", ("ok", "Yes, SETL Breaks"), ("no", "Not listed")),
   ("Sleep left, on your Lock Screen", ("ok", "Yes, Sleep Reserve"), ("no", "Not listed")),
   ("Rewards for keeping nights", ("ok", "Yes, the moon collection"), ("no", "Not listed")),
   ("Devices", ("mid", "iPhone"), ("ok", "iOS, macOS, Windows and Android")),
@@ -808,7 +810,7 @@ versus("setl-vs-brick.html", "Brick",
   ("Cost", ("ok", "$39.99 a year, 7 nights free"), ("ok", "$59.00 one off")),
   ("If you lose the thing", ("ok", "Nothing to lose"), ("mid", "A limited number of emergency unlocks")),
   ("Daytime focus blocks", ("ok", "Yes, SETL Sessions"), ("ok", "Yes, tap to start")),
-  ("Nights off, planned ahead", ("ok", "Yes, SETL Plans"), ("no", "Not listed")),
+  ("Nights off, planned ahead", ("ok", "Yes, SETL Breaks"), ("no", "Not listed")),
   ("Devices", ("mid", "iPhone"), ("ok", "iPhone and Android")),
  ],
  'Brick details from its own site and FAQ, checked September 2026. SETL prices are launch prices.',
@@ -916,7 +918,7 @@ post("best-app-blocker-for-sleep",
 <h3>Sunbreak</h3>
 <p>A nightly app blocker that locks apps at bedtime and can alert an accountability partner if you break your pact.<sup><a href="#fn4">4</a></sup></p>
 <h3>SETL</h3>
-<p>Built bedtime first. SETL blocks your chosen apps at the time you set, plans nights off with SETL Plans, and brings the same block into your day with SETL Sessions. <strong>$39.99 a year</strong>, with 7 nights free.</p>
+<p>Built bedtime first. SETL blocks your chosen apps at the time you set, plans nights off with SETL Breaks, and brings the same block into your day with SETL Sessions. <strong>$39.99 a year</strong>, with 7 nights free.</p>
 <p>See the full <a href="/setl-vs-opal.html">SETL vs Opal comparison</a>.</p>
 
 <div class="callout"><strong>The honest answer:</strong> the best app blocker is the one you cannot talk yourself out of at 1am. Test that first, then compare features.</div>
@@ -1204,13 +1206,13 @@ landing("screen-time-blocker.html",
    ("What it does", "Reports your screen time, or warns you when a timer runs out", "Blocks the apps you choose, on a schedule or for a session"),
    ("At midnight", "Relies on you choosing to stop", "Your apps are already locked at bedtime"),
    ("In the day", "Daily limits per app", "SETL Sessions: pick apps, pick how long"),
-   ("Nights off", "Change settings by hand", "Planned ahead with SETL Plans"),
+   ("Nights off", "Change settings by hand", "Planned ahead with SETL Breaks"),
    ("Your data", "Varies by app", "Stays on your iPhone"),
   ], "A general comparison of how trackers and blockers work. See <a href=\"/apple-screen-time-alternative.html\">Apple Screen Time vs SETL</a> for a specific one."),
   cards_sec("Two ways SETL restricts screen time", "Night and day, from one app.", [
    ("NIGHT", "SETL Sleep", 'Your distracting apps lock at bedtime, every night, automatically. <a href="/setl-sleep.html">See SETL Sleep</a>.'),
    ("DAY", "SETL Sessions", 'A screen timer blocker for focus. Choose apps and a length, and they unlock when time is up. <a href="/setl-sessions.html">See SETL Sessions</a>.'),
-   ("REAL LIFE", "SETL Plans", "Book the nights you want your apps open, so the rule survives weddings and night shifts."),
+   ("REAL LIFE", "SETL Breaks", "Book the nights you want your apps open, so the rule survives weddings and night shifts."),
   ]),
   beta_strip("How much screen time SETL cut in beta"),
   reads_sec("Screen time guides", ["how-to-reduce-screen-time-on-iphone", "how-much-screen-time-is-too-much", "best-screen-time-apps-for-iphone", "does-grayscale-reduce-screen-time"])],
@@ -1242,7 +1244,7 @@ landing("apple-screen-time-alternative.html",
    ("Price", "Free, built in", "$39.99 a year, 7 nights free"),
    ("Bedtime blocking", "Screen Time Schedule (Downtime in iOS 26)", "SETL Sleep, automatic every night"),
    ("Daytime focus", "Time Allowances (App Limits in iOS 26)", "SETL Sessions: pick apps and how long"),
-   ("Nights off", "Edit your schedule", "Planned weeks ahead with SETL Plans"),
+   ("Nights off", "Edit your schedule", "Planned weeks ahead with SETL Breaks"),
    ("Night at a glance", "Not a feature", "Sleep Reserve Lock Screen widget"),
    ("Reports", "Detailed usage reports", "Focused on blocking, not reports"),
    ("Built for", "Families and personal limits", "Adults who scroll at night"),
@@ -1279,7 +1281,7 @@ landing("setl-sleep.html",
    ("03", "Put the phone to sleep", "At bedtime your apps lock on their own. Calls and alarms keep working."),
   ]),
   cards_sec("Built for real nights", "", [
-   ("SETL PLANS", "Nights off, booked ahead", "Weddings, birthdays, holidays and night shifts. SETL steps aside on the nights you choose."),
+   ("SETL BREAKS", "Nights off, booked ahead", "Weddings, birthdays, holidays and night shifts. SETL steps aside on the nights you choose."),
    ("SLEEP RESERVE", "Your night in one number", "A Lock Screen widget showing how much of the night is left for sleep."),
    ("MOONS", "A reason to keep going", "Earn a collection of moons as you keep your bedtimes."),
   ]),
@@ -1293,7 +1295,7 @@ landing("setl-sleep.html",
   ("What is SETL Sleep?", "SETL Sleep is a bedtime app blocker for iPhone. Set your bedtime once, and SETL blocks your chosen distracting apps automatically at that time every night."),
   ("How do you pronounce SETL?", "SETL is pronounced settle, so SETL Sleep sounds like settle sleep."),
   ("How does SETL Sleep stop me scrolling in bed?", "It removes the decision. Your apps lock at bedtime before the scroll starts, so there is nothing to argue with at midnight."),
-  ("What if I have a late night planned?", "Use SETL Plans to book nights off in advance, like a wedding or a night shift, and SETL Sleep steps aside for those nights."),
+  ("What if I have a late night planned?", "Use SETL Breaks to book nights off in advance, like a wedding or a night shift, and SETL Sleep steps aside for those nights."),
   ("Is SETL Sleep a sleep tracker?", "No. SETL Sleep does not track your sleep. It blocks the apps that keep you awake, and Sleep Reserve shows how much of the night is left."),
   ("How much does SETL Sleep cost?", 'SETL Sleep is included in every SETL plan: $39.99 a year, $5.99 a month or $2.99 a week, with up to 7 nights free. <a href="/pricing.html">See pricing</a>.'),
  ]), "SETL Sleep FAQs", "SETL Sleep", "SETL Sleep bedtime app blocker")
@@ -1307,7 +1309,7 @@ landing("setl-sessions.html",
  [prose_sec("What is a focus app blocker?", """
 <p>A <strong>focus app blocker</strong> blocks distracting apps for a set length of time, so you can do one thing properly.</p>
 <p><strong>SETL Sessions</strong> brings the same blocking as SETL Sleep into your day. Choose the apps, choose how long, and start.</p>
-<p>The block ends by itself when the session is over. If you really need an app sooner, you press and hold to open it. A deliberate choice, not a reflex tap.</p>
+<p>The block ends by itself when the session is over. Opening your apps sooner means answering two questions and then holding a button for 25 seconds. A deliberate choice, not a reflex tap.</p>
 <p>Why it matters: attention researcher Gloria Mark found we now hold attention on one screen for <strong>around 47 seconds</strong> before switching.<sup><a href="#s1">1</a></sup> Read <a href="/blog/does-it-take-23-minutes-to-refocus.html">what distraction really costs</a>.</p>""", ["mark47"]),
   cards_sec("What people use SETL Sessions for", "", [
    ("WORK", "Deep work", "Protect the hours where the real work happens."),
@@ -1324,7 +1326,7 @@ landing("setl-sessions.html",
   ("Can I end a SETL Session early?", "Yes. Press and hold to open your apps sooner. It is deliberate on purpose, so a reflex tap cannot undo your focus."),
   ("Is SETL Sessions good for studying?", "Yes. Start a session before revision, block social and video apps, and they unlock by themselves when your study block is done."),
   ("Can an app blocker help with ADHD focus?", 'Many people find removing the option easier than resisting it. SETL is not a treatment for ADHD. <a href="/blog/app-blocker-for-adhd.html">Read more</a>.'),
-  ("Is SETL Sessions included in SETL?", "Yes. SETL Sessions, SETL Sleep and SETL Plans are included in every plan, from $3.33 a month billed yearly."),
+  ("Is SETL Sessions included in SETL?", "Yes. SETL Sessions, SETL Sleep and SETL Breaks are included in every plan, from $3.33 a month billed yearly."),
  ]), "SETL Sessions FAQs", "SETL Sessions", "focus app blocker")
 
 # =====================================================================
@@ -1379,8 +1381,8 @@ open(os.path.join(ROOT, "feed.xml"), "w", encoding="utf-8").write("""<?xml versi
 
 llms = ["# SETL: Focus on Life.", "",
  "> SETL (pronounced settle) is an iPhone app blocker built bedtime first. SETL Sleep blocks chosen distracting apps automatically "
- "at bedtime every night; SETL Sessions blocks them on demand for daytime focus; SETL Plans schedules nights off. Built in the UK "
- "by founder Jacob Redshaw. Pricing: $39.99 a year ($3.33 a month), $5.99 a month or $2.99 a week. Free nights: 7 on yearly, 3 on monthly, 1 on weekly. iPhone only.", "",
+ "at bedtime every night; SETL Sessions blocks them on demand for daytime focus; SETL Breaks schedules nights off. Built in the UK "
+ "by founder Jacob Redshaw. Pricing: $39.99 a year ($3.33 a month), $5.99 a month or $2.99 a week. Free nights: 7 on yearly, 3 on monthly. Weekly has no trial. iPhone only.", "",
  "In one line: A screen blocker app specialising in automated distraction relief, night and day. Built for ADHD brains, deep focus and anyone with a busy life.", "",
  "Also searched as: SETL Sleep, setl, settle sleep, SETL app blocker.", "",
  "Instagram: https://www.instagram.com/setl.sleep/", ""]

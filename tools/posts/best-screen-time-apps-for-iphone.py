@@ -69,7 +69,7 @@ POST = {
 </ul>
 
 <h2>Where SETL fits</h2>
-<p>SETL is the <a href="/screen-time-blocker.html">screen time blocker</a> to pick first if bedtime is where your time goes: set your bedtime once and your chosen apps are blocked every night, with SETL Plans for nights off. SETL Sessions cover daytime focus, and opening early needs a deliberate press and hold. It is iPhone only, built on Apple's Screen Time framework, and priced at $39.99 a year at launch, with up to 7 nights free. SETL is on a waitlist now, and if you need Android, Mac or a free plan, another app above will suit you better.</p>""",
+<p>SETL is the <a href="/screen-time-blocker.html">screen time blocker</a> to pick first if bedtime is where your time goes: set your bedtime once and your chosen apps are blocked every night, with SETL Breaks for nights off. SETL Sessions cover daytime focus, and opening early needs a deliberate press and hold. It is iPhone only, built on Apple's Screen Time framework, and priced at $39.99 a year at launch, with up to 7 nights free. SETL is on a waitlist now, and if you need Android, Mac or a free plan, another app above will suit you better.</p>""",
  "sources": [
   ("Apple Support, iPhone User Guide (iOS 27), Set up Screen Time for yourself on iPhone, 2026", "https://support.apple.com/guide/iphone/get-started-with-screen-time-iphbfa595995/ios"),
   ("Apple Support, iPhone User Guide (iOS 27), Set Screen Time Schedules and Time Allowances, 2026", "https://support.apple.com/guide/iphone/set-schedules-with-screen-time-iphb0c7313c9/ios"),

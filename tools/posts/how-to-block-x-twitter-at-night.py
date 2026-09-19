@@ -57,7 +57,7 @@ POST = {
 <p>The night block also removes the negotiation. You are not deciding whether to stop while tired and halfway through a thread. You decided weeks ago. If the habit runs deeper than timing, read <a href="/blog/how-to-stop-doomscrolling.html">how to stop doomscrolling</a> and <a href="/blog/bedtime-procrastination.html">bedtime procrastination</a>.</p>
 
 <h2>Where SETL fits</h2>
-<p>SETL is an iPhone app blocker built bedtime first. You set your bedtime once, pick your apps, and they are blocked automatically every night, with SETL Plans for the nights you know will be different. It is built on Apple's Screen Time framework, so Apple gives SETL private tokens and SETL never learns which apps you chose. See the <a href="/setl-sleep.html">SETL Sleep bedtime app blocker</a> page, or our broader <a href="/app-blocker.html">app blocker for iPhone</a> page. SETL is on a waitlist ahead of launch.</p>
+<p>SETL is an iPhone app blocker built bedtime first. You set your bedtime once, pick your apps, and they are blocked automatically every night, with SETL Breaks for the nights you know will be different. It is built on Apple's Screen Time framework, so Apple gives SETL private tokens and SETL never learns which apps you chose. See the <a href="/setl-sleep.html">SETL Sleep bedtime app blocker</a> page, or our broader <a href="/app-blocker.html">app blocker for iPhone</a> page. SETL is on a waitlist ahead of launch.</p>
 <p class="fn">This article is general information, not medical advice. Speak to your doctor about ongoing sleep, attention or mental health concerns.</p>""",
  "sources": [
   ("X Help Center, About your For you timeline on X, checked September 2026", "https://help.x.com/en/using-x/x-timeline"),

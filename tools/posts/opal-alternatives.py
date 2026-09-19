@@ -69,7 +69,7 @@ POST = {
 <p>For the full breakdown, see <a href="/setl-vs-opal.html">SETL vs Opal</a> and our <a href="/pricing.html">SETL pricing</a> page. If you want a wider view, read our guide to the <a href="/blog/best-screen-time-apps-for-iphone.html">best screen time apps for iPhone</a>.</p>
 
 <h2>Where SETL fits</h2>
-<p>SETL is an iPhone app blocker built bedtime first. With <a href="/setl-sleep.html">SETL Sleep</a>, you set your bedtime once and your chosen apps are blocked every night, and SETL Plans let you book nights off in advance. It is iPhone only and on a waitlist ahead of launch, so if you need Android, Mac, a free plan or a lifetime licence, Opal or another option above may suit you better.</p>
+<p>SETL is an iPhone app blocker built bedtime first. With <a href="/setl-sleep.html">SETL Sleep</a>, you set your bedtime once and your chosen apps are blocked every night, and SETL Breaks let you book nights off in advance. It is iPhone only and on a waitlist ahead of launch, so if you need Android, Mac, a free plan or a lifetime licence, Opal or another option above may suit you better.</p>
 <p class="fn">Opal is a trademark of Opal OS Corporation. SETL is not affiliated with Opal.</p>""",
  "sources": [
   ("App Store, Opal: Screen Time Control, checked September 2026", "https://apps.apple.com/us/app/opal-screen-time-for-focus/id1497465230"),
