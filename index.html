@@ -504,6 +504,12 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 .srcline{margin-top:14px;font-size:12px;color:var(--dim2);line-height:1.5}
 .srcline a{color:#B9BCC8;text-decoration:underline;text-underline-offset:3px}
 
+/* product shots: the app itself, on black, no frame needed */
+.shot{display:block;width:min(340px,78%);height:auto;margin:clamp(30px,7vw,46px) auto 0;
+  filter:drop-shadow(0 34px 70px rgba(0,0,0,.65)) drop-shadow(0 0 60px rgba(124,107,245,.18))}
+.shotcap{margin-top:16px;font-size:13.5px;color:var(--dim2)}
+@media(min-width:900px){.shot{width:360px}}
+
 /* homepage FAQ */
 .hfaq{max-width:640px;margin:clamp(28px,7vw,44px) auto 0;text-align:left;display:grid;gap:10px}
 .hfaq details{border:1px solid var(--line);border-radius:18px;padding:0 clamp(16px,4vw,22px);
@@ -641,7 +647,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   <div class="wrap">
     <span class="tag rv">SETL Sessions&trade;</span>
     <h2 class="rv mt-tag" style="max-width:19ch;margin-inline:auto">Wait. What about the other 16 hours?</h2>
-    <p class="sub rv mt-sub">Your apps take the day as well. Pick them, pick how long, and they settle while you work. Ending early takes a 25 second hold, so a tired tap cannot undo it.</p>
+    <p class="sub rv mt-sub">Pick the apps, pick how long, and start. Ending early takes a 25 second hold, so the you who gets bored cannot undo the you who started.</p>
     <div class="iphone" style="margin:clamp(28px,7vw,40px) auto 0"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><video src="assets/setl-sessions.mp4" poster="assets/setl-sessions-poster.jpg" autoplay loop muted playsinline preload="metadata" aria-label="Starting a SETL session and choosing which apps to block"></video></div></div>
     <div class="chips rv">
       <span>ADHD</span><span>Deep work</span><span>Revision</span><span>Focus</span><span>The gym</span><span>Meetings</span><span>Driving</span><span>Dates</span><span>Quality time</span>
@@ -703,7 +709,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <div class="mtrack mtrack-b"><figure class="moon" data-tex="assets/moons/moon-cobalt.jpg" data-aura="0.30,0.50,0.98"><span class="msphere"><span class="mspin rev" style="animation-duration:22.8s;animation-delay:-9.8s"></span><span class="mshade"></span></span><figcaption><b>Cobalt Moon</b><span>62 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-marble.jpg" data-aura="0.90,0.88,0.80"><span class="msphere"><span class="mspin" style="animation-duration:24.6s;animation-delay:-7.0s"></span><span class="mshade"></span></span><figcaption><b>Marble Moon</b><span>70 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-pearl.jpg" data-aura="0.95,0.85,0.92"><span class="msphere"><span class="mspin rev" style="animation-duration:20.2s;animation-delay:-4.5s"></span><span class="mshade"></span></span><figcaption><b>Pearl Moon</b><span>85 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-gold.jpg" data-aura="0.98,0.80,0.35"><span class="msphere"><span class="mspin" style="animation-duration:19.2s;animation-delay:-0.8s"></span><span class="mshade"></span></span><figcaption><b>Golden Moon</b><span>90 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-solarwind.jpg" data-aura="0.95,0.75,0.40"><span class="msphere"><span class="mspin" style="animation-duration:14.8s;animation-delay:-2.5s"></span><span class="mshade"></span></span><figcaption><b>Solar Wind Moon</b><span>105 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-restored.jpg" data-aura="0.40,0.85,0.70"><span class="msphere"><span class="mspin" style="animation-duration:20.4s;animation-delay:-5.1s"></span><span class="mshade"></span></span><figcaption><b>Restored Moon</b><span>120 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-bioluminescent.jpg" data-aura="0.30,0.90,0.85"><span class="msphere"><span class="mspin rev" style="animation-duration:26.8s;animation-delay:-7.0s"></span><span class="mshade"></span></span><figcaption><b>Bioluminescent Moon</b><span>140 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-borealis.jpg" data-aura="0.40,0.95,0.60"><span class="msphere"><span class="mspin" style="animation-duration:16.6s;animation-delay:-3.6s"></span><span class="mshade"></span></span><figcaption><b>Borealis Moon</b><span>160 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-plasma.jpg" data-aura="0.60,0.45,0.98"><span class="msphere"><span class="mspin rev" style="animation-duration:18.8s;animation-delay:-8.4s"></span><span class="mshade"></span></span><figcaption><b>Plasma Moon</b><span>185 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-twilight.jpg" data-aura="0.90,0.60,0.85"><span class="msphere"><span class="mspin rev" style="animation-duration:25.0s;animation-delay:-6.9s"></span><span class="mshade"></span></span><figcaption><b>Twilight Moon</b><span>210 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-prismatic.jpg" data-aura="0.60,0.70,0.95"><span class="msphere"><span class="mspin" style="animation-duration:23.4s;animation-delay:-10.5s"></span><span class="mshade"></span></span><figcaption><b>Prismatic Moon</b><span>250 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-diamond.jpg" data-aura="0.80,0.92,1.00"><span class="msphere"><span class="mspin rev" style="animation-duration:19.4s;animation-delay:-3.5s"></span><span class="mshade"></span></span><figcaption><b>Diamond Moon</b><span>365 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-cobalt.jpg" data-aura="0.30,0.50,0.98"><span class="msphere"><span class="mspin rev" style="animation-duration:22.8s;animation-delay:-9.8s"></span><span class="mshade"></span></span><figcaption><b>Cobalt Moon</b><span>62 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-marble.jpg" data-aura="0.90,0.88,0.80"><span class="msphere"><span class="mspin" style="animation-duration:24.6s;animation-delay:-7.0s"></span><span class="mshade"></span></span><figcaption><b>Marble Moon</b><span>70 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-pearl.jpg" data-aura="0.95,0.85,0.92"><span class="msphere"><span class="mspin rev" style="animation-duration:20.2s;animation-delay:-4.5s"></span><span class="mshade"></span></span><figcaption><b>Pearl Moon</b><span>85 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-gold.jpg" data-aura="0.98,0.80,0.35"><span class="msphere"><span class="mspin" style="animation-duration:19.2s;animation-delay:-0.8s"></span><span class="mshade"></span></span><figcaption><b>Golden Moon</b><span>90 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-solarwind.jpg" data-aura="0.95,0.75,0.40"><span class="msphere"><span class="mspin" style="animation-duration:14.8s;animation-delay:-2.5s"></span><span class="mshade"></span></span><figcaption><b>Solar Wind Moon</b><span>105 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-restored.jpg" data-aura="0.40,0.85,0.70"><span class="msphere"><span class="mspin" style="animation-duration:20.4s;animation-delay:-5.1s"></span><span class="mshade"></span></span><figcaption><b>Restored Moon</b><span>120 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-bioluminescent.jpg" data-aura="0.30,0.90,0.85"><span class="msphere"><span class="mspin rev" style="animation-duration:26.8s;animation-delay:-7.0s"></span><span class="mshade"></span></span><figcaption><b>Bioluminescent Moon</b><span>140 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-borealis.jpg" data-aura="0.40,0.95,0.60"><span class="msphere"><span class="mspin" style="animation-duration:16.6s;animation-delay:-3.6s"></span><span class="mshade"></span></span><figcaption><b>Borealis Moon</b><span>160 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-plasma.jpg" data-aura="0.60,0.45,0.98"><span class="msphere"><span class="mspin rev" style="animation-duration:18.8s;animation-delay:-8.4s"></span><span class="mshade"></span></span><figcaption><b>Plasma Moon</b><span>185 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-twilight.jpg" data-aura="0.90,0.60,0.85"><span class="msphere"><span class="mspin rev" style="animation-duration:25.0s;animation-delay:-6.9s"></span><span class="mshade"></span></span><figcaption><b>Twilight Moon</b><span>210 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-prismatic.jpg" data-aura="0.60,0.70,0.95"><span class="msphere"><span class="mspin" style="animation-duration:23.4s;animation-delay:-10.5s"></span><span class="mshade"></span></span><figcaption><b>Prismatic Moon</b><span>250 nights</span></figcaption></figure><figure class="moon" data-tex="assets/moons/moon-diamond.jpg" data-aura="0.80,0.92,1.00"><span class="msphere"><span class="mspin rev" style="animation-duration:19.4s;animation-delay:-3.5s"></span><span class="mshade"></span></span><figcaption><b>Diamond Moon</b><span>365 nights</span></figcaption></figure></div>
   </div>
   <div class="wrap">
-    <p class="sub rv mt-sub" style="margin-top:clamp(22px,5vw,34px)">Twenty five to collect. The Diamond Moon takes a year.</p>
+    <img class="shot rv" src="assets/app-moon-golden.webp" alt="The SETL moon selector showing the Golden Moon, unlocked after 90 nights" width="760" height="1140" loading="lazy" decoding="async">
+<p class="sub rv mt-sub" style="margin-top:clamp(18px,4vw,26px)">Twenty five to collect. The Golden Moon takes ninety nights.</p>
   </div>
 </section>
 
@@ -767,80 +774,41 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
     <span class="tag">Sleep Reserve&trade;</span>
     <h2 style="margin-top:18px">Your night in one number.</h2>
     <p class="sub mt-sub">See how much sleep remains until morning, without opening another app.</p>
-    <div class="iphone" style="margin:clamp(26px,7vw,40px) auto 0"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-reserve.png" alt="The SETL Sleep Reserve screen, showing 2h 31m left until bed" onerror="this.closest('.iphone').remove()"></div></div>
+    <img class="shot rv" src="assets/app-widget.webp" alt="The SETL Sleep Reserve widget on an iPhone Lock Screen, reading 6h 49m remaining tonight" width="760" height="1140" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
 
 
-<!-- SETL BLOCKS -->
+<!-- SETL BLOCKS  (mechanism, reason, benefit) -->
 <section class="sec center" id="blocks">
   <div class="wrap">
     <span class="tag rv">SETL Blocks&trade;</span>
-    <h2 class="rv mt-tag" style="max-width:17ch;margin-inline:auto">Block any hour, not just bedtime.</h2>
-    <p class="sub rv mt-sub">Give your apps set hours off. Name a block, pick the window, repeat it on the days you choose, and they settle without you lifting a finger.</p>
-    <div class="wfor" style="max-width:620px">
-      <div class="wf rv"><i></i><div><b>Tonight</b><span>Your bedtime block. Set it once and your apps settle every night.</span></div></div>
-      <div class="wf rv"><i></i><div><b>Blocks</b><span>Scheduled windows in your day. Work mornings, study evenings, Sunday reset.</span></div></div>
-      <div class="wf rv"><i></i><div><b>Sessions</b><span>Blocking on demand. Pick the apps, pick how long, and start.</span></div></div>
-      <div class="wf rv"><i></i><div><b>Breaks</b><span>Life happens. Plan the nights SETL eases off, then it returns to normal.</span></div></div>
-    </div>
+    <h2 class="rv mt-tag" style="max-width:15ch;margin-inline:auto">Focus, on a timetable.</h2>
+    <p class="sub rv mt-sub">Book the hours your apps are closed and they repeat every week on their own. Mornings stay yours without a decision in them.</p>
+    <img class="shot rv" src="assets/app-blocks.webp" alt="The SETL Blocks tab, showing focus blocks scheduled from 7am to 10am and 4pm to 7pm" width="760" height="1140" loading="lazy" decoding="async">
   </div>
 </section>
 
 
-<!-- SETL PLANS -->
+<!-- SETL BREAKS -->
 <section class="sec center">
   <div class="wrap">
     <span class="tag rv">SETL Breaks&trade;</span>
-    <h2 class="rv" style="margin-top:18px">Some nights don&rsquo;t need a bedtime.</h2>
-    <p class="sub rv mt-sub">Some nights your apps are welcome. A party, a late shift, a trip. Book the night ahead and SETL steps aside, then picks up where it left off.</p>
-    <div class="iphone" style="margin:clamp(26px,7vw,40px) auto 0"><span class="sd sd-act"></span><span class="sd sd-up"></span><span class="sd sd-dn"></span><span class="sd sd-pw"></span><div class="scr"><img src="assets/scr-plans.png" alt="The SETL Breaks screen, planning a night off from blocking" onerror="this.closest('.iphone').remove()"></div></div>
-  </div>
-</section>
-
-<!-- EVERYTHING IN SETL -->
-<section class="sec" id="features">
-  <div class="wrap">
-    <div class="center">
-      <h2 class="rv" style="max-width:15ch;margin-inline:auto">Everything in SETL</h2>
-      <p class="sub rv mt-sub">Four ways to give yourself a break, one moon to bring out, and a reason to keep going. Every plan includes all of it.</p>
-    </div>
-    <div class="fgrid">
-      <div class="fcard rv"><span class="fl">TONIGHT</span><b>Your bedtime, kept</b><p>Set it once. After that your apps put themselves away every night, while you get on with going to bed.</p></div>
-      <div class="fcard rv"><span class="fl">BLOCKS</span><b>Any hour, on a schedule</b><p>Plan named blocks into a calendar. Work mornings, revision evenings, Sunday resets, repeating on the days you pick.</p></div>
-      <div class="fcard rv"><span class="fl">SESSIONS</span><b>Focus on demand</b><p>Pick the apps, pick how long, start. Ending early takes two questions and a 25 second hold, so a tired tap cannot undo it.</p></div>
-      <div class="fcard rv"><span class="fl">BREAKS</span><b>Room for real life</b><p>A party, a late shift, a trip. Plan the break ahead and SETL eases off, then goes straight back to normal.</p></div>
-      <div class="fcard rv"><span class="fl">SLEEP RESERVE</span><b>Your night in one number</b><p>A Lock Screen widget showing exactly how much of the night is left, without opening anything.</p></div>
-      <div class="fcard rv"><span class="fl">MOONS</span><b>Something to keep</b><p>A collection of moons you earn by keeping your nights, and wear on your Lock Screen.</p></div>
-    </div>
-    <p class="sub rv" style="margin-top:26px;max-width:none"><a class="ulink" href="/app-blocker.html">How the app blocker works</a> &middot; <a class="ulink" href="/pricing.html">See pricing</a></p>
+    <h2 class="rv mt-tag" style="max-width:16ch;margin-inline:auto">Some nights are worth it.</h2>
+    <p class="sub rv mt-sub">Book a night off before it arrives. SETL steps aside for the party, then picks up the next night, so one late one never ends the habit.</p>
   </div>
 </section>
 
 
-<!-- BRIDGE -->
-<section class="sec center">
+<!-- APPS + THE BLOCK SCREEN -->
+<section class="sec center" id="apps">
   <div class="wrap">
-    <h2 class="rv" style="max-width:13ch;margin-inline:auto">Less distraction equals more focus.</h2>
-    <p class="sub rv mt-sub">Change what sits in front of you, not how hard you try.</p>
-  </div>
-</section>
-
-
-
-
-
-<!-- WHAT CHANGES -->
-<section class="sec">
-  <div class="wrap">
-    <div class="center"><h2 class="rv" style="max-width:13ch;margin-inline:auto">What SETL gives you</h2></div>
-    <div class="pcard rv">
-      <div class="prow"><div class="p">90%</div><b>Better focus during the day</b><span>SETL Sessions&trade; gives you a clean space to work and live in, away from doom scrolling.</span></div>
-      <div class="prow"><div class="p">100%</div><b>An easier bedtime</b><span>SETL Sleep&trade; takes away bedtime stress. No relying on willpower to stop scrolling at night.</span></div>
-      <div class="prow"><div class="p">92%</div><b>More discipline after a week</b><span>The decision is made once, in daylight, so a week of kept nights costs you no willpower at all.</span></div>
-      <div class="prow"><div class="p">92%</div><b>More disciplined everywhere else</b><span>Training, work, food, money. It travels further than bedtime.</span></div>
-    </div>
+    <span class="tag rv">Your apps</span>
+    <h2 class="rv mt-tag" style="max-width:15ch;margin-inline:auto">Choose once. Never again.</h2>
+    <p class="sub rv mt-sub">Pick the apps that take your hours. Everything else keeps working, so blocking never feels like losing your phone.</p>
+    <img class="shot rv" src="assets/app-shield.webp" alt="The SETL block screen: Shhhh, Chess is asleep, with a Let it sleep button" width="760" height="1140" loading="lazy" decoding="async">
+    <p class="shotcap rv">This is what a blocked app shows you instead.</p>
   </div>
 </section>
 
