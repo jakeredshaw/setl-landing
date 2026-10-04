@@ -61,6 +61,11 @@ def src(key, text=None):
 # ---------- SETL beta result (founder supplied; keep the evidence on file) ----------
 # Set SHOW_BETA = False to pull the figures from every page at once.
 SHOW_BETA = True
+# ---------- launch switch: set LAUNCHED = True and fill APP_STORE_URL, then rebuild ----------
+LAUNCHED = False
+APP_STORE_URL = ""          # https://apps.apple.com/app/id...
+CTA_TEXT = "Download on the App Store" if LAUNCHED else "Join the waitlist"
+CTA_HREF = APP_STORE_URL if LAUNCHED else "/"
 BETA_DAY_MIN = 243                      # 4h 3m average daily screen time saved per beta tester
 BETA_NOTE = ("Average daily reduction in screen time reported by SETL beta testers in 2026, against usual screen time "
              "of 5 to 7 hours a day. Week and month figures multiply that average out. The lifetime figure assumes daily "
@@ -127,7 +132,7 @@ FOOT_COLS = [
             ("/blog/what-is-an-app-blocker.html", "What is an app blocker"),
             ("/blog/bedtime-procrastination.html", "Bedtime procrastination")]),
  ("Company", [("/about.html", "About SETL"), ("/founder-story.html", "Founder story"),
-              ("/mission.html", "Mission"), ("/press.html", "Press"), ("/pricing.html", "Pricing"),
+              ("/mission.html", "Mission"), ("/press.html", "Press"), ("/pricing.html", "Pricing"), ("/support.html", "Support"),
               ("/privacy.html", "Privacy")]),
 ]
 FOOT = ('<footer class="foot"><div class="wrap">'
@@ -1406,6 +1411,36 @@ built.append(page("block.html",
   ld=[{"@type": "WebPage", "name": "What you can block with SETL", "url": SITE + "/block.html",
        "publisher": {"@id": SITE + "/#org"}},
       crumbs_ld([("Home", "/"), ("What you can block", "/block.html")])]))
+
+SUPPORT_FAQ = [
+ ("How do I set my bedtime?", "Open the Tonight tab, set your bed and wake times, then choose your apps on the Apps tab. From then on SETL settles them automatically every night."),
+ ("Why are my apps still open at bedtime?", "Check that SETL still has Screen Time permission in Settings, Screen Time, and that the apps you want blocked are selected on the Apps tab."),
+ ("How do I end a focus session early?", "Open the Sessions tab and choose to end it. SETL asks twice and then needs a 25 second hold, which is deliberate."),
+ ("How do I take a night off?", "Use the Breaks tab to plan a night off in advance. SETL eases off that night and returns to normal afterwards."),
+ ("How do I cancel my subscription?", "Subscriptions are handled by Apple. Open Settings, tap your name, then Subscriptions, and cancel SETL there."),
+ ("How do I get a refund?", "Refunds are handled by Apple at reportaproblem.apple.com. We cannot issue them ourselves, but tell us what went wrong and we will help."),
+]
+support_body = ("""<section class="hero center"><div class="narrow">
+<span class="eyebrow rv"><i></i>Support</span>
+<h1 class="rv d1">We answer every email.</h1>
+<p class="lead rv d2">Something not working, or a question before you start? Write to us and you will get a reply from the person who built it.</p>
+<div class="btn-row rv d3"><a class="btn" href="mailto:jacob.redshaw13@gmail.com?subject=SETL%20support">Email support</a><a class="btn ghost" href="/privacy.html">Privacy policy</a></div>
+</div></section>"""
+ + cards_sec("Before you write in", "Three things that solve most problems.", [
+   ("PERMISSION", "Check Screen Time access", "SETL needs Screen Time permission to block anything. Settings, Screen Time, and make sure access is still granted."),
+   ("YOUR APPS", "Check your app list", "Only the apps you picked are blocked. Add more any time on the Apps tab."),
+   ("RESTART", "Restart the app", "If a block looks stuck, close SETL fully and reopen it. Your schedule is kept on your phone."),
+ ])
+ + prose_sec("Contact", """
+<p>Email <a href="mailto:jacob.redshaw13@gmail.com">jacob.redshaw13@gmail.com</a> and we will reply, usually within one working day.</p>
+<p>SETL is built in the United Kingdom. For how your data is handled, read the <a href="/privacy.html">privacy policy</a>. For press enquiries, see the <a href="/press.html">press kit</a>.</p>""")
+ + CTA)
+built.append(page("support.html",
+  "SETL Support: Help, Contact and Common Fixes",
+  "SETL support: how to set your bedtime, fix blocking, end a session, cancel a subscription, and how to contact the team behind the app.",
+  support_body, "", faq=SUPPORT_FAQ, faq_title="Support: common questions",
+  ld=[{"@type": "WebPage", "name": "SETL support", "url": SITE + "/support.html", "publisher": {"@id": SITE + "/#org"}},
+      crumbs_ld([("Home", "/"), ("Support", "/support.html")])]))
 
 # =====================================================================
 # 404
