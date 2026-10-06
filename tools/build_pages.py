@@ -133,7 +133,7 @@ FOOT_COLS = [
             ("/blog/bedtime-procrastination.html", "Bedtime procrastination")]),
  ("Company", [("/about.html", "About SETL"), ("/founder-story.html", "Founder story"),
               ("/mission.html", "Mission"), ("/press.html", "Press"), ("/pricing.html", "Pricing"), ("/support.html", "Support"),
-              ("/privacy.html", "Privacy")]),
+              ("/privacy", "Privacy"), ("/terms", "Terms")]),
 ]
 FOOT = ('<footer class="foot"><div class="wrap">'
         '<div class="fcols">'
@@ -152,11 +152,14 @@ def crumbs_ld(items):
         {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + u} for i, (n, u) in enumerate(items)]}
 
 def page(path, title, desc, body, current="", ld=None, body_class="", og_type="website", extra_head="",
-         faq=None, faq_title="Frequently asked questions"):
+         faq=None, faq_title="Frequently asked questions", canonical=None):
+    """canonical: a clean URL path such as "/privacy", for pages vercel.json rewrites to their .html file."""
     assert len(title) <= 60, "title too long (%d): %s" % (len(title), title)
     assert len(desc) <= 160, "description too long (%d): %s" % (len(desc), path)
     url = SITE + ("/" + path if not path.endswith("index.html") else "/" + path[:-len("index.html")])
     url = url.replace("//index", "/")
+    if canonical:
+        url = SITE + canonical
     graph = [ORG] + (ld or [])
     if faq:
         sec = faq_section(faq, faq_title)
@@ -1443,6 +1446,87 @@ built.append(page("support.html",
       crumbs_ld([("Home", "/"), ("Support", "/support.html")])]))
 
 # =====================================================================
+# LEGAL: privacy policy and terms of use
+# The copy lives in tools/legal/*.md (copies of the masters in the SETL legal folder).
+# Served at /privacy and /terms via vercel.json rewrites; /privacy.html and /terms.html also work.
+# =====================================================================
+import re as _re
+LEGAL_UPDATED = "6 October 2026"
+LEGAL_WEB = {   # placeholders in the .md masters, and what the web pages show instead
+    "[ICO REGISTRATION NUMBER]": "pending",
+}
+LEGAL_EFFECTIVE = "Effective from SETL's App Store launch. Last updated %s." % LEGAL_UPDATED
+
+def md_inline(t):
+    t = html.escape(t, quote=False)
+    t = _re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+    t = _re.sub(r"\[([^\]]+)\]\(([^)]+)\)", lambda m: '<a href="%s"%s>%s</a>' % (
+        m.group(2), "" if m.group(2).startswith(SITE) else ' rel="noopener" target="_blank"', m.group(1)), t)
+    t = _re.sub(r"(?<![\w@/])([\w.]+@setlsleep\.com)", r'<a href="mailto:\1">\1</a>', t)
+    return t.replace(SITE + "/", "/")
+
+def md_to_html(md):
+    """Small Markdown subset used by the legal files: ## / ### headings, paragraphs, * lists, pipe tables, bold, links."""
+    out, para, items, rows = [], [], [], []
+    def flush():
+        if para:
+            out.append("<p>%s</p>" % md_inline(" ".join(para))); para.clear()
+        if items:
+            out.append("<ul>%s</ul>" % "".join("<li>%s</li>" % md_inline(i) for i in items)); items.clear()
+        if rows:
+            cells = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rows if not _re.match(r"^\|[\s:|-]+\|$", r.strip())]
+            head = "".join('<th scope="col">%s</th>' % md_inline(c) for c in cells[0])
+            body = "".join("<tr>%s</tr>" % "".join("<td>%s</td>" % md_inline(c) for c in r) for r in cells[1:])
+            out.append('<div class="tablewrap"><table class="cmp"><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>' % (head, body))
+            rows.clear()
+    for line in md.splitlines():
+        s = line.strip()
+        if not s:
+            flush(); continue
+        if s.startswith("|"):
+            rows.append(s); continue
+        if s.startswith("### "):
+            flush(); out.append("<h3>%s</h3>" % md_inline(s[4:])); continue
+        if s.startswith("## "):
+            flush(); out.append("<h2>%s</h2>" % md_inline(s[3:])); continue
+        if s.startswith("* "):
+            if para: flush()
+            items.append(s[2:]); continue
+        para.append(s)
+    flush()
+    return "\n".join(out)
+
+def legal_page(src, path, canonical, title, desc, lead):
+    md = open(os.path.join(ROOT, "tools", "legal", src), encoding="utf-8").read()
+    for k, v in LEGAL_WEB.items():
+        md = md.replace(k, v)
+    lines = md.splitlines()
+    h1 = lines[0].lstrip("# ").strip()
+    keep = [l for l in lines[1:] if not l.startswith(("**Effective date:**", "**Last updated:**"))]
+    body_md = "\n".join(keep)
+    assert not _re.search(r"\[[A-Z][A-Z ]+\]", body_md), "placeholder left in %s" % src
+    b = """<article><header class="article-head"><div class="narrow">
+<p class="crumbs"><a href="/">Home</a> / Legal</p>
+<span class="eyebrow"><i></i>Legal</span>
+<h1 style="margin-top:20px;font-size:clamp(34px,6.4vw,54px)">%s</h1>
+<p class="lead" style="margin-top:18px">%s</p>
+<p class="meta">%s</p>
+</div></header>
+<div class="narrow" style="padding-bottom:clamp(64px,11vw,112px)"><div class="prose">%s</div></div></article>""" % (
+        html.escape(h1), lead, html.escape(LEGAL_EFFECTIVE), md_to_html(body_md))
+    built.append(page(path, title, desc, b, "", canonical=canonical,
+        ld=[{"@type": "WebPage", "name": h1, "url": SITE + canonical, "dateModified": "2026-10-06",
+             "publisher": {"@id": SITE + "/#org"}},
+            crumbs_ld([("Home", "/"), (h1, canonical)])]))
+
+legal_page("privacy.md", "privacy.html", "/privacy", "Privacy Policy | SETL",
+           "How SETL handles your data. Screen Time data stays on your iPhone, there are no accounts, and Apple handles every payment.",
+           "Your Screen Time data stays on your iPhone. This page explains what SETL keeps, the little that leaves your phone, and your rights.")
+legal_page("terms.md", "terms.html", "/terms", "Terms of Use | SETL",
+           "The terms for using SETL: subscriptions, lifetime purchase, free trials, cancelling, refunds through Apple, and what SETL is and is not.",
+           "The rules for using SETL, written in plain English. Please read them before you buy.")
+
+# =====================================================================
 # 404
 # =====================================================================
 nf = """<section class="hero center" style="min-height:80vh"><div class="narrow">
@@ -1460,11 +1544,12 @@ open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(s)
 # =====================================================================
 # SITEMAP + llms.txt
 # =====================================================================
-def loc(p): return SITE + "/" + (p[:-len("index.html")] if p.endswith("index.html") else p)
+CLEAN = {"privacy.html": "privacy", "terms.html": "terms"}     # served at clean URLs via vercel.json rewrites
+def loc(p): return SITE + "/" + (p[:-len("index.html")] if p.endswith("index.html") else CLEAN.get(p, p))
 PRIO = {"pricing.html": "0.9", "setl-sleep.html": "0.9", "app-blocker.html": "0.9", "screen-time-blocker.html": "0.9",
         "apple-screen-time-alternative.html": "0.9", "setl-sessions.html": "0.8", "setl-vs-opal.html": "0.8",
-        "blog/index.html": "0.8", "about.html": "0.7", "mission.html": "0.6"}
-urls = [("", "1.0", "weekly")] + [(p, PRIO.get(p, "0.7"), "monthly") for p in SITEMAP] + [("privacy.html", "0.3", "yearly")]
+        "blog/index.html": "0.8", "about.html": "0.7", "mission.html": "0.6", "privacy.html": "0.3", "terms.html": "0.3"}
+urls = [("", "1.0", "weekly")] + [(p, PRIO.get(p, "0.7"), "yearly" if p in CLEAN else "monthly") for p in SITEMAP]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     "  <url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%s</priority></url>\n" % (loc(p), PUBLISHED, f, pr)
     for p, pr, f in urls) + "</urlset>\n"

@@ -42,4 +42,5 @@ https://www.setlsleep.com/setl-sleep.html
 https://www.setlsleep.com/setl-sessions.html
 https://www.setlsleep.com/block.html
 https://www.setlsleep.com/support.html
-https://www.setlsleep.com/privacy.html
+https://www.setlsleep.com/privacy
+https://www.setlsleep.com/terms
