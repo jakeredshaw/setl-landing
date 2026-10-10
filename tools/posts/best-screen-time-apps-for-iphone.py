@@ -24,7 +24,7 @@ POST = {
 <tr><td>ScreenZen</td><td>Wait times, limits and strict blocks</td><td>iOS, macOS, Windows, Android</td><td>Free, donation supported</td><td>Lots of control for free</td></tr>
 <tr><td>Brick</td><td>Physical device plus an app</td><td>iPhone, Android</td><td>$59 device</td><td>Blocks you have to walk to undo</td></tr>
 <tr><td>Sunbreak</td><td>Bedtime lock with accountability partners</td><td>iPhone, iPad</td><td>Free download with in app purchases</td><td>Bedtime with a friend watching</td></tr>
-<tr><td>SETL</td><td>Bedtime first app blocker plus focus sessions</td><td>iPhone</td><td>$49.99 a year at launch</td><td>Protecting your nights automatically</td></tr>
+<tr><td>SETL</td><td>Bedtime first app blocker plus focus sessions</td><td>iPhone</td><td>£49.99 a year (UK) or £199 lifetime</td><td>Protecting your nights automatically</td></tr>
 </tbody></table></div>
 
 <h2>1. Apple Screen Time: the free starting point</h2>
@@ -69,7 +69,7 @@ POST = {
 </ul>
 
 <h2>Where SETL fits</h2>
-<p>SETL is the <a href="/screen-time-blocker.html">screen time blocker</a> to pick first if bedtime is where your time goes: set your bedtime once and your chosen apps are blocked every night, with SETL Breaks for nights off. SETL Sessions cover daytime focus, and opening early needs a deliberate press and hold. It is iPhone only, built on Apple's Screen Time framework, and priced at $49.99 a year at launch, with up to 7 nights free. SETL is on a waitlist now, and if you need Android, Mac or a free plan, another app above will suit you better.</p>""",
+<p>SETL is the <a href="/screen-time-blocker.html">screen time blocker</a> to pick first if bedtime is where your time goes: set your bedtime once and your chosen apps are blocked every night, with SETL Breaks for nights off. SETL Sessions cover daytime focus, and opening early needs a deliberate press and hold. It is iPhone only, built on Apple's Screen Time framework, and priced at £49.99 a year in the UK, with up to 7 days free, or £199 once for lifetime. SETL is on a waitlist now, and if you need Android, Mac or a free plan, another app above will suit you better.</p>""",
  "sources": [
   ("Apple Support, iPhone User Guide (iOS 27), Set up Screen Time for yourself on iPhone, 2026", "https://support.apple.com/guide/iphone/get-started-with-screen-time-iphbfa595995/ios"),
   ("Apple Support, iPhone User Guide (iOS 27), Set Screen Time Schedules and Time Allowances, 2026", "https://support.apple.com/guide/iphone/set-schedules-with-screen-time-iphb0c7313c9/ios"),
@@ -90,7 +90,7 @@ POST = {
   ("How much does Opal cost?", "Opal's pricing page, checked September 2026, lists a free plan with one rule. Opal Pro is $99.99 a year, $19.99 a month, or $399 as a one time lifetime payment."),
   ("Are screen time apps better than Apple Screen Time?", "They are different rather than simply better. Opal, for example, says it uses Apple's Screen Time API, then adds its own features. Others add pauses, physical devices or accountability partners."),
   ("Which screen time app is best for bedtime?", "If nights are the problem, look for apps that block automatically at bedtime. Sunbreak and SETL are both built around sleep. Apple Screen Time can also schedule an evening time window."),
-  ("Do screen time blockers need a subscription?", "Not always. Apple Screen Time is built in and ScreenZen says it has no subscription. Brick sells a physical device. Opal and SETL have paid plans, and Opal also offers a free plan and a lifetime option."),
+  ("Do screen time blockers need a subscription?", "Not always. Apple Screen Time is built in and ScreenZen says it has no subscription. Brick sells a physical device. Opal and SETL have paid plans and a lifetime option. Opal also offers a free plan."),
  ],
  "related": ["what-is-an-app-blocker", "opal-alternatives", "best-app-blocker-for-sleep"],
 }

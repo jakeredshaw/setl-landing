@@ -93,6 +93,8 @@ sup a{color:var(--moon);text-decoration:none;font-size:.7em;margin-left:1px}
 /* ---- pricing ---- */
 .plans{display:grid;gap:14px;align-items:stretch}
 @media (min-width:860px){ .plans{grid-template-columns:repeat(3,1fr)} }
+@media (min-width:600px){ .plans.p4{grid-template-columns:repeat(2,1fr)} }
+@media (min-width:1040px){ .plans.p4{grid-template-columns:repeat(4,1fr)} }
 .plan{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 26px;display:flex;flex-direction:column}
 .plan.best{background:linear-gradient(180deg,rgba(185,195,255,.10),rgba(255,255,255,.03));border-color:rgba(185,195,255,.42);
   box-shadow:0 0 0 1px rgba(185,195,255,.10),0 30px 80px -30px rgba(110,124,205,.45)}

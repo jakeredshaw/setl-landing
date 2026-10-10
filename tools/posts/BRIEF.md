@@ -60,7 +60,8 @@ Do not repeat the h1, intro, answer, sources or FAQ inside body (the template re
 - SETL Breaks: plan nights off in advance (weddings, night shifts, birthdays).
 - Sleep Reserve: Lock Screen widget showing how much of the night is left for sleep. Post bedtime nudges.
 - Moon collection: moons you earn by keeping nights.
-- Pricing (launch, USD, via Apple): $49.99 a year (shown as $4.17 a month), $5.99 a month, $2.99 a week. Free nights: 7 on yearly, 3 on monthly, 1 on weekly. Cancel in iPhone settings.
+- Pricing (UK, GBP, via Apple): £49.99 a year (about £4.17 a month), £4.99 a month, £2.49 a week, or Lifetime £199 as a one time purchase (no subscription). Free trials: 7 days on yearly and monthly, 3 days on weekly, none on lifetime. Other countries pay Apple's local equivalent. Cancel in Settings, then your name, then Subscriptions.
+- No account and no email collected by the app. Contact: jacob@setlsleep.com.
 - Currently a waitlist ahead of launch (CTA is "Join the waitlist" at https://www.setlsleep.com/).
 - Founder: Jacob Redshaw, UK, ADHD, former copywriter. Do not add other biography.
 
