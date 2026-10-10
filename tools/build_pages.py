@@ -66,29 +66,20 @@ LAUNCHED = False
 APP_STORE_URL = ""          # https://apps.apple.com/app/id...
 CTA_TEXT = "Download on the App Store" if LAUNCHED else "Join the waitlist"
 CTA_HREF = APP_STORE_URL if LAUNCHED else "/"
-BETA_DAY_MIN = 243                      # 4h 3m average daily screen time saved per beta tester
-BETA_NOTE = ("Average daily reduction in screen time reported by SETL beta testers in 2026, against usual screen time "
-             "of 5 to 7 hours a day. Week and month figures multiply that average out. The lifetime figure assumes daily "
-             "use from age 15 to 87. Individual results vary.")
-def beta_strip(heading="What SETL gave back in beta", lead="The average tester's screen time, cut every single day."):
+# The only proven figure: the median daily screen time saved by beta testers, 4h 3m. Do not derive other numbers from it.
+BETA_NOTE = "Median daily screen time saved by SETL beta testers in 2026. Individual results vary."
+def beta_strip(heading="What SETL gave back in beta", lead="The median screen time our beta testers saved, every day."):
     if not SHOW_BETA:
         return ""
-    wk, mo = BETA_DAY_MIN * 7 / 60, BETA_DAY_MIN * 30.44 / 60
-    life = BETA_DAY_MIN / 1440 * (87 - 15)
-    stats = [("4h 3m", "Less screen time a day. About 3 hours by day and 1 hour at night."),
-             ("%dh" % wk, "Handed back every week."),
-             ("%dh" % mo, "Every month. That is more than %d full days." % (mo // 24)),
-             ("%d years" % life, "Across a lifetime of daily use.")]
-    cells = "".join('<div class="stat rv%s"><b>%s</b><p>%s</p></div>' % (["", " d1", " d2", " d3"][i], a, b)
-                    for i, (a, b) in enumerate(stats))
+    cell = '<div class="stat rv d2" style="max-width:420px;margin:0 auto;text-align:center"><b>4h 3m</b><p>Median screen time saved a day.</p></div>'
     return ('<section class="sec"><div class="wrap"><div class="sec-head center"><h2 class="rv">%s</h2>'
-            '<p class="lead rv d1">%s</p></div><div class="grid g4">%s</div>'
-            '<p class="fn center" style="margin:18px auto 0;max-width:70ch">%s</p></div></section>') % (heading, lead, cells, BETA_NOTE)
+            '<p class="lead rv d1">%s</p></div>%s'
+            '<p class="fn center" style="margin:18px auto 0;max-width:70ch">%s</p></div></section>') % (heading, lead, cell, BETA_NOTE)
 
 # ---------- FAQ: visible on the page and mirrored as FAQPage structured data ----------
 def proof_bar():
     items = ["Built on Apple's Screen Time framework", "Nothing about your usage leaves your phone"]
-    items.append("4h 3m a day handed back in beta" if SHOW_BETA else "Night and day, from one app")
+    items.append("4h 3m a day saved in beta (median)" if SHOW_BETA else "Night and day, from one app")
     return '<div class="proofbar rv d3">%s</div>' % "".join("<span>%s</span>" % i for i in items)
 
 def faq_section(faqs, heading):
@@ -471,17 +462,11 @@ MANIFESTO = [
  ("Win the night, win the day.", "Sleep is not the reward for a good day. It is the reason you get one."),
 ]
 man_html = "".join('<div class="stanza rv"><h3>%s</h3><p>%s</p></div>' % (a, b) for a, b in MANIFESTO)
-_yr = BETA_DAY_MIN * 365 / 60                      # hours one person wins back in a year, at the beta average
-GOAL_HOURS = 1000000000
-people = "{:,}".format(int(round(GOAL_HOURS / _yr / 1000) * 1000))
-scale = [("%s people" % people, "Each getting a full year of hours back, at the beta average of 4 hours 3 minutes a day."),
-         ("114,000 years", "A billion hours, laid end to end."),
-         ("%d days" % (_yr / 24), "What one person wins back in a single year.")]
-scale_html = "".join('<div class="stat rv%s"><b>%s</b><p>%s</p></div>' % ([""," d1"," d2"][i], a, b) for i, (a, b) in enumerate(scale))
+scale_html = '<div class="stat rv d2" style="max-width:420px;margin:0 auto;text-align:center"><b>114,000 years</b><p>A billion hours, laid end to end.</p></div>'
 MISSION_FAQ = [
  ("What is SETL's mission?", "A billion hours given back. SETL blocks the apps that take your evenings so that time returns to sleep, to focus and to the people in the room."),
  ("What is the SETL manifesto?", "That attention is not a character flaw. Feeds are built to hold you, willpower is lowest at night, so the decision should be made earlier and enforced for you."),
- ("How much screen time does SETL save?", "In SETL's 2026 beta, testers reported an average of 4 hours 3 minutes less screen time a day: about 3 hours in the day and 1 hour at night."),
+ ("How much screen time does SETL save?", "In SETL's 2026 beta, the median tester saved 4 hours 3 minutes of screen time a day. Individual results vary."),
  ("How much screen time do adults have?", "Ofcom found UK adults spent 4 hours 30 minutes a day online in 2025, with 77% of that time on a smartphone."),
  ("Does screen time in bed affect sleep?", "Research links it. A 2025 study of 45,202 students found each extra hour of screen use in bed was linked to about 24 minutes less sleep."),
  ("Does SETL collect my data?", "No. SETL uses Apple's Screen Time framework, which gives it private tokens, so we never see which apps you block. <a href=\"/privacy.html\">Read our privacy policy</a>."),
@@ -495,9 +480,8 @@ mission_body = """<section class="goal"><div class="narrow">
 </div></section>
 <section class="sec"><div class="wrap">
 <div class="sec-head center"><h2 class="rv">What a billion hours looks like</h2>
-<p class="lead rv d1">Big numbers hide their size. Here is this one, three ways.</p></div>
-<div class="grid g3">%s</div>
-<p class="fn center" style="margin:18px auto 0;max-width:70ch">%s</p>
+<p class="lead rv d1">Big numbers hide their size. Here is this one in years.</p></div>
+%s
 </div></section>
 <section class="sec manifesto"><div class="narrow">
 <span class="eyebrow rv"><i></i>The SETL manifesto</span>
@@ -521,8 +505,8 @@ mission_body = """<section class="goal"><div class="narrow">
 <p class="lead rv d1">It is what is left when nothing is pulling at you. SETL removes the pull.</p>
 <div class="btn-row rv d2"><a class="btn" href="/founder-story.html">Read the founder story</a><a class="btn ghost" href="/blog/">Read the research</a></div>
 </div></section>
-%s""" % (scale_html, BETA_NOTE, man_html, stat_html,
-         beta_strip("What we have handed back so far", "In beta, SETL cut the average tester's screen time every day."),
+%s""" % (scale_html, man_html, stat_html,
+         beta_strip("What we have handed back so far"),
          pr_html, CTA)
 built.append(page("mission.html",
   "SETL Mission: A Billion Hours Given Back",
@@ -1195,7 +1179,7 @@ def landing(path, title, desc, eyebrow, h1, lead, sections, faq, faq_title, name
             crumbs_ld([("Home", "/"), (name, "/" + path)])]))
 
 BETA_FAQ = ("How much screen time does SETL save?",
-            "In SETL's 2026 beta, testers reported an average of 4 hours 3 minutes less screen time a day: about 3 hours in the day and 1 hour at night.")
+            "In SETL's 2026 beta, the median tester saved 4 hours 3 minutes of screen time a day. Individual results vary.")
 def with_beta(faqs):
     return faqs + ([BETA_FAQ] if SHOW_BETA else [])
 
@@ -1328,7 +1312,7 @@ landing("setl-sleep.html",
    ("SLEEP RESERVE", "Your night in one number", "A Lock Screen widget showing how much of the night is left for sleep."),
    ("MOONS", "A reason to keep going", "Earn a collection of moons as you keep your bedtimes."),
   ]),
-  beta_strip("What SETL gave back in beta", "About 1 hour a night, and 3 more in the day."),
+  beta_strip(),
   prose_sec("Stop scrolling in bed, for good", """
 <p>The fix that lasts is not trying harder. It is deciding earlier and letting your phone do the enforcing.</p>
 <p>Read <a href="/blog/how-to-stop-scrolling-in-bed.html">how to stop scrolling in bed</a>, what drives <a href="/blog/bedtime-procrastination.html">bedtime procrastination</a>, and <a href="/blog/screens-melatonin-and-sleep.html">what screens do to your sleep</a>.</p>
@@ -1362,7 +1346,7 @@ landing("setl-sessions.html",
    ("PEOPLE", "Dates and quality time", "Be in the room you are actually in."),
    ("CALLS", "Meetings", "Stay present while the call is on."),
   ]),
-  beta_strip("What SETL gave back in beta", "About 3 hours a day, and 1 more at night."),
+  beta_strip(),
   reads_sec("Focus guides", ["does-it-take-23-minutes-to-refocus", "app-blocker-for-adhd", "how-to-stop-doomscrolling", "why-apps-are-addictive"])],
  with_beta([
   ("What is SETL Sessions?", "SETL Sessions is a focus app blocker for iPhone. Pick the apps to block and how long for, and SETL blocks them until the session ends."),
@@ -1595,7 +1579,7 @@ llms = ["# SETL: Focus on Life.", "",
  "Also searched as: SETL Sleep, setl, settle sleep, SETL app blocker.", "",
  "Instagram: https://www.instagram.com/setl.sleep/", ""]
 if SHOW_BETA:
-    llms += ["In SETL's 2026 beta, testers reported an average of 4 hours 3 minutes less screen time a day (about 3 hours by day, 1 hour at night).", ""]
+    llms += ["In SETL's 2026 beta, the median tester saved 4 hours 3 minutes of screen time a day. Individual results vary.", ""]
 llms += ["## Product pages"] + ["- [%s](%s)" % (t, SITE + h) for h, t in PRODUCT_LINKS] + [
  "- [Pricing](%s/pricing.html)" % SITE, "- [About SETL and its founder](%s/about.html)" % SITE, "- [Mission](%s/mission.html)" % SITE, "",
  "## Guides"] + ["- [%s](%s/blog/%s.html): %s" % (p["h1"], SITE, p["slug"], p["desc"]) for p in POSTS] + [""]
