@@ -18,25 +18,27 @@ changes = []
 
 # 1. the generator switch drives every content page CTA
 p = os.path.join(ROOT, "tools", "build_pages.py"); s = open(p).read()
-s2 = s.replace("LAUNCHED = False", "LAUNCHED = True").replace('APP_STORE_URL = ""', 'APP_STORE_URL = "%s"' % url)
+s2 = re.sub(r'^APP_STORE_URL = ".*?"', 'APP_STORE_URL = "%s"' % url, s.replace("LAUNCHED = False", "LAUNCHED = True"), count=1, flags=re.M)
 changes.append(("tools/build_pages.py", s != s2, p, s2))
 
 # 2. the homepage: waitlist wording and the store link in schema
 p = os.path.join(ROOT, "index.html"); s = open(p, encoding="utf-8").read(); s2 = s
 swaps = [
- ("Join the waitlist and get up to 7 nights free when SETL launches.", "Download SETL and your first 7 nights are free."),
- ("Up to 7 nights free when we launch. No card needed to join.", "7 nights free on the yearly plan. Cancel any time in Settings."),
- ("SETL is launching on iPhone soon. Join the waitlist and get up to 7 nights free when we launch.",
-  "SETL is on the App Store now, with 7 nights free on the yearly plan."),
+ ("Coming to the App Store. Up to 7 days free at launch. No card needed to join.", "On the App Store now. Up to 7 days free on the yearly and monthly plans."),
+ ("Up to 7 days free when we launch. No card needed to join.", "Up to 7 days free on the yearly and monthly plans. Cancel any time in Settings."),
+ ("SETL is coming to the App Store. Join the waitlist and we will tell you the moment it is live.",
+  "SETL is on the App Store now. Download it and start with up to 7 days free."),
+ ("When does SETL launch?", "Is SETL on the App Store?"),
+ ("SETL is in App Store review now. Join the waitlist and we will tell you the moment it is live, with up to 7 days free.",
+  "Yes. SETL is on the App Store for iPhone, with up to 7 days free on the yearly and monthly plans."),
  (">Join the waitlist<", ">Download on the App Store<"),
- (">Join waitlist<", ">Download<"),
 ]
 for a, b in swaps:
     s2 = s2.replace(a, b)
 # the waitlist forms become App Store buttons
 form = re.compile(r'<form class="wait[^"]*"[^>]*>.*?</form>', re.S)
 n_forms = len(form.findall(s2))
-s2 = form.sub('<div class="btn-row"><a class="btn" href="%s" rel="noopener">Download on the App Store</a></div>' % url, s2)
+s2 = form.sub('<div class="btn-row"><a class="app-btn" href="%s" rel="noopener"><span><small>Download on the</small><b>App Store</b></span></a></div>' % url, s2)
 print("waitlist forms replaced:", n_forms)
 m = re.search(r'<script type="application/ld\+json">(.*?)</script>', s2, re.S)
 g = json.loads(m.group(1))

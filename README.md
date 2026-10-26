@@ -2,7 +2,14 @@
 
 Static landing page for SETL. Deploys to Vercel with zero config (`index.html` at repo root).
 
-## Structure
+## Redesign (October 2026)
+- One design system for every page: `assets/site.css` (tokens, glass cards, nav, footer, reading layout) and `assets/site.js` (reveals, lazy video, table of contents, nav). System fonts, no web font requests.
+- `index.html` is still edited by hand, but its nav and footer sit between `<!--NAV-->` and `<!--FOOT-->` markers and are filled in by `tools/build_pages.py`, so they always match the other pages. Run the build after editing either.
+- App imagery lives in `assets/media/`: 540px wide WebP screens, H.264 and WebM clips (each about 200 KB, loaded only when scrolled near), and moons rendered from the app's own textures.
+- `CSS_V` / `JS_V` in `build_pages.py` bust caches for the shared files; `OG_IMAGE` is the share card.
+- The launch switch is unchanged: `tools/go_live.py <App Store URL>` then rebuild.
+
+## Structure (original notes, partly historical)
 - `index.html` — the entire page (CSS + JS inlined, most imagery embedded as base64)
 - `assets/` — product screenshots and moon image
 - `logo.svg` — SETL mark
