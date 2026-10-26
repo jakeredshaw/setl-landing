@@ -3,7 +3,8 @@
 import re, json, os, glob, html
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 pages = [p for p in glob.glob(os.path.join(ROOT, "*.html")) + glob.glob(os.path.join(ROOT, "blog", "*.html"))]
-exists = lambda href: os.path.exists(os.path.join(ROOT, href.lstrip("/"), "index.html") if href.endswith("/") else os.path.join(ROOT, href.lstrip("/")))
+REWRITES = {r["source"] for r in json.load(open(os.path.join(ROOT, "vercel.json"))).get("rewrites", [])}
+exists = lambda href: href in REWRITES or os.path.exists(os.path.join(ROOT, href.lstrip("/"), "index.html") if href.endswith("/") else os.path.join(ROOT, href.lstrip("/")))
 fail = 0
 for p in sorted(pages):
     rel = os.path.relpath(p, ROOT); s = open(p, encoding="utf-8").read(); e = []
@@ -17,7 +18,7 @@ for p in sorted(pages):
     for l in lds:
         try: types += [g.get("@type") for g in json.loads(l).get("@graph", [])]
         except Exception as x: e.append("bad JSON-LD %s" % x)
-    if rel != "privacy.html":
+    if rel not in ("privacy.html", "terms.html"):
         if "FAQPage" not in types: e.append("no FAQPage schema")
         if 'class="faq"' not in s and "faq" not in s.lower(): e.append("no visible FAQ")
     for href in set(re.findall(r'href="(/[^"#?]*)', s)):

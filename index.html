@@ -26,7 +26,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=3">
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/icon-512.png?v=3">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png?v=3">
-<link rel="preload" as="image" href="/assets/media/shot-session-running.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/media/moon-hero-560.webp" imagesrcset="/assets/media/moon-hero-560.webp 560w, /assets/media/moon-hero.webp 900w" imagesizes="(min-width:1348px) 620px, (min-width:566px) 46vw, 260px" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/media/shot-session-running.webp" type="image/webp">
 <link rel="stylesheet" href="/assets/site.css?v=7">
 <link rel="alternate" type="application/rss+xml" title="SETL Blog" href="/feed.xml">
 <style>
@@ -80,6 +81,8 @@
   .hx .lead{margin-left:0}
   .hx .wait{margin-left:0}
   .hx-moon{right:-6vw;top:40px}
+  .hx-chip.c1{left:calc(50% - 340px);top:22%}
+  .hx-chip.c2{right:calc(50% - 340px);bottom:14%}
 }
 @supports (animation-timeline:scroll()){
   @media (prefers-reduced-motion:no-preference){
@@ -104,7 +107,7 @@
 /* the statement that lights as you read it */
 .say{padding:clamp(70px,12vw,150px) 0}
 .say p.big{font-size:clamp(30px,5.4vw,60px);font-weight:700;letter-spacing:-.04em;line-height:1.12;margin:0;max-width:22ch;text-wrap:balance}
-.say .w{color:rgba(255,255,255,.16);transition:color .5s ease}
+.say .w{color:rgba(255,255,255,.5);transition:color .5s ease}
 .say .w.on{color:#fff}
 .say .w.g.on{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .no-js .say .w{color:#fff}
@@ -128,7 +131,8 @@
   .story{grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px)}
   .story-stage{display:block;position:sticky;top:0;height:100vh;height:100svh}
   .stage-in{height:100%;display:grid;place-items:center;position:relative}
-  .story-stage .phone{width:min(330px,24vw,38vh)}
+  .stage-in{padding-top:56px}
+  .story-stage .phone{width:min(300px,22vw,33vh)}
   .story-stage .screen>*{opacity:0;transform:scale(1.04);transition:opacity .6s var(--ease),transform .9s var(--ease)}
   .story-stage .screen>.on{opacity:1;transform:none}
   .stage-glow{position:absolute;inset:10% -10%;z-index:-1;border-radius:50%;filter:blur(60px);opacity:.55;transition:background 1s ease;
@@ -156,7 +160,7 @@
 .bento .shot{margin-top:auto;padding-top:24px}
 .bento .crop{border-radius:22px 22px 0 0;overflow:hidden;margin:24px auto -28px;width:min(270px,82%);aspect-ratio:1206/1500;border:1px solid rgba(255,255,255,.1);border-bottom:0;
   box-shadow:0 -20px 60px -30px rgba(110,130,255,.5)}
-.bento .crop img,.bento .crop video{width:100%;height:auto}
+.bento .crop img,.bento .crop video{width:100%;height:100%;object-fit:cover;object-position:50% var(--op,0%)}
 .b-wide{min-height:300px}
 @media (min-width:760px){ .b-wide{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding-bottom:0} .b-wide .crop{margin:0 0 0 auto;align-self:end;width:min(260px,100%)} .b-wide .txt{padding-bottom:28px;align-self:center} }
 .bento .icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(111,224,230,.1);border:1px solid rgba(111,224,230,.3);margin-bottom:18px}
@@ -254,7 +258,7 @@
 
 <!-- HERO -->
 <section class="hx" id="top" aria-labelledby="hx-title">
-  <div class="hx-sky" aria-hidden="true"><div class="hx-moon"><img src="/assets/media/moon-hero.webp" alt="" width="900" height="900" decoding="async" fetchpriority="low"></div></div>
+  <div class="hx-sky" aria-hidden="true"><div class="hx-moon"><img src="/assets/media/moon-hero-560.webp" srcset="/assets/media/moon-hero-560.webp 560w, /assets/media/moon-hero.webp 900w" sizes="(min-width:1348px) 620px, (min-width:566px) 46vw, 260px" alt="" width="900" height="900" fetchpriority="high"></div></div>
   <div class="wrap hx-grid">
     <div class="hx-copy">
       <span class="eyebrow"><i></i>The app blocker for iPhone</span>
@@ -311,13 +315,13 @@
       <article class="bento b-wide rv"><div class="txt"><span class="k">SETL Breaks</span><h3>Some nights are worth it.</h3><p>Book a night off before it arrives. SETL steps aside for the party or the late shift, then picks up the next day, so one late one never ends the habit.</p></div>
         <div class="crop"><video data-lazy muted loop playsinline preload="none" poster="/assets/media/poster-breaks.webp" width="540" height="1173" aria-label="Planning a night off in SETL Breaks"><source data-src="/assets/media/clip-breaks.webm" type="video/webm"><source data-src="/assets/media/clip-breaks.mp4" type="video/mp4"></video></div></article>
       <article class="bento b-tall rv d1"><span class="k">Hold to unlock</span><h3>No reflex unlocks.</h3><p>Ending a session early takes two questions and a 25 second hold. The bored you cannot undo the focused you.</p>
-        <div class="crop"><img src="/assets/media/shot-hold.webp" alt="The SETL hold screen with a No, keep going button" width="540" height="1174" loading="lazy" decoding="async"></div></article>
+        <div class="crop" style="--op:62%"><img src="/assets/media/shot-hold.webp" alt="The SETL hold screen with a No, keep going button" width="540" height="1174" loading="lazy" decoding="async"></div></article>
       <article class="bento b-third rv"><span class="k">Lock Screen</span><h3>Your plan at a glance.</h3><p>Widgets for your next session, your bedtime and the next moon, right on the Lock Screen.</p></article>
       <article class="bento b-third priv rv d1"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#6FE0E6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Private by design.</h3><p>Apple gives SETL private tokens, so we never learn which apps you block. No account, no email in the app.</p></article>
       <article class="bento b-half rv"><span class="k">Daily report</span><h3>Yesterday, in one card.</h3><p>Your time on the phone, your pickups and the apps that took it, every morning.</p>
-        <div class="crop"><img src="/assets/media/shot-report.webp" alt="The SETL Yesterday card showing time on the phone, pickups and top apps" width="540" height="1174" loading="lazy" decoding="async"></div></article>
+        <div class="crop" style="--op:4%"><img src="/assets/media/shot-report.webp" alt="The SETL Yesterday card showing time on the phone, pickups and top apps" width="540" height="1174" loading="lazy" decoding="async"></div></article>
       <article class="bento b-half rv d1"><span class="k">Everything else works</span><h3>Block apps, not your phone.</h3><p>Calls, maps, music and your alarm carry on as normal. Only the apps you picked go quiet.</p>
-        <div class="crop"><img src="/assets/media/shot-apps.webp" alt="The SETL Apps tab with six chosen apps blocked" width="540" height="1174" loading="lazy" decoding="async"></div></article>
+        <div class="crop" style="--op:0%"><img src="/assets/media/shot-apps.webp" alt="The SETL Apps tab with six chosen apps blocked" width="540" height="1174" loading="lazy" decoding="async"></div></article>
     </div>
   </div>
 </section>
@@ -400,7 +404,7 @@
 <!-- FINAL CTA -->
 <section class="final" id="get" aria-labelledby="get-title">
   <div class="narrow">
-    <img class="m rv" src="/assets/media/moon-hero.webp" alt="" width="170" height="170" loading="lazy" decoding="async">
+    <img class="m rv" src="/assets/media/moon-hero-560.webp" alt="" width="170" height="170" loading="lazy" decoding="async">
     <h2 class="rv d1" id="get-title">Your hours are waiting.</h2>
     <p class="lead rv d2">SETL is coming to the App Store. Join the waitlist and we will tell you the moment it is live.</p>
     <form class="wait rv d3" data-src="footer" novalidate><label class="sr" for="em2">Email address</label><input id="em2" type="email" name="email" placeholder="Your email" autocomplete="email" required><input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">Join the waitlist</button><div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>You're on the list</div><div class="msg" role="status" aria-live="polite"></div></form>

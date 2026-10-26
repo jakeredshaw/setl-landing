@@ -225,7 +225,7 @@ def page(path, title, desc, body, current="", ld=None, body_class="", og_type="w
     return path
 
 CTA = """<section class="cta-band"><div class="narrow">
-<img class="cta-moon rv" src="/assets/media/moon-hero.webp" alt="" width="120" height="120" loading="lazy" decoding="async">
+<img class="cta-moon rv" src="/assets/media/moon-hero-560.webp" alt="" width="120" height="120" loading="lazy" decoding="async">
 <h2 class="rv">Get your hours back.</h2>
 <p class="lead rv d1">SETL blocks the apps that take your day, on the schedule you set. Join the waitlist and start with up to 7 days free when we launch.</p>
 <div class="btn-row rv d2"><a class="btn" href="/">Join the waitlist</a><a class="btn ghost" href="/pricing.html">See pricing</a></div>
@@ -310,7 +310,7 @@ chapters = [
 
  ("00:40", "Everyone around me", "Then I noticed it was not just me.", """
 <p>Look around any group of friends after ten at night. Faces lit blue, half in the conversation.</p>
-<p>Mine were ambitious people in demanding jobs, in offices and on building sites and in their own businesses. They were also exhausted, and quietly blaming themselves for it.</p>
+<p>Mine were ambitious people in demanding jobs, in offices and on building sites and in their own businesses. They were also exhausted, and privately blaming themselves for it.</p>
 <p>Tired eyes. Headaches by Thursday. Mornings that started already behind.</p>
 """, "Nobody I knew had a discipline problem. Every one of us had a phone problem.",
  """<div class="factrow">
@@ -1124,13 +1124,13 @@ for P in POSTS:
     toc_side = '<aside class="toc" aria-label="On this page"><p>On this page</p><ol>%s</ol></aside>' % toc_li if len(toc) >= 3 else '<aside class="toc" aria-hidden="true"></aside>'
     toc_mob = '<details class="toc-m"><summary>On this page</summary><nav aria-label="On this page"><ol>%s</ol></nav></details>' % toc_li if len(toc) >= 3 else ""
     faq_html = faq_section(P["faq"], "%s: FAQs" % (P["primary"][:1].upper() + P["primary"][1:])) if P["faq"] else ""
-    b = """<article><header class="article-head"><div class="narrow">
+    b = """<article><header class="article-head"><div class="reading"><div></div><div class="col">
 <p class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / %s</p>
 <span class="eyebrow"><i></i>%s</span>
 <h1>%s</h1>
 <p class="lead">%s</p>
 <p class="meta"><span>By <a href="/about.html">%s</a></span><span><time datetime="%s">14 September 2026</time></span><span>%d min read</span></p>
-</div></header>
+</div><div></div></div></header>
 <div class="reading">%s<div class="col">%s%s<div class="prose">%s</div>
 <div class="sources"><h2>Sources</h2><ol>%s</ol></div>
 <div class="authorbox"><img src="/assets/nav-ic.png" alt="" width="44" height="48" loading="lazy">
