@@ -548,6 +548,8 @@ included = ["Night blocking at your bedtime", "SETL Blocks for scheduled day blo
 inc = "".join("<li>%s</li>" % x for x in included)
 faqs = [
  ("How much does SETL cost?", "In the UK, SETL costs £49.99 a year (about £4.17 a month), £4.99 a month or £2.49 a week. Lifetime is £199 as a one time purchase. Other countries pay Apple's local equivalent. Every plan includes SETL Sleep, SETL Blocks, SETL Sessions and SETL Breaks."),
+ ("Is it really free to try?", "Yes. Seven days on yearly and monthly, three on weekly. Cancel before it ends in your iPhone settings and you are charged nothing."),
+ ("What if I cannot stick to it?", "That is the point. SETL does the sticking, not you. The block runs whether or not you feel like it that night."),
  ("How does the free trial work?", "Yearly and monthly start with a 7 day free trial. Weekly starts with a 3 day free trial. Lifetime is a single payment, so it has no trial. Cancel before a trial ends and you pay nothing."),
  ("Is there a lifetime option?", "Yes. SETL Lifetime is £199, paid once. There is no subscription and nothing to renew."),
  ("How does SETL compare with Opal on price?", "SETL is £49.99 a year in the UK, or £199 once for lifetime. Opal's US pricing page lists Opal Pro at $99.99 a year and lifetime at $399. Prices differ by country, so check both in your own App Store. <a href=\"/setl-vs-opal.html\">Compare SETL vs Opal</a>."),
@@ -1332,6 +1334,7 @@ landing("setl-sleep.html",
  [prose_sec("What is SETL Sleep?", """
 <p><strong>SETL Sleep</strong> (say it <em>settle sleep</em>) is the bedtime app blocker inside SETL.</p>
 <p>You choose the apps that keep you up and set a bedtime. At that time, every night, SETL blocks them automatically.</p>
+<p>Willpower is a muscle, and by 11pm it is empty. That is the hour your apps were designed for.</p>
 <p>It exists because bedtime is when willpower is weakest. <strong>Half of US adults use a screen in bed every day</strong>, and 38% say it makes their sleep worse.<sup><a href="#s1">1</a></sup></p>
 <p>In a 2025 study of 45,202 students, each extra hour on a screen in bed was linked to about <strong>24 minutes less sleep</strong>.<sup><a href="#s2">2</a></sup></p>""", ["aasm", "norway"]),
   cards_sec("How SETL Sleep works", "Decide once. Sleep every night.", [
