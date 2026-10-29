@@ -134,7 +134,7 @@ FOOT = ('<footer class="foot"><div class="wrap">'
         '<div class="fbase">'
         '<img class="ic" src="/assets/nav-ic.png" alt="" width="34" height="37">'
         '<div><p class="brandline">SETL</p><p class="tag">Focus on Life.</p></div>'
-        '<p class="meta">&copy; <span data-year>2026</span> SETL. Built in the UK. '
+        '<p class="meta">&copy; <span data-year>2026</span> SETL Focus Labs Ltd. Built in the UK. '
         '<a href="https://www.instagram.com/setl.sleep/" rel="noopener" target="_blank">Instagram</a></p>'
         '</div></div></footer>')
 
@@ -1468,7 +1468,7 @@ built.append(page("support.html",
 # Served at /privacy and /terms via vercel.json rewrites; /privacy.html and /terms.html also work.
 # =====================================================================
 import re as _re
-LEGAL_UPDATED = "6 October 2026"
+LEGAL_UPDATED = "29 October 2026"
 LEGAL_WEB = {   # placeholders in the .md masters, and what the web pages show instead
     "[ICO REGISTRATION NUMBER]": "pending",
 }

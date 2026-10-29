@@ -2,7 +2,7 @@
 
 **Effective date:** [LAUNCH DATE]
 
-**Last updated:** 6 October 2026
+**Last updated:** 29 October 2026
 
 SETL helps you put your phone down at night. To do that it works with your Screen Time data. That data is personal, so we built SETL to keep it on your iPhone. This policy explains what stays on your phone, the small amount that leaves it, and the rights you have.
 
@@ -18,7 +18,7 @@ SETL helps you put your phone down at night. To do that it works with your Scree
 
 ## 1. Who we are
 
-SETL is run by Jacob Redshaw, trading as SETL ("SETL", "we", "us"). You can contact us at jacob@setlsleep.com.
+SETL is run by SETL Focus Labs Ltd, a company registered in England and Wales (company number 17507072), whose registered office is at Loppington School House, Loppington, Shrewsbury SY4 5NG ("SETL", "we", "us"). You can contact us at jacob@setlsleep.com.
 
 ICO registration number: [ICO REGISTRATION NUMBER]
 
@@ -147,7 +147,7 @@ If you are unhappy with how we handle your data, please tell us first so we can 
 
 ## 11. Children
 
-SETL is made for adults. You must be 18 or over to use it. We do not knowingly collect personal data from anyone under 18. If you believe a child has given us personal data, contact us and we will delete it.
+SETL is suitable for ages 9 and over. It has no accounts, and the app never asks for your name, age or contact details. Your Screen Time data stays on your iPhone and we never receive it. If you are under 13, please only use SETL with the permission of a parent or guardian. If you believe a child has given us personal data, contact us and we will delete it.
 
 ## 12. Security
 
@@ -163,6 +163,10 @@ We may update this policy when SETL changes or the law changes. We will post the
 
 ## 15. Contact us
 
-Jacob Redshaw, trading as SETL
+SETL Focus Labs Ltd
+
+Company number 17507072, registered in England and Wales
+
+Loppington School House, Loppington, Shrewsbury SY4 5NG
 
 Email: jacob@setlsleep.com

@@ -2,13 +2,13 @@
 
 **Effective date:** [LAUNCH DATE]
 
-**Last updated:** 6 October 2026
+**Last updated:** 29 October 2026
 
 These terms explain the rules for using SETL. Please read them before you buy. By downloading or using SETL, you agree to them. If you do not agree, please do not use SETL.
 
 ## 1. Who we are
 
-SETL is provided by Jacob Redshaw, trading as SETL ("SETL", "we", "us"). You can contact us at jacob@setlsleep.com.
+SETL is provided by SETL Focus Labs Ltd, a company registered in England and Wales (company number 17507072), whose registered office is at Loppington School House, Loppington, Shrewsbury SY4 5NG ("SETL", "we", "us"). You can contact us at jacob@setlsleep.com.
 
 ## 2. These terms and Apple's licence
 
@@ -20,7 +20,7 @@ Our [Privacy Policy](https://www.setlsleep.com/privacy) explains how we handle y
 
 ## 3. Who can use SETL
 
-You must be 18 or over to use SETL. SETL is for your own personal use on an iPhone you own or control.
+SETL is suitable for ages 9 and over. If you are under 18, please check with a parent or guardian before you buy SETL Pro. SETL is for your own personal use on an iPhone you own or control.
 
 ## 4. What SETL does
 
@@ -117,6 +117,10 @@ If a court decides that part of these terms is invalid, the rest still applies. 
 
 ## 16. Contact us
 
-Jacob Redshaw, trading as SETL
+SETL Focus Labs Ltd
+
+Company number 17507072, registered in England and Wales
+
+Loppington School House, Loppington, Shrewsbury SY4 5NG
 
 Email: jacob@setlsleep.com
