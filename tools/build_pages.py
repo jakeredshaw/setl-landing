@@ -561,7 +561,7 @@ faqs = [
 pricing_body = """<section class="hero center"><div class="narrow">
 <span class="eyebrow rv"><i></i>Pricing</span>
 <h1 class="rv d1">Simple pricing. Up to 7 days free.</h1>
-<p class="lead rv d2">Every plan unlocks everything. Cancel before your free trial ends and you pay nothing.</p>
+<p class="lead rv d2">Every plan unlocks everything. Worst case you try it for a week, cancel, and pay nothing.</p>
 </div></section>
 <section style="padding-bottom:clamp(64px,11vw,110px)"><div class="wrap">
 <div class="plans p4">
@@ -1228,7 +1228,9 @@ landing("app-blocker.html",
   ]),
   cards_sec("Everything in the SETL app blocker", "", FEATURES),
   beta_strip(),
-  prose_sec("Why an app blocker works when willpower does not", """
+  prose_sec("It is not a willpower problem", """
+<p>You have been told to try harder. Grey screen, phone in another room, delete the app. None of it lasts, because none of it changes the fight.</p>
+<p>Willpower is a muscle, and by 11pm it is empty. That is the exact hour your apps are at their strongest, built by some of the smartest engineers alive with one job: keep you scrolling.</p>
 <p>At midnight, every scroll is a new decision, made by the most tired version of you.</p>
 <p>That version of you is busy. <strong>50% of US adults use a screen in bed every day</strong>, and 38% say it makes their sleep worse.<sup><a href="#s1">1</a></sup></p>
 <p>An app blocker makes the decision once, earlier, and holds it. That is the whole idea behind SETL.</p>
@@ -1249,7 +1251,11 @@ landing("screen-time-blocker.html",
  "Want a screen time blocker or screen time restrictor? SETL cuts screen time on iPhone by blocking distracting apps at bedtime and while you focus.",
  "Screen time blocker", "A screen time blocker that actually holds the line.",
  "Trackers show you the damage. SETL blocks the apps that cause it, at night and on demand in the day.",
- [prose_sec("What is a screen time blocker?", """
+ [prose_sec("Your phone is designed wrong", """
+<p>For fifteen years the industry ran on one rule: the longer you stay, the more they make. Every default on your phone was set by that rule.</p>
+<p>A tracker was never going to beat it. Neither was a limit you can wave away in one tap.</p>
+<p>A blocker changes the fight, because the decision stops being yours to make at the worst possible moment.</p>""")
+  , prose_sec("What is a screen time blocker?", """
 <p>A <strong>screen time blocker</strong>, sometimes called a <strong>screen time restrictor</strong> or <strong>screen timer blocker</strong>, cuts your screen time by blocking apps, not just measuring them.</p>
 <p>A tracker tells you how long you spent. A blocker stops the time being spent.</p>
 <p>There is a lot of it to win back. UK adults spent <strong>4 hours 30 minutes a day online</strong> in 2025, and 77% of that time was on a smartphone.<sup><a href="#s1">1</a></sup></p>
