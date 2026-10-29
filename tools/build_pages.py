@@ -62,8 +62,8 @@ def src(key, text=None):
 # Set SHOW_BETA = False to pull the figures from every page at once.
 SHOW_BETA = True
 # ---------- launch switch: set LAUNCHED = True and fill APP_STORE_URL, then rebuild ----------
-LAUNCHED = False
-APP_STORE_URL = ""          # https://apps.apple.com/app/id...
+LAUNCHED = True
+APP_STORE_URL = "https://apps.apple.com/gb/app/setl-screen-time-control-app/id6807833880"          # https://apps.apple.com/app/id...
 CTA_TEXT = "Download on the App Store" if LAUNCHED else "Join the waitlist"
 CTA_HREF = APP_STORE_URL if LAUNCHED else "/"
 # The only proven figure: the median daily screen time saved by beta testers, 4h 3m. Do not derive other numbers from it.
@@ -142,6 +142,30 @@ def crumbs_ld(items):
     return {"@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + u} for i, (n, u) in enumerate(items)]}
 
+LAUNCH_SWAPS = [
+ ('href="/">Join the waitlist<', 'href="%s" rel="noopener">%s<' % (CTA_HREF, CTA_TEXT)),
+ ('href="/#get">Join the waitlist<', 'href="%s" rel="noopener">%s<' % (CTA_HREF, CTA_TEXT)),
+ ('href="/">Join waitlist<', 'href="%s" rel="noopener">Download<' % CTA_HREF),
+ ("Join the SETL waitlist. Get up to 7 nights free when we launch.",
+  "SETL is on the App Store. Your first 7 nights are free on the yearly plan."),
+ ('SETL is built in the UK and launching on iPhone. Join the waitlist and get up to 7 nights free.',
+  'SETL is built in the UK and live on the App Store for iPhone, with 7 nights free on the yearly plan.'),
+ ('SETL is built in the UK and launching on iPhone. <a href="/">Join the waitlist</a> and get up to 7 nights free.',
+  'SETL is built in the UK and live on the App Store for iPhone, with 7 nights free on the yearly plan.'),
+ ("SETL is in beta ahead of its App Store launch, with a public waitlist at setlsleep.com. Press can request early access.",
+  "SETL is live on the App Store for iPhone. Press can request a promo code for full access."),
+ ("Currently a waitlist ahead of the App Store launch.", "Available now on the App Store for iPhone."),
+ ("waitlist at https://www.setlsleep.com/", "App Store: " + APP_STORE_URL),
+]
+
+def launchify(doc):
+    """After launch, every waitlist CTA becomes an App Store link. One switch, no stale pages."""
+    if not LAUNCHED:
+        return doc
+    for a, b in LAUNCH_SWAPS:
+        doc = doc.replace(a, b)
+    return doc
+
 def page(path, title, desc, body, current="", ld=None, body_class="", og_type="website", extra_head="",
          faq=None, faq_title="Frequently asked questions", canonical=None):
     """canonical: a clean URL path such as "/privacy", for pages vercel.json rewrites to their .html file."""
@@ -205,6 +229,7 @@ def page(path, title, desc, body, current="", ld=None, body_class="", og_type="w
            extra_head=extra_head,
            ld=json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False),
            bc=(' class="%s"' % body_class) if body_class else "", nav=nav(current), body=body, foot=FOOT)
+    doc = launchify(doc)
     out = os.path.join(ROOT, path)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, "w", encoding="utf-8").write(doc)
@@ -1175,6 +1200,7 @@ def landing(path, title, desc, eyebrow, h1, lead, sections, faq, faq_title, name
              "isPartOf": {"@id": SITE + "/#site"}, "publisher": {"@id": SITE + "/#org"}},
             {"@type": "SoftwareApplication", "name": "SETL", "alternateName": ["SETL Sleep", "setl", "settle sleep"],
              "operatingSystem": "iOS", "applicationCategory": "LifestyleApplication", "url": SITE + "/",
+             "installUrl": APP_STORE_URL, "downloadUrl": APP_STORE_URL,
              "offers": {"@type": "Offer", "price": "49.99", "priceCurrency": "GBP"}, "publisher": {"@id": SITE + "/#org"}},
             crumbs_ld([("Home", "/"), (name, "/" + path)])]))
 
@@ -1516,6 +1542,141 @@ legal_page("privacy.md", "privacy.html", "/privacy", "Privacy Policy | SETL",
 legal_page("terms.md", "terms.html", "/terms", "Terms of Use | SETL",
            "The terms for using SETL: subscriptions, lifetime purchase, free trials, cancelling, refunds through Apple, and what SETL is and is not.",
            "The rules for using SETL, written in plain English. Please read them before you buy.")
+
+# =====================================================================
+# FUNNEL PAGES: the screen time quiz and one landing page per AI creator.
+# Ad and bio traffic lands here. Creator pages are noindex (they exist for links, not search).
+# =====================================================================
+def noindex(path):
+    """Keep a built page out of search and the sitemap."""
+    if path in SITEMAP:
+        SITEMAP.remove(path)
+    f = os.path.join(ROOT, path)
+    t = open(f, encoding="utf-8").read().replace(
+        '<meta name="robots" content="index,follow,max-image-preview:large">', '<meta name="robots" content="noindex">')
+    open(f, "w", encoding="utf-8").write(t)
+
+def store_link(campaign):
+    """App Store link tagged with a campaign token, so App Store Connect shows which page sent each download."""
+    return (APP_STORE_URL + "?ct=" + campaign) if LAUNCHED else CTA_HREF
+
+QUIZ_CSS = """<style>
+.quiz{max-width:640px;margin:0 auto;display:grid;gap:18px}
+.qcard{border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:clamp(20px,4vw,32px);background:rgba(255,255,255,.035);display:grid;gap:16px}
+.qstep{font:600 12px/1 "Inter Tight",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
+.qcard h2{font-size:clamp(22px,4vw,30px);line-height:1.15;margin:0}
+.qhint{font-size:14px;opacity:.65;margin:0}
+.qopts{display:grid;gap:10px}
+.qopt{all:unset;cursor:pointer;border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 16px;font-size:16px;transition:border-color .2s,background .2s}
+.qopt:hover,.qopt:focus-visible{border-color:#9b8cff;background:rgba(155,140,255,.08)}
+.qbar{height:6px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
+.qbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#9b8cff,#6fd6e8);transition:width .3s}
+.qbig{font-size:clamp(44px,10vw,72px);font-weight:700;line-height:1;letter-spacing:-.03em}
+.qres p{margin:0}
+.qplan{border-left:3px solid #9b8cff;padding:10px 14px;background:rgba(155,140,255,.07);border-radius:0 12px 12px 0}
+.qback{all:unset;cursor:pointer;font-size:14px;opacity:.6;justify-self:start}
+@media (prefers-reduced-motion:reduce){.qbar i{transition:none}}
+</style>"""
+
+QUIZ_JS = """<script>
+(function(){
+var Q=[
+ {q:"What does your iPhone say you average a day?",hint:"Check it now: Settings, then Screen Time, then See All App and Website Activity.",k:"hrs",
+  o:[["Under 2 hours",1.5],["2 to 4 hours",3],["4 to 6 hours",5],["6 to 8 hours",7],["More than 8 hours",9]]},
+ {q:"When does your phone steal the most time?",k:"when",
+  o:[["During work or study","work"],["In the evening","evening"],["In bed at night","bed"],["Honestly, all day","all"]]},
+ {q:"Which app pulls you in most?",k:"app",
+  o:[["TikTok","TikTok"],["Instagram","Instagram"],["YouTube","YouTube"],["X or Reddit","X and Reddit"],["Something else","your worst app"]]},
+ {q:"What have you already tried?",k:"tried",
+  o:[["Apple's Screen Time limits","limits"],["Deleting apps","delete"],["Just willpower","will"],["Nothing yet","none"]]},
+ {q:"What would you do with the time back?",k:"goal",
+  o:[["Deep work on something that matters","deep work"],["Sleep properly","sleep"],["Train or get outside","training"],["Time with people I love","people"],["Learn something new","learning"]]}
+];
+var A={},i=0,box=document.getElementById("quiz"),bar=document.getElementById("qbar");
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function draw(){
+  bar.style.width=(i/Q.length*100)+"%";
+  if(i>=Q.length){return result()}
+  var q=Q[i],h='<div class="qcard"><span class="qstep">Question '+(i+1)+' of '+Q.length+'</span><h2>'+esc(q.q)+'</h2>'+(q.hint?'<p class="qhint">'+esc(q.hint)+'</p>':'')+'<div class="qopts">';
+  q.o.forEach(function(o,n){h+='<button type="button" class="qopt" data-n="'+n+'">'+esc(o[0])+'</button>'});
+  h+='</div>'+(i?'<button type="button" class="qback">Back</button>':'')+'</div>';
+  box.innerHTML=h;
+  box.querySelectorAll(".qopt").forEach(function(b){b.addEventListener("click",function(){A[q.k]=q.o[+b.dataset.n][1];i++;draw();box.scrollIntoView({block:"start",behavior:"smooth"})})});
+  var bk=box.querySelector(".qback");if(bk)bk.addEventListener("click",function(){i--;draw()});
+}
+function result(){
+  var hrs=A.hrs,days=Math.round(hrs*365/24),back=Math.round(365/24);
+  var plan={work:"Plan a SETL block for your working hours, so "+A.app+" locks while you work and opens again after.",
+            evening:"Schedule a SETL block for your evenings, so "+A.app+" is off before the scroll starts.",
+            bed:"Turn on SETL Sleep. "+A.app+" locks at your bedtime, every night, without you deciding again.",
+            all:"Use both: a SETL block for your working hours and SETL Sleep at bedtime. Start a Session any time you need focus right now."}[A.when];
+  var tried={limits:"Screen Time limits ask you to decide in the moment. SETL moves that decision earlier, when you set your plan, so you are not arguing with yourself at 11pm.",
+             delete:"Deleting apps works until you reinstall them. SETL keeps your apps and just locks them when you said you wanted them off.",
+             will:"Willpower runs out by the evening. SETL makes the decision for you, at the times you choose in advance.",
+             none:"Good news: you are starting with a plan, not a fight."}[A.tried];
+  box.innerHTML='<div class="qcard qres"><span class="qstep">Your result</span>'+
+   '<p>At about '+hrs+' hours a day, your phone takes</p><p class="qbig">'+days+' days</p><p>of your year. Every single hour of it, awake.</p>'+
+   '<p>Win back just one hour a day and that is about <b>'+back+' full days a year</b> for '+esc(A.goal)+'.</p>'+
+   '<div class="qplan"><p><b>Your SETL plan</b></p><p>'+esc(plan)+'</p></div>'+
+   '<p class="qhint">'+esc(tried)+'</p>'+
+   '<div class="btn-row"><a class="btn" href="'+box.dataset.cta+'">'+box.dataset.ctatext+'</a></div>'+
+   '<p class="qhint">Your answers stay in your browser. We don\\'t store them.</p></div>';
+}
+draw();
+})();
+</script>"""
+
+quiz_body = """<section class="hero center"><div class="narrow">
+<span class="eyebrow"><i></i>Free screen time check</span>
+<h1 style="margin-top:20px">What is your phone really costing you?</h1>
+<p class="lead" style="margin:18px auto 0">Five quick questions. You get your own number and a simple plan to win the time back.</p>
+</div></section>
+<section class="sec" style="padding-top:0"><div class="wrap">
+<div class="quiz"><div class="qbar" aria-hidden="true"><i id="qbar"></i></div>
+<div id="quiz" data-cta="%s" data-ctatext="%s" aria-live="polite"><noscript><p class="center">This check needs JavaScript. You can still <a href="%s">get SETL</a>.</p></noscript></div>
+</div></div></section>
+%s%s""" % (store_link("quiz"), CTA_TEXT, store_link("quiz"), QUIZ_CSS, QUIZ_JS)
+built.append(page("quiz.html", "Screen Time Quiz: What Your Phone Costs You | SETL",
+    "Five quick questions. See how many days a year your phone takes, and get a simple plan to win the time back.",
+    quiz_body, "", ld=[{"@type": "WebPage", "name": "Screen time quiz", "url": SITE + "/quiz.html"},
+                       crumbs_ld([("Home", "/"), ("Screen time quiz", "/quiz.html")])]))
+
+# ---- One page per AI creator. Every page says plainly that the creator is an AI character. ----
+CREATORS = [
+ {"slug": "maya", "name": "Maya", "who": "the screen science explainer", "pron": "She",
+  "h1": "Maya's focus setup", "lead": "You found Maya's chalkboard. Here is the SETL setup she explains, built on what the research says about attention.",
+  "note": "Maya is an AI character created by SETL to explain published research. She is not a doctor, and nothing here is medical advice.",
+  "steps": [("01", "Decide before the craving", "Plan your SETL blocks in daylight, when you are thinking clearly. The decision is already made when the urge arrives."),
+            ("02", "Protect your deep work hours", "Block the feeds while you work. Your work apps stay open, the endless ones lock."),
+            ("03", "Give your phone a bedtime", "SETL Sleep locks your chosen apps at night, with three gentle warnings first.")]},
+ {"slug": "theo", "name": "Theo", "who": "the ADHD founder", "pron": "He",
+  "h1": "Theo's setup for a busy brain", "lead": "You found Theo's video. This is the setup he uses to build a company with a brain that jumps between ten tabs.",
+  "note": "Theo is an AI character performed by SETL's founder, Jacob, who has ADHD. The stories are Jacob's own.",
+  "steps": [("01", "Make the rule once", "Set your SETL blocks in the morning. Future you does not have to win the argument again."),
+            ("02", "One tap for focus", "Start a SETL Session before you build, write or study. The apps that pull you away lock until it ends."),
+            ("03", "Keep the streak", "Every day you stick to your plan earns progress toward SETL's 25 moons. Small wins, kept.")]},
+ {"slug": "arthur", "name": "Arthur", "who": "host of Logged Off", "pron": "He",
+  "h1": "Arthur's workday setup", "lead": "You heard it on Logged Off. Here is the SETL setup Arthur talks about, for people whose job lives on a laptop.",
+  "note": "Arthur is an AI character created by SETL. Logged Off is a fictional show made to explain how SETL works.",
+  "steps": [("01", "Lock the feeds from 9 to 5", "Plan a SETL block for your working hours. Instagram, TikTok and YouTube lock. Slack and email stay open."),
+            ("02", "Take a real lunch break", "Let the apps open at lunch, then lock again for the afternoon. You choose the times once."),
+            ("03", "Log off properly", "SETL Sleep turns your chosen apps off at bedtime, so the evening belongs to you.")]},
+]
+for c in CREATORS:
+    cb = """<section class="hero center"><div class="narrow">
+<span class="eyebrow"><i></i>As seen with %s, %s</span>
+<h1 style="margin-top:20px">%s</h1>
+<p class="lead" style="margin:18px auto 0">%s</p>
+<div class="btn-row"><a class="btn" href="%s">%s</a></div>
+<p class="fn" style="margin:22px auto 0;max-width:60ch">%s</p>
+</div></section>
+%s%s""" % (c["name"], c["who"], c["h1"], c["lead"], store_link(c["slug"]), CTA_TEXT, c["note"],
+           cards_sec("The setup in three steps", "", c["steps"]), CTA)
+    path = "with/%s.html" % c["slug"]
+    page(path, ("%s | SETL" % c["h1"])[:60], ("%s Three steps, set up in minutes." % c["lead"])[:160], cb, "",
+         ld=[{"@type": "WebPage", "name": c["h1"], "url": SITE + "/" + path}])
+    noindex(path)
+    print("  creator page:", path)
 
 # =====================================================================
 # 404

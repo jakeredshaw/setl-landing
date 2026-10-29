@@ -3,7 +3,12 @@
 import re, json, os, glob, html
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 pages = [p for p in glob.glob(os.path.join(ROOT, "*.html")) + glob.glob(os.path.join(ROOT, "blog", "*.html"))]
-exists = lambda href: os.path.exists(os.path.join(ROOT, href.lstrip("/"), "index.html") if href.endswith("/") else os.path.join(ROOT, href.lstrip("/")))
+def exists(href):
+    """Vercel serves clean URLs, so /terms resolves to terms.html."""
+    rel = href.lstrip("/")
+    if href.endswith("/"):
+        return os.path.exists(os.path.join(ROOT, rel, "index.html"))
+    return os.path.exists(os.path.join(ROOT, rel)) or os.path.exists(os.path.join(ROOT, rel + ".html"))
 fail = 0
 for p in sorted(pages):
     rel = os.path.relpath(p, ROOT); s = open(p, encoding="utf-8").read(); e = []
