@@ -386,3 +386,6 @@ body.story[data-hour="6"]{background:#2A1A22}
 .asbadge img{height:54px;width:auto;display:block}
 @media (max-width:480px){ .asbadge img{height:48px} }
 .btn-row .asbadge{margin-inline:auto}
+/* badge sizing to match the homepage */
+.asbadge img{height:66px}
+@media (max-width:480px){ .asbadge img{height:60px} }

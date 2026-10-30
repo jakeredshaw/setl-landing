@@ -272,7 +272,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 .hero{padding-bottom:clamp(30px,8vw,56px)}
 .hero-wait{margin-top:24px}
 .proof{display:flex;align-items:center;justify-content:center;gap:clamp(16px,5vw,44px);
-  margin-top:clamp(26px,6.5vw,42px);flex-wrap:nowrap}
+  margin-top:0;flex-wrap:nowrap}
 .award{display:flex;align-items:center;gap:4px;color:#fff}
 .wreath{width:clamp(19px,5.2vw,26px);height:auto;opacity:.9}
 .wreath.flip{transform:scaleX(-1)}
@@ -509,9 +509,14 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
 .risephoto{margin-top:0}
 
 .asbadge{display:inline-block;line-height:0}
-.asbadge img{height:54px;width:auto;display:block}
-@media(max-width:480px){.asbadge img{height:48px}}
+.asbadge img{height:66px;width:auto;display:block}
+@media(max-width:480px){.asbadge img{height:60px}}
 .btn-row .asbadge{margin-inline:auto}
+/* the hero badge is the one real call to action, so it runs at double size
+   with matching air above and below */
+.hero .btn-row{margin-top:clamp(40px,9vw,64px);margin-bottom:clamp(40px,9vw,64px)}
+.hero .asbadge img{height:108px}
+@media(max-width:480px){ .hero .asbadge img{height:96px} }
 
 /* product shots: the app itself, on black, no frame needed */
 .shot{display:block;width:min(340px,78%);height:auto;margin:clamp(30px,7vw,46px) auto 0;
