@@ -380,3 +380,9 @@ body.story[data-hour="6"]{background:#2A1A22}
 .fbase .tag{margin:2px 0 0;font-size:13.5px;color:var(--dim)}
 .fbase .meta{margin:0 0 0 auto;font-size:13px;color:var(--faint)}
 .fbase .meta a{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
+
+/* Apple's own App Store badge, used wherever we send people to download */
+.asbadge{display:inline-block;line-height:0}
+.asbadge img{height:54px;width:auto;display:block}
+@media (max-width:480px){ .asbadge img{height:48px} }
+.btn-row .asbadge{margin-inline:auto}

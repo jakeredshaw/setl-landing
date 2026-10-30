@@ -4,7 +4,7 @@
 Run from anywhere:  python3 tools/build_pages.py
 Edit copy, prices or sources here, then rerun; never hand-edit the generated HTML.
 One template so nav, footer, meta and structured data can never drift between pages."""
-import json, os, html
+import json, os, html, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # repo root; this file lives in tools/
 SITE = "https://www.setlsleep.com"
@@ -158,12 +158,18 @@ LAUNCH_SWAPS = [
  ("waitlist at https://www.setlsleep.com/", "App Store: " + APP_STORE_URL),
 ]
 
+BADGE = ('<a class="asbadge" href="%s" rel="noopener" aria-label="Download SETL on the App Store">'
+         '<img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54" loading="lazy"></a>')
+
 def launchify(doc):
     """After launch, every waitlist CTA becomes an App Store link. One switch, no stale pages."""
     if not LAUNCHED:
         return doc
     for a, b in LAUNCH_SWAPS:
         doc = doc.replace(a, b)
+    # Apple's own badge art replaces the text button wherever we send people to the store
+    doc = re.sub(r'<a class="btn[^"]*" href="' + re.escape(CTA_HREF) + r'"[^>]*>Download on the App Store</a>',
+                 BADGE % CTA_HREF, doc)
     return doc
 
 def page(path, title, desc, body, current="", ld=None, body_class="", og_type="website", extra_head="",
@@ -379,7 +385,7 @@ ABOUT_FAQ = [
  ("Who is behind SETL?", "SETL is built in the UK by founder Jacob Redshaw, a nine figure copywriter with ADHD who spent his career on attention and now builds tools that give it back. <a href=\"/founder-story.html\">Read the founder story</a>."),
  ("Is SETL the same as settle sleep?", "Yes. SETL is pronounced settle, and many people search for it as settle sleep or SETL Sleep. SETL Sleep is the bedtime app blocker inside the SETL app."),
  ("Is SETL a medical app?", "No. SETL is a screen time and app blocking tool, not a treatment for ADHD, insomnia or any condition. Speak to your doctor about ongoing sleep problems."),
- ("Where is SETL based?", "SETL is built in the UK and launching on iPhone. <a href=\"/\">Join the waitlist</a> and get up to 7 nights free."),
+ ("Where is SETL based?", "SETL is built in the UK and live on the App Store for iPhone, with a free trial on the yearly and monthly plans."),
 ]
 about_body = """<section class="hero center"><div class="narrow">
 <span class="eyebrow rv"><i></i>About SETL</span>
@@ -703,7 +709,7 @@ facts = [
  ("How it works", "Built on Apple's Screen Time framework. Usage data never leaves the phone"),
  ("Four features", "SETL Sleep (nightly blocking), SETL Blocks (scheduled blocks in your day), SETL Sessions (focus on demand), SETL Breaks (planned time off)"),
  ("Price", "UK: £49.99 a year, £4.99 a month or £2.49 a week, or £199 once for lifetime. 7 day free trial on yearly and monthly, 3 days on weekly"),
- ("Stage", "Beta, with a public waitlist ahead of the App Store launch"),
+ ("Stage", "Live on the App Store for iPhone"),
  ("Founded", "2026, in the United Kingdom, by Jacob Redshaw"),
  ("Mission", "A billion hours given back"),
  ("Pronounced", "Settle. Often searched as settle sleep"),
