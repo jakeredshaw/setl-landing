@@ -508,10 +508,11 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
   text-transform:uppercase;color:rgba(255,255,255,.62)}
 .risephoto{margin-top:0}
 
-.hfollow{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:clamp(18px,4vw,26px)}
-.hfollow a{font-size:13px;letter-spacing:.02em;color:rgba(255,255,255,.72);text-decoration:none;
-  border-bottom:1px solid rgba(255,255,255,.22);padding-bottom:2px}
-.hfollow a:hover{color:#fff;border-bottom-color:rgba(255,255,255,.6)}
+.followers{margin:clamp(14px,3.4vw,20px) auto 0;font-size:clamp(13px,3.4vw,14.5px);color:rgba(255,255,255,.72);letter-spacing:.01em}
+.followers b{color:#fff;font-weight:600}
+.ffollow{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin:18px 0 0}
+.ffollow a{font-size:13.5px;color:#8A8E9C;text-decoration:none;transition:color .2s ease}
+.ffollow a:hover,.ffollow a:focus-visible{color:#E9EBF2}
 .asbadge{display:inline-block;line-height:0}
 .asbadge img{height:66px;width:auto;display:block}
 @media(max-width:480px){.asbadge img{height:60px}}
@@ -627,14 +628,12 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       <div class="count">
         <div class="n">100%</div>
         <div class="cap">BETA TEST SUCCESS</div></div>
-      <div class="count"><div class="n">1M+</div><div class="cap">FOLLOWERS ACROSS OUR PAGES</div>
       </div>
-    </div>
+    <p class="followers"><b>1M+</b> followers across our pages</p>
     <div class="livecount" id="liveCount" aria-live="polite">
     <span class="lc-label">Current sign-ups</span>
     <span class="lc-num" id="lcNum"></span>
   </div>
-    <nav class="hfollow" aria-label="Follow SETL"><a href="https://www.instagram.com/setl.appstore/" rel="noopener" target="_blank">Instagram</a><a href="https://www.tiktok.com/@setl.app" rel="noopener" target="_blank">TikTok</a><a href="https://www.instagram.com/ghostofascension/" rel="noopener" target="_blank">Ghost of Ascension</a><a href="https://www.tiktok.com/@ghostofascension" rel="noopener" target="_blank">GOA on TikTok</a></nav>
     <div class="scrollcue" id="scrollcue" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
@@ -889,6 +888,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px;text-align:center;co
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
     </nav>
+    <nav class="ffollow" aria-label="Follow SETL"><a href="https://www.instagram.com/setl.appstore/" rel="noopener" target="_blank">Instagram</a><a href="https://www.tiktok.com/@setl.app" rel="noopener" target="_blank">TikTok</a><a href="https://www.instagram.com/ghostofascension/" rel="noopener" target="_blank">Ghost of Ascension</a><a href="https://www.tiktok.com/@ghostofascension" rel="noopener" target="_blank">GOA on TikTok</a></nav>
     <p class="fmeta">&copy; 2026 SETL. All rights reserved.</p>
   </div>
 </footer>
