@@ -389,3 +389,8 @@ body.story[data-hour="6"]{background:#2A1A22}
 /* badge sizing to match the homepage */
 .asbadge img{height:66px}
 @media (max-width:480px){ .asbadge img{height:60px} }
+
+/* follow row: our pages, plus the sister page most of the audience came from */
+.follow{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin:18px 0 8px}
+.follow a{font-size:14px;color:var(--dim);text-decoration:none;border-bottom:1px solid transparent}
+.follow a:hover{color:#fff;border-bottom-color:rgba(255,255,255,.35)}

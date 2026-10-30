@@ -13,7 +13,7 @@ AUTHOR = "Jacob Redshaw"
 
 ORG = {"@type": "Organization", "@id": SITE + "/#org", "name": "SETL", "url": SITE + "/",
        "logo": SITE + "/assets/icon-512.png", "slogan": "Focus on Life.",
-       "sameAs": ["https://www.instagram.com/setl.sleep/"]}
+       "sameAs": ["https://www.instagram.com/setl.appstore/", "https://www.tiktok.com/@setl.app"]}
 
 # ---------- verified sources (checked 2026-09-14) ----------
 SRC = {
@@ -126,6 +126,12 @@ FOOT_COLS = [
               ("/mission.html", "Mission"), ("/press.html", "Press"), ("/pricing.html", "Pricing"), ("/support.html", "Support"),
               ("/privacy", "Privacy"), ("/terms", "Terms")]),
 ]
+SOCIALS = [("Instagram", "https://www.instagram.com/setl.appstore/"), ("TikTok", "https://www.tiktok.com/@setl.app"),
+           ("Ghost of Ascension", "https://www.instagram.com/ghostofascension/"), ("GOA on TikTok", "https://www.tiktok.com/@ghostofascension")]
+FOLLOW_ROW = ('<nav class="follow" aria-label="Social">' +
+              "".join('<a href="%s" rel="noopener" target="_blank">%s</a>' % (u, t) for t, u in SOCIALS) +
+              '</nav>')
+
 FOOT = ('<footer class="foot"><div class="wrap">'
         '<div class="fcols">'
         + "".join('<div><p class="fh">%s</p>%s</div>' % (h, "".join('<a href="%s">%s</a>' % l for l in ls))
@@ -134,9 +140,8 @@ FOOT = ('<footer class="foot"><div class="wrap">'
         '<div class="fbase">'
         '<img class="ic" src="/assets/nav-ic.png" alt="" width="34" height="37">'
         '<div><p class="brandline">SETL</p><p class="tag">Focus on Life.</p></div>'
-        '<p class="meta">&copy; <span data-year>2026</span> SETL Focus Labs Ltd. Built in the UK. '
-        '<a href="https://www.instagram.com/setl.sleep/" rel="noopener" target="_blank">Instagram</a></p>'
-        '</div></div></footer>')
+        '<p class="meta">&copy; <span data-year>2026</span> SETL Focus Labs Ltd. Built in the UK.</p>'
+        + FOLLOW_ROW + '</div></div></footer>')
 
 def crumbs_ld(items):
     return {"@type": "BreadcrumbList", "itemListElement": [
@@ -1753,7 +1758,7 @@ llms = ["# SETL: Focus on Life.", "",
  "Not on the App Store yet: join the waitlist at https://www.setlsleep.com/. Contact: jacob@setlsleep.com.", "",
  "In one line: A screen blocker app specialising in automated distraction relief, night and day. Built for ADHD brains, deep focus and anyone with a busy life.", "",
  "Also searched as: SETL Sleep, setl, settle sleep, SETL app blocker.", "",
- "Instagram: https://www.instagram.com/setl.sleep/", ""]
+ "Instagram: https://www.instagram.com/setl.appstore/", ""]
 if SHOW_BETA:
     llms += ["In SETL's 2026 beta, the median tester saved 4 hours 3 minutes of screen time a day. Individual results vary.", ""]
 llms += ["## Product pages"] + ["- [%s](%s)" % (t, SITE + h) for h, t in PRODUCT_LINKS] + [
