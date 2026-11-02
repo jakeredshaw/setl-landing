@@ -20,7 +20,8 @@ KNOWN = {"how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "does-it-
          "how-to-focus-without-your-phone", "screen-time-not-working",
          "always-allowed-screen-time", "time-allowances-vs-screen-time-schedule",
          "how-to-set-a-bedtime-on-iphone", "jomo-alternatives", "one-sec-alternatives",
-         "screenzen-alternatives", "app-blocker-you-cannot-delete"}
+         "screenzen-alternatives", "app-blocker-you-cannot-delete", "is-a-dumb-phone-worth-it",
+         "why-is-my-screen-time-so-high", "how-to-block-apps-on-ipad", "screen-time-and-productivity"}
 PAGES = {"/", "/app-blocker.html", "/screen-time-blocker.html", "/apple-screen-time-alternative.html",
          "/setl-sleep.html", "/setl-sessions.html", "/setl-vs-opal.html", "/pricing.html", "/about.html",
          "/mission.html", "/blog/"} | {"/blog/%s.html" % s for s in KNOWN}
