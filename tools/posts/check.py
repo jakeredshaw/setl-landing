@@ -14,7 +14,8 @@ KNOWN = {"how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "does-it-
          "screen-time-schedule-iphone", "dopamine-detox", "why-cant-i-stop-scrolling",
          "is-phone-addiction-real", "how-to-block-websites-on-iphone", "app-blocker-for-students",
          "free-app-blocker-iphone", "how-to-use-your-phone-less", "app-blocker-for-work",
-         "does-deleting-social-media-help"}
+         "does-deleting-social-media-help", "does-screen-time-affect-sleep",
+         "how-to-stop-phone-addiction", "digital-minimalism", "phone-in-the-bedroom"}
 PAGES = {"/", "/app-blocker.html", "/screen-time-blocker.html", "/apple-screen-time-alternative.html",
          "/setl-sleep.html", "/setl-sessions.html", "/setl-vs-opal.html", "/pricing.html", "/about.html",
          "/mission.html", "/blog/"} | {"/blog/%s.html" % s for s in KNOWN}
