@@ -11,7 +11,8 @@ KNOWN = {"how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "does-it-
          "how-to-block-tiktok-at-night", "how-to-block-instagram-at-night", "how-to-block-youtube-at-night", "how-to-block-snapchat-at-night",
          "how-to-block-reddit-at-night", "how-to-block-x-twitter-at-night", "how-to-block-whatsapp-at-night", "how-to-block-netflix-and-streaming-at-night",
          "best-app-blockers-for-iphone-2027", "ios-27-screen-time", "time-allowances-iphone",
-         "screen-time-schedule-iphone", "dopamine-detox"}
+         "screen-time-schedule-iphone", "dopamine-detox", "why-cant-i-stop-scrolling",
+         "is-phone-addiction-real", "how-to-block-websites-on-iphone", "app-blocker-for-students"}
 PAGES = {"/", "/app-blocker.html", "/screen-time-blocker.html", "/apple-screen-time-alternative.html",
          "/setl-sleep.html", "/setl-sessions.html", "/setl-vs-opal.html", "/pricing.html", "/about.html",
          "/mission.html", "/blog/"} | {"/blog/%s.html" % s for s in KNOWN}
@@ -62,6 +63,8 @@ def check(path):
 
 bad = 0
 for p in sys.argv[1:]:
+    if os.path.basename(p) == "check.py":
+        continue
     e = check(p)
     print(("OK   " if not e else "FAIL ") + p + ("" if not e else "\n  - " + "\n  - ".join(e)))
     bad += bool(e)
