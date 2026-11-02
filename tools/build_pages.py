@@ -17,6 +17,14 @@ ORG = {"@type": "Organization", "@id": SITE + "/#org", "name": "SETL", "url": SI
 
 # ---------- verified sources (checked 2026-09-14) ----------
 SRC = {
+ "applesched": ("Apple Support, Set schedules with Screen Time on iPhone (iOS 26 and 27 guide)",
+                "https://support.apple.com/guide/iphone/set-schedules-with-screen-time-iphb0c7313c9/26/ios/26"),
+ "applechild": ("Apple Support, Use Screen Time to manage your child's iPhone or iPad",
+                "https://support.apple.com/en-us/108806"),
+ "pieh": ("Pieh et al., Smartphone screen time reduction improves mental health, BMC Medicine, 2025",
+          "https://pubmed.ncbi.nlm.nih.gov/39985031/"),
+ "vutag": ("Vu and Tagliabue, Active nudging towards digital well-being, Frontiers in Psychiatry, 2025",
+           "https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2025.1602997/full"),
  "ofcom": ("Ofcom, Online Nation 2025 report (UK internet users aged 18+, May 2025)",
            "https://www.ofcom.org.uk/siteassets/resources/documents/research-and-data/online-research/online-nation/2025/online-nations-report-2025.pdf?v=409837"),
  "aasm": ("American Academy of Sleep Medicine, Sleep Prioritization Survey, 2,007 US adults, June 2025",
@@ -1078,7 +1086,7 @@ post("screens-melatonin-and-sleep",
 
 # ---- posts written as modules in tools/posts/<slug>.py (see tools/posts/BRIEF.md) ----
 import importlib.util, glob, re
-TOPIC_ORDER = ["best-app-blockers-for-iphone-2027", "how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "what-is-an-app-blocker",
+TOPIC_ORDER = ["best-app-blockers-for-iphone-2027", "ios-27-screen-time", "screen-time-schedule-iphone", "time-allowances-iphone", "dopamine-detox", "how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "what-is-an-app-blocker",
                "screen-time-limits-not-working", "how-to-use-downtime-on-iphone", "how-to-reduce-screen-time-on-iphone",
                "best-screen-time-apps-for-iphone", "opal-alternatives", "bedtime-procrastination", "how-to-stop-doomscrolling",
                "phone-addiction-signs", "why-apps-are-addictive", "app-blocker-for-adhd", "how-much-screen-time-is-too-much",
