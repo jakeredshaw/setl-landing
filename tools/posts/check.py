@@ -9,7 +9,8 @@ KNOWN = {"how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "does-it-
          "why-apps-are-addictive", "app-blocker-for-adhd", "how-much-screen-time-is-too-much",
          "does-grayscale-reduce-screen-time",
          "how-to-block-tiktok-at-night", "how-to-block-instagram-at-night", "how-to-block-youtube-at-night", "how-to-block-snapchat-at-night",
-         "how-to-block-reddit-at-night", "how-to-block-x-twitter-at-night", "how-to-block-whatsapp-at-night", "how-to-block-netflix-and-streaming-at-night"}
+         "how-to-block-reddit-at-night", "how-to-block-x-twitter-at-night", "how-to-block-whatsapp-at-night", "how-to-block-netflix-and-streaming-at-night",
+         "best-app-blockers-for-iphone-2027"}
 PAGES = {"/", "/app-blocker.html", "/screen-time-blocker.html", "/apple-screen-time-alternative.html",
          "/setl-sleep.html", "/setl-sessions.html", "/setl-vs-opal.html", "/pricing.html", "/about.html",
          "/mission.html", "/blog/"} | {"/blog/%s.html" % s for s in KNOWN}

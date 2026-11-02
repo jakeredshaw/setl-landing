@@ -22,6 +22,7 @@ In SETL's 2026 beta, the median tester saved 4 hours 3 minutes of screen time a 
 - [Mission](https://www.setlsleep.com/mission.html)
 
 ## Guides
+- [The best app blockers for iPhone in 2027](https://www.setlsleep.com/blog/best-app-blockers-for-iphone-2027.html): The best app blockers for iPhone in 2027, picked on enforcement rather than features, with App Store ratings checked and the research on what works.
 - [How to stop scrolling in bed: 7 fixes that actually work](https://www.setlsleep.com/blog/how-to-stop-scrolling-in-bed.html): Can't stop scrolling in bed? Seven evidence-based ways to cut screen time at night that don't rely on willpower, from the team behind SETL.
 - [The best app blocker for sleep in 2026](https://www.setlsleep.com/blog/best-app-blocker-for-sleep.html): What makes the best app blocker for sleep? How screen blocker apps work on iPhone, and how Apple Downtime, Opal, Sunbreak and SETL compare.
 - [What is an app blocker, and how does it work?](https://www.setlsleep.com/blog/what-is-an-app-blocker.html): An app blocker stops you opening chosen apps at set times. Here's how app blockers work on iPhone with Apple's Screen Time API and what to look for.

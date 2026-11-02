@@ -1078,7 +1078,7 @@ post("screens-melatonin-and-sleep",
 
 # ---- posts written as modules in tools/posts/<slug>.py (see tools/posts/BRIEF.md) ----
 import importlib.util, glob, re
-TOPIC_ORDER = ["how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "what-is-an-app-blocker",
+TOPIC_ORDER = ["best-app-blockers-for-iphone-2027", "how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "what-is-an-app-blocker",
                "screen-time-limits-not-working", "how-to-use-downtime-on-iphone", "how-to-reduce-screen-time-on-iphone",
                "best-screen-time-apps-for-iphone", "opal-alternatives", "bedtime-procrastination", "how-to-stop-doomscrolling",
                "phone-addiction-signs", "why-apps-are-addictive", "app-blocker-for-adhd", "how-much-screen-time-is-too-much",
