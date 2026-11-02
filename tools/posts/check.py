@@ -23,7 +23,12 @@ KNOWN = {"how-to-stop-scrolling-in-bed", "best-app-blocker-for-sleep", "does-it-
          "screenzen-alternatives", "app-blocker-you-cannot-delete", "is-a-dumb-phone-worth-it",
          "why-is-my-screen-time-so-high", "how-to-block-apps-on-ipad", "screen-time-and-productivity",
          "how-long-does-it-take-to-break-a-habit", "how-to-block-social-media-on-iphone",
-         "how-to-block-youtube-shorts", "phone-free-dinner"}
+         "how-to-block-youtube-shorts", "phone-free-dinner",
+         "how-to-block-instagram-reels", "how-to-block-mobile-games", "how-to-block-shopping-apps",
+         "how-to-block-news-apps", "how-to-block-dating-apps", "what-is-nomophobia",
+         "how-to-read-more-instead-of-scrolling", "accountability-partner-app-blocker",
+         "how-to-block-apps-while-driving", "how-to-block-apps-during-exams",
+         "phone-free-weekend", "how-to-block-apps-on-mac", "screen-time-for-teenagers"}
 PAGES = {"/", "/app-blocker.html", "/screen-time-blocker.html", "/apple-screen-time-alternative.html",
          "/setl-sleep.html", "/setl-sessions.html", "/setl-vs-opal.html", "/pricing.html", "/about.html",
          "/mission.html", "/blog/"} | {"/blog/%s.html" % s for s in KNOWN}
